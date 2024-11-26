@@ -1,0 +1,43 @@
+.available-flights-container {
+  margin: 20px auto;
+  text-align: center;
+  width: 80%;
+}
+  
+.flights-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+  
+.flights-table th,
+.flights-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+  
+.flights-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+  
+.flights-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+  
+.back-button {
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  background-color: #4CAF50; /* Green background */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+  
+.back-button:hover {
+  background-color: #45a049; /* Darker green when hovered */
+}
+  
