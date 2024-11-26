@@ -1,0 +1,56 @@
+.flight-booking-container {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px; /* Increased width for horizontal layout */
+    margin: 20px auto;
+    margin-top: 100px;
+}
+
+.flight-booking-form {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping of items */
+    justify-content: space-between; /* Space between items */
+}
+
+.form-group {
+    flex: 1; /* Allow form groups to take equal space */
+    margin-right: 15px; /* Space between form groups */
+    min-width: 150px; /* Minimum width for dropdowns */
+}
+
+.form-group:last-child {
+    margin-right: 0; /* Remove margin from last child */
+}
+
+.form-group label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+select, input[type="date"], input[type="number"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%; /* Full width for inputs */
+}
+
+.button-container {
+    display: flex; /* Use flexbox for layout */
+    justify-content: flex-end; /* Align button to the right */
+    margin-top: 20px; /* Space above the button */
+}
+
+.search-button {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.search-button:hover {
+    background-color: #0056b3;
+}

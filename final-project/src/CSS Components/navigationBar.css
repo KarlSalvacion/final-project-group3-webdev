@@ -1,0 +1,112 @@
+.navbar {
+    position: sticky;
+    top: 0;
+    left: 0;
+    height: 80px;
+    width: 100%;
+    padding-left: 15px;
+    z-index: 1000; 
+    display: flex; /* Use flexbox to align items */
+    align-items: center; /* Center items vertically */
+    background-color: #232324;
+    transition: width 0.3s ease-in-out, padding 0.3s ease-in-out;
+    justify-content: space-between; /* Space between brand and tabs */
+}
+
+.container-fluid {
+    display: flex; /* Use flexbox to layout items */
+    align-items: center; /* Center items vertically */
+    width: 100%; /* Ensure it takes full width */
+    max-width: 1200px; /* Optional: set a max-width for better centering */
+    margin: 0 auto; /* Center the container */
+}
+
+.navbar-brand {
+    color: #d6d2d2; 
+    font-weight: 800;
+    font-size: 20px;
+    font-family: "Outfit";
+    text-align: left; /* Align text to the left */
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    margin-right: 20px; /* Space between brand and tabs */
+}
+
+.navbar-brand:hover {
+    color: #eb2121; 
+    text-decoration: none; 
+}
+
+.navbar-tabs {
+    display: flex;
+    justify-content: flex-start; /* Align tabs to the start */
+    padding: 10px 0; /* Add some padding for better spacing */
+}
+
+.tab {
+    cursor: pointer; /* Change cursor to pointer for better UX */
+    padding: 10px 20px; /* Add padding for the tabs */
+    border: 1px solid transparent; /* Optional: add border */
+    transition: background-color 0.3s; /* Optional: smooth background transition */
+    color: #ccc;
+    text-decoration: none;
+}
+
+.tab:hover {
+    background-color: #f0f0f0; /* Optional: change background on hover */
+    border: 1px solid #ccc; /* Optional: add border on hover */
+}
+
+.search-icon {
+    display: flex; /* Use flexbox for layout */
+    align-items: center; /* Center items vertically */
+    margin-right: -80px; /* Space between account control and search icon */
+    cursor: pointer; /* Change cursor to pointer for better UX */
+    color: #d6d2d2; /* Color of the search icon */
+}
+
+.search-icon:hover {
+    color: #eb2121; /* Change color on hover */
+}
+
+.profile-icon {
+    display: flex; /* Use flexbox for layout */
+    align-items: center; /* Center items vertically */
+    margin-right: -100px; /* Space between account control and search icon */
+    cursor: pointer; /* Change cursor to pointer for better UX */
+    color: #d6d2d2; /* Color of the search icon */
+}
+
+
+.account-control {
+    display: flex; /* Use flexbox for layout */
+    align-items: center; /* Center items vertically */
+    margin-left: -40px;
+}
+
+.log-in, .sign-up {
+    display: flex; /* Use flexbox for the button */
+    align-items: center; /* Center items vertically */
+    margin-left: 15px; /* Space between log in and sign up */
+    cursor: pointer; /* Change cursor to pointer for better UX */
+    color: #d6d2d2; /* Text color */
+    text-decoration: none;
+}
+
+.log-in-text, .sign-up-text {
+    margin-top: 15px;
+    margin-left: 5px; /* Space between icon and text */
+}
+
+.divider {
+    width: 1px; /* Width of the vertical line */
+    height: 24px; /* Height of the vertical line */
+    background-color: #d6d2d2; /* Color of the vertical line */
+    margin-left: 10px; /* Space around the divider */
+    margin-right: -10px;
+}
+
+.log-in:hover, .sign-up:hover {
+    color: #eb2121; /* Change color on hover */
+}
+
