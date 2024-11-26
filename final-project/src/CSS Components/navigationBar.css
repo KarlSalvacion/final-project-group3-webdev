@@ -4,6 +4,7 @@
     left: 0;
     height: 80px;
     width: 100%;
+    max-width: 1481px; /* Ensure navbar doesn't stretch too wide */
     padding-left: 15px;
     z-index: 1000; 
     display: flex; /* Use flexbox to align items */
@@ -16,7 +17,6 @@
 .container-fluid {
     display: flex; /* Use flexbox to layout items */
     align-items: center; /* Center items vertically */
-    width: 100%; /* Ensure it takes full width */
     max-width: 1200px; /* Optional: set a max-width for better centering */
     margin: 0 auto; /* Center the container */
 }
@@ -57,37 +57,28 @@
     border: 1px solid #ccc; /* Optional: add border on hover */
 }
 
-.search-icon {
-    display: flex; /* Use flexbox for layout */
-    align-items: center; /* Center items vertically */
-    margin-right: -80px; /* Space between account control and search icon */
-    cursor: pointer; /* Change cursor to pointer for better UX */
-    color: #d6d2d2; /* Color of the search icon */
-}
-
-.search-icon:hover {
-    color: #eb2121; /* Change color on hover */
-}
-
 .profile-icon {
     display: flex; /* Use flexbox for layout */
-    align-items: center; /* Center items vertically */
-    margin-right: -100px; /* Space between account control and search icon */
+    align-items: center; /* Center items vertically *//* Space between account control and search icon */
     cursor: pointer; /* Change cursor to pointer for better UX */
     color: #d6d2d2; /* Color of the search icon */
+}
+
+.profile-icon:hover {
+    color: #eb2121;
 }
 
 
 .account-control {
     display: flex; /* Use flexbox for layout */
     align-items: center; /* Center items vertically */
-    margin-left: -40px;
+    margin-left: -230px;
 }
 
 .log-in, .sign-up {
     display: flex; /* Use flexbox for the button */
     align-items: center; /* Center items vertically */
-    margin-left: 15px; /* Space between log in and sign up */
+    margin-left: 20px; /* Space between log in and sign up */
     cursor: pointer; /* Change cursor to pointer for better UX */
     color: #d6d2d2; /* Text color */
     text-decoration: none;
@@ -95,7 +86,6 @@
 
 .log-in-text, .sign-up-text {
     margin-top: 15px;
-    margin-left: 5px; /* Space between icon and text */
 }
 
 .divider {

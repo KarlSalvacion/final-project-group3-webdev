@@ -1,0 +1,15 @@
+.navbar {
+    position: sticky;
+    top: 0;
+    left: 0;
+    height: 80px;
+    width: 210vh;
+    padding-left: 15px;
+    z-index: 1000; 
+    display: flex; /* Use flexbox to align items */
+    align-items: center; /* Center items vertically */
+    background-color: #232324;
+    transition: width 0.3s ease-in-out, padding 0.3s ease-in-out;
+    justify-content: space-between; /* Space between brand and tabs */
+}
+
