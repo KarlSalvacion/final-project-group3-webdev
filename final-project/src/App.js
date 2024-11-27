@@ -1,4 +1,3 @@
-// src/App.js
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./Components/navigationBar";
@@ -10,13 +9,16 @@ import ExplorePage from "./Components/explorePage";
 import AdminDashboard from "./Admin Components/adminDashboard";
 import AdminNavBar from "./Admin Components/adminNavigationBar";
 import AvailableFlights from "./Components/displayFlights";
+import { AuthProvider } from './Components/authContext';
 
 function App() {
   const location = useLocation();
 
   return (
     <div className="App">
+      {/* Only show Navbar for user routes */}
       {location.pathname !== "/admin-dashboard" && <Navbar />}
+
       <Routes>
         <Route path="/" element={<ExplorePage />} />
         <Route path="/explore" element={<ExplorePage />} />
@@ -25,6 +27,8 @@ function App() {
         <Route path="/log-in" element={<Login />} />
         <Route path="/sign-up" element={<Signup />} />
         <Route path="/manage-flights" element={<ManageFlights />} />
+        
+        {/* Admin route with AdminNavBar */}
         <Route
           path="/admin-dashboard"
           element={
@@ -40,8 +44,10 @@ function App() {
 
 export default function Wrapper() {
   return (
-    <Router>
-      <App />
-    </Router>
+    <AuthProvider>
+      <Router>
+        <App />
+      </Router>
+    </AuthProvider>
   );
 }

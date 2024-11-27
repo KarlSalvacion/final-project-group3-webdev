@@ -5,7 +5,7 @@ const ExplorePage = () => {
     
     <div className="main-container">
         <div className="image-container">
-            <img src={AirplanePic1} className="airplaneImagePOV"/>
+            <img src={AirplanePic1} className="airplaneImagePOV" alt="airplaneImagePOV"/>
         </div>
 
         <button className="exploreBtn">Explore</button>

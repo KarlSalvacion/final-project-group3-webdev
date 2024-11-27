@@ -1,7 +1,9 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import flightLists from "../Data/flightsList";
-import "../CSS Components/displayFlights.css";
+import "../CSS Components/displayFlights.css"; 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 const AvailableFlights = () => {
   const location = useLocation();
@@ -23,7 +25,7 @@ const AvailableFlights = () => {
   return (
     <div className="available-flights-container">
       <button className="back-button" onClick={handleBack}>
-        Back to Booking
+        <FontAwesomeIcon icon={faArrowLeft} /> {/* Font Awesome back icon */}
       </button>
 
       <h2>Available Flights</h2>

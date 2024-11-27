@@ -1,63 +1,189 @@
+/* General container styling */
 .flight-booking-container {
     padding: 20px;
-    background-color: #f9f9f9;
+    background-color: #ffffff;
     border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    max-width: 1185px; /* Increased width for horizontal layout */
-    margin: 20px auto;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    width: 800px;
+    margin: 40px auto;
     margin-top: 100px;
+    font-family: Arial, sans-serif;
+    color: #333;
 }
 
+/* Title Styling */
+.flight-booking-container h2 {
+    text-align: center;
+    font-size: 1.8rem;
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+/* Flight Booking Form */
 .flight-booking-form {
     display: flex;
-    flex-wrap: wrap; /* Allow wrapping of items */
-    justify-content: space-between; /* Space between items */
+    flex-direction: column;
 }
 
+/* Form Rows */
+.form-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px; /* Add spacing between the fields */
+    margin-bottom: 20px;
+}
+
+/* Form Group Styling */
 .form-group {
-    flex: 1; /* Allow form groups to take equal space */
-    margin-right: 15px; /* Space between form groups */
-    min-width: 150px; /* Minimum width for dropdowns */
-}
-
-.form-group:last-child {
-    margin-right: 0; /* Remove margin from last child */
+    flex: 1; /* Ensures equal size for all input fields */
+    display: flex;
+    flex-direction: column;
 }
 
 .form-group label {
-    margin-bottom: 5px;
+    font-size: 0.9rem;
     font-weight: bold;
+    margin-bottom: 5px;
 }
 
-select, input[type="date"], input[type="number"] {
+select, input[type="date"], input[type="text"], .dropdown-toggle {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    width: 100%; /* Full width for inputs */
+    font-size: 0.9rem;
+    width: 100%;
+    box-sizing: border-box; /* Prevent overflow */
 }
 
+/* Passenger Selector Dropdown */
+.dropdown {
+    position: relative;
+}
+
+.passenger-selector {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    background: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+}
+
+.passenger-type {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.passenger-type span {
+    font-size: 0.9rem;
+}
+
+.passenger-type div {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.passenger-type button {
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.passenger-type button:hover {
+    background: #0056b3;
+}
+
+/* Confirm Button */
+.confirm-button {
+    background-color: #28a745;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.confirm-button:hover {
+    background-color: #218838;
+}
+
+/* Switch Button */
+.switch-button {
+    background: #007bff;
+    border: none;
+    border-radius: 50%;
+    color: white;
+    padding: 10px;
+    font-size: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    height: 40px;
+    width: 40px;
+    margin-top: 25px; /* Align with form inputs */
+}
+
+.switch-button:hover {
+    background: #0056b3;
+}
+
+/* Error Message */
+.error-message {
+    color: #dc3545;
+    font-size: 0.85rem;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/* Align Passenger Selector and Dates */
+.passenger-dates-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px; /* Add spacing between passenger and date inputs */
+    margin-bottom: 20px;
+}
+
+/* Search Button */
 .button-container {
-    display: flex; /* Use flexbox for layout */
-    justify-content: flex-end; /* Align button to the right */
-    margin-top: 20px; /* Space above the button */
+    display: flex;
+    justify-content: flex-end; /* Aligns the button to the bottom-right */
+    margin-top: 20px;
 }
 
 .search-button {
-    padding: 10px;
+    padding: 12px 25px;
     background-color: #007bff;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    font-size: 1rem;
 }
 
 .search-button:hover {
     background-color: #0056b3;
 }
 
-.error-message {
-    color: red;
-    margin-top: 10px;
-    font-size: 14px;
+/* Media Query for Responsive Design */
+@media (max-width: 768px) {
+    .form-row, .passenger-dates-row {
+        flex-direction: column; /* Stack inputs vertically */
+    }
+
+    .switch-button {
+        margin-top: 10px;
+    }
 }
-  
