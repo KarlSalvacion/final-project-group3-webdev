@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../CSS Components/signUp.css';
 
 const Signup = () => {
@@ -31,6 +31,9 @@ const Signup = () => {
         confirmPassword: '',
     });
 
+    const [showModal, setShowModal] = useState(false);
+    const navigate = useNavigate();
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
@@ -48,10 +51,10 @@ const Signup = () => {
     const validateField = (name, value) => {
         let errorMsg = '';
         let requirementMsg = '';
-
+    
         switch (name) {
             case 'email':
-                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basic email validation
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[a-zA-Z]+$/;
                 if (!emailPattern.test(value)) {
                     errorMsg = 'Please enter a valid email address.';
                     requirementMsg = '';
@@ -63,7 +66,7 @@ const Signup = () => {
                 }
                 break;
             case 'username':
-                const usernamePattern = /^[a-zA-Z0-9]{5,30}$/; // Username validation: only letters and numbers, 5-30 characters
+                const usernamePattern = /^[a-zA-Z0-9]{5,30}$/;
                 if (!usernamePattern.test(value)) {
                     errorMsg = 'Username must be 5-30 characters long and can only contain letters and numbers, with no spaces or special characters.';
                     requirementMsg = '';
@@ -75,7 +78,7 @@ const Signup = () => {
                 }
                 break;
             case 'password':
-                const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,16}$/; // Password validation
+                const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,16}$/;
                 if (!passwordPattern.test(value)) {
                     errorMsg = 'Password must be 8-16 characters long and include at least one uppercase letter, one lowercase letter, and one number.';
                     requirementMsg = '';
@@ -94,7 +97,7 @@ const Signup = () => {
             default:
                 break;
         }
-
+    
         setErrors({ ...errors, [name]: errorMsg });
         setRequirementsStatus({ ...requirementsStatus, [name]: requirementMsg });
     };
@@ -111,17 +114,26 @@ const Signup = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Check if there are any errors before submitting
-        if (!errors.email && !errors.password && !errors.confirmPassword && !errors.username) {
+        const isValid = Object.values(errors).every((error) => error === '');
+        if (isValid) {
             const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
             storedUsers.push(formData);
             localStorage.setItem('users', JSON.stringify(storedUsers));
-            console.log('Signup Data:', formData);
-            // You can redirect or show a success message here
+            setFormData({
+                email: '',
+                username: '',
+                password: '',
+                confirmPassword: '',
+            });
+            setShowModal(true);
         } else {
             console.log('Validation errors:', errors);
         }
+    };
 
+    const handleModalClose = () => {
+        setShowModal(false);
+        navigate('/log-in');
     };
 
     return (
@@ -141,18 +153,9 @@ const Signup = () => {
                         required
                     />
                     {focus.email && (
-                        <>
-                            {errors.email ? (
-                                <span className="error">{errors.email}</span>
-                            ) : (
-                                requirementsStatus.email && (
-                                    <span className="requirement">{requirementsStatus.email}</span>
-                                )
-                            )}
-                        </>
+                        <>{errors.email ? <span className="error">{errors.email}</span> : <span className="requirement">{requirementsStatus.email}</span>}</>
                     )}
                 </div>
-
                 <div className="form-group">
                     <label htmlFor="username">Username</label>
                     <input
@@ -166,18 +169,9 @@ const Signup = () => {
                         required
                     />
                     {focus.username && (
-                        <>
-                            {errors.username ? (
-                                <span className="error">{errors.username}</span>
-                            ) : (
-                                requirementsStatus.username && (
-                                    <span className="requirement">{requirementsStatus.username}</span>
-                                )
-                            )}
-                        </>
+                        <>{errors.username ? <span className="error">{errors.username}</span> : <span className="requirement">{requirementsStatus.username}</span>}</>
                     )}
                 </div>
-
                 <div className="form-group">
                     <label htmlFor="password">Password</label>
                     <input
@@ -191,18 +185,9 @@ const Signup = () => {
                         required
                     />
                     {focus.password && (
-                        <>
-                            {errors.password ? (
-                                <span className="error">{errors.password}</span>
-                            ) : (
-                                requirementsStatus.password && (
-                                    <span className="requirement">{requirementsStatus.password}</span>
-                                )
-                            )}
-                        </>
+                        <>{errors.password ? <span className="error">{errors.password}</span> : <span className="requirement">{requirementsStatus.password}</span>}</>
                     )}
                 </div>
-
                 <div className="form-group">
                     <label htmlFor="confirmPassword">Confirm Password</label>
                     <input
@@ -216,25 +201,24 @@ const Signup = () => {
                         required
                     />
                     {focus.confirmPassword && (
-                        <>
-                            {errors.confirmPassword ? (
-                                <span className="error">{errors.confirmPassword}</span>
-                            ) : (
-                                requirementsStatus.confirmPassword && (
-                                    <span className="requirement">{requirementsStatus.confirmPassword}</span>
-                                )
-                            )}
-                        </>
+                        <>{errors.confirmPassword ? <span className="error">{errors.confirmPassword}</span> : <span className="requirement">{requirementsStatus.confirmPassword}</span>}</>
                     )}
                 </div>
-
                 <div className="button-container">
                     <button type="submit" className="login-button">Sign Up</button>
                 </div>
             </form>
-
+            {showModal && (
+                <div className="modal">
+                    <div className="modal-content">
+                        <h2>Signup Successful</h2>
+                        <p>Your account has been created successfully. Please log in.</p>
+                        <button onClick={handleModalClose}>Go to Login</button>
+                    </div>
+                </div>
+            )}
             <div className="login-link">
-                <p>Already have an account? <Link to="/log-in">Click here</Link></p>
+                <p>Already have an account? <Link to="/log-in">Log in here</Link></p>
             </div>
         </div>
     );

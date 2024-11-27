@@ -1,21 +1,28 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom'; // Import useHistory for navigation
-import '../CSS Components/logIn.css'; // Import the CSS file for styling
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../Components/authContext';
+import '../CSS Components/logIn.css';
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const navigate = useNavigate(); // Initialize useHistory for navigation
+    const navigate = useNavigate();
+    const { login } = useAuth(); // Get login function from AuthContext
 
     const handleLogin = (e) => {
         e.preventDefault();
-        
-        // Check for admin credentials
-        if (email === 'admin@admin.com' && password === 'admin123') {
-            // Redirect to admin dashboard
-            navigate('/admin-dashboard'); // Change this to your admin route
+
+        const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
+        const user = storedUsers.find(user => user.email === email && user.password === password);
+
+        if (user) {
+            // Use the login function from the AuthContext to update global state
+            login(user); // Update the global auth state
+            localStorage.setItem('loggedInUser', JSON.stringify(user)); // Store in localStorage
+            // Redirect to the user dashboard or home page
+            navigate('/home');
         } else {
-            // Handle regular user login or show an error
+            // Handle login failure
             alert('Invalid credentials. Please try again.');
         }
     };

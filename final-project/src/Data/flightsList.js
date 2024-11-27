@@ -25,6 +25,7 @@ const flightLists = [
       returnDate: null,
       returnTime: null,
       passengers: 150,
+      flightType: "OneWay",
     },
     {
       from: "Chicago",
