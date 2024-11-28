@@ -53,10 +53,35 @@ const FlightBooking = () => {
       return;
     }
 
-    setError("");
-    navigate("/available-flights", {
-      state: { flightType, from, to, departureDate, returnDate, passengerCounts, classType },
-    });
+    // Find flights based on the selected search criteria
+    const flight = flightLists.find(flight => flight.from === from && flight.to === to && flight.date === departureDate);
+
+    // If no flight is found, navigate to the display flights page with a message
+    if (!flight) {
+      if (flightType === "one-way") {
+        navigate("/display-flight-one-way", {
+          state: { message: "No available flights match your preferences." },
+        });
+      } else {
+        navigate("/available-flights", {
+          state: { message: "No available flights match your preferences." },
+        });
+      }
+      return;
+    }
+
+    setError(""); // Clear any previous error message
+
+    // Proceed to display flights
+    if (flightType === "one-way") {
+      navigate("/display-flight-one-way", {
+        state: { flightType, from, to, departureDate, returnDate, passengerCounts, classType },
+      });
+    } else {
+      navigate("/display-flight-return", {
+        state: { flightType, from, to, departureDate, returnDate, passengerCounts, classType },
+      });
+    }
   };
 
   const uniqueCities = [...new Set(flightLists.flatMap((flight) => [flight.from, flight.to]))];
@@ -64,18 +89,26 @@ const FlightBooking = () => {
   const filteredFromCities = uniqueCities.filter((city) => city !== to);
 
   const handlePassengerCountChange = (type, change) => {
-    setPassengerCounts((prevCounts) => {
-      const newCounts = {
-        ...prevCounts,
-        [type]: Math.max(0, prevCounts[type] + change),
-      };
+    const totalPassengers = passengerCounts.adult + passengerCounts.children + passengerCounts.infant;
+    const newTotal = totalPassengers + change;
 
-      if (type === "children" || type === "infant") {
-        newCounts.adult = Math.max(1, newCounts.adult);
-      }
+    if (newTotal <= 12 && newTotal >= 0) {
+      setPassengerCounts((prevCounts) => {
+        const newCounts = {
+          ...prevCounts,
+          [type]: Math.max(0, prevCounts[type] + change),
+        };
 
-      return newCounts;
-    });
+        if (type === "children" || type === "infant") {
+          newCounts.adult = Math.max(1, newCounts.adult);
+        }
+
+        return newCounts;
+      });
+      setError(""); // Clear error if total is within the limit
+    } else {
+      setError("");
+    }
   };
 
   const confirmPassengers = () => {
@@ -156,13 +189,7 @@ const FlightBooking = () => {
                   type="date"
                   value={returnDate}
                   onChange={(e) => setReturnDate(e.target.value)}
-                  min={
-                    departureDate
-                      ? new Date(new Date(departureDate).getTime() + 24 * 60 * 60 * 1000)
-                          .toISOString()
-                          .split("T")[0]
-                      : ""
-                  }
+                  min={new Date(new Date(departureDate).getTime() + 24 * 60 * 60 * 1000).toISOString().split("T")[0]}
                 />
               </div>
             )}
@@ -170,16 +197,12 @@ const FlightBooking = () => {
             <div className="form-group">
               <label>Passengers:</label>
               <div className="dropdown">
-
-              <button
-                onClick={() => setShowPassengerSelector(!showPassengerSelector)}
-                className="dropdown-toggle"
-              >
-                {`${totalPassengers} ${totalPassengers === 1 ? "Passenger" : "Passengers"} ${
-                  classType.charAt(0).toUpperCase() + classType.slice(1)
-                }`}
-              </button>
-
+                <button
+                  onClick={() => setShowPassengerSelector(!showPassengerSelector)}
+                  className="dropdown-toggle"
+                >
+                  {`${totalPassengers} ${totalPassengers === 1 ? "Passenger" : "Passengers"} ${classType.charAt(0).toUpperCase() + classType.slice(1)}`}
+                </button>
 
                 {showPassengerSelector && (
                   <div className="passenger-selector">
@@ -200,21 +223,20 @@ const FlightBooking = () => {
                         <option value="premium">Premium Class</option>
                       </select>
                     </div>
-                    <button className="confirm-button" onClick={confirmPassengers}>
-                      Confirm
-                    </button>
+                    <button className="confirm-button" onClick={confirmPassengers}>Confirm</button>
                   </div>
                 )}
               </div>
             </div>
           </div>
 
-          {error && <div className="error-message">{error}</div>}
-        </div>
-        <div className="button-container">
-          <button className="search-button" onClick={handleSearch}>
-            Search Flights
-          </button>
+          {/* Error Message */}
+          {error && <p className="error-message">{error}</p>}
+
+          {/* Submit Button */}
+          <div className="form-group">
+            <button className="search-button" onClick={handleSearch}>Search Flights</button>
+          </div>
         </div>
       </div>
     </div>
