@@ -1,0 +1,70 @@
+/* General container for the seat selection */
+.seat-selection-container {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    margin-top: 20px;
+  }
+  
+  /* Seat grid styling */
+  .seat-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Row styling for the seats */
+  .seat-row {
+    display: flex;
+    margin-bottom: 10px;
+  }
+  
+  /* Styling for the header row with column labels */
+  .header-row {
+    display: flex;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  /* Styling for each column label */
+  .seat-header {
+    width: 40px;
+    height: 40px;
+    margin: 5px;
+    background-color: lightgray;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Button styling for each seat */
+  .seat-button {
+    width: 40px;
+    height: 40px;
+    margin: 5px;
+    background-color: lightgray;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  /* When a seat is selected, change the background color */
+  .seat-button.selected {
+    background-color: green;
+    color: white;
+  }
+  
+  /* Button hover effect */
+  .seat-button:hover {
+    transform: scale(1.1);
+  }
+  
+  /* Styling for the selected seat count */
+  .selected-count {
+    font-size: 18px;
+    margin-top: 20px;
+  }
+  

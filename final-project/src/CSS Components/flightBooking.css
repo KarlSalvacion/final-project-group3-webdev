@@ -156,13 +156,14 @@ select, input[type="date"], input[type="text"], .dropdown-toggle {
     margin-bottom: 20px;
 }
 
-/* Search Button */
+/* Button Container - Align search button to the right */
 .button-container {
     display: flex;
-    justify-content: flex-end; /* Aligns the button to the bottom-right */
+    justify-content: flex-end; /* Aligns the button to the right */
     margin-top: 20px;
 }
 
+/* Search Button */
 .search-button {
     padding: 12px 25px;
     background-color: #007bff;
@@ -171,6 +172,7 @@ select, input[type="date"], input[type="text"], .dropdown-toggle {
     border-radius: 4px;
     cursor: pointer;
     font-size: 1rem;
+    margin-left: auto; /* Ensures it’s aligned to the right */
 }
 
 .search-button:hover {
