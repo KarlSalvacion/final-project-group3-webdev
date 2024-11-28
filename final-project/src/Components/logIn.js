@@ -4,7 +4,7 @@ import { useAuth } from '../Components/authContext';
 import '../CSS Components/logIn.css';
 
 const Login = () => {
-    const [email, setEmail] = useState('');
+    const [emailOrUsername, setEmailOrUsername] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
     const { login } = useAuth(); // Get login function from AuthContext
@@ -13,7 +13,9 @@ const Login = () => {
         e.preventDefault();
 
         const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
-        const user = storedUsers.find(user => user.email === email && user.password === password);
+        const user = storedUsers.find(user => 
+            (user.email === emailOrUsername || user.username === emailOrUsername) && user.password === password
+        );
 
         if (user) {
             // Use the login function from the AuthContext to update global state
@@ -33,12 +35,12 @@ const Login = () => {
                 <h2>Login</h2>
                 <form onSubmit={handleLogin} className="login-form">
                     <div className="form-group">
-                        <label htmlFor="email">Email:</label>
+                        <label htmlFor="emailOrUsername">Email or Username:</label>
                         <input 
-                            type="email" 
-                            id="email" 
-                            value={email} 
-                            onChange={(e) => setEmail(e.target.value)} 
+                            type="text" 
+                            id="emailOrUsername" 
+                            value={emailOrUsername} 
+                            onChange={(e) => setEmailOrUsername(e.target.value)} 
                             required 
                         />
                     </div>

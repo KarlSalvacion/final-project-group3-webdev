@@ -3,16 +3,20 @@
     top: 0;
     left: 0;
     height: 80px;
-    width: 100%;
+    width: 1000vw; /* Full viewport width to avoid gaps */
     padding-left: 15px;
     z-index: 1000;
     display: flex; /* Flexbox layout */
     align-items: center; /* Center items vertically */
     background-color: #232324;
     justify-content: space-between; /* Space between sections */
+    margin: 0; /* Remove any default margin */
+    padding: 0; /* Remove any default padding */
+    overflow-x: hidden; /* Prevent horizontal scroll if any margin appears */
 }
 
 .container-fluid {
+    position: sticky;
     display: flex;
     align-items: center;
     justify-content: space-between; /* Space out the navbar sections */
@@ -20,6 +24,7 @@
     max-width: 1500px; /* Optional: set a max-width for the navbar */
     margin: 0 auto; /* Center the container */
 }
+
 
 .navbar-brand {
     color: #d6d2d2; 

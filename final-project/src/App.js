@@ -1,5 +1,9 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
+
 import Navbar from "./Components/navigationBar";
 import FlightBooking from "./Components/flightBooking";
 import Login from "./Components/logIn";

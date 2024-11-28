@@ -31,7 +31,7 @@ const Signup = () => {
         confirmPassword: '',
     });
 
-    const [showModal, setShowModal] = useState(false);
+    const [showModal, setShowModal] = useState(false); // State to toggle modal visibility
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -51,28 +51,24 @@ const Signup = () => {
     const validateField = (name, value) => {
         let errorMsg = '';
         let requirementMsg = '';
-    
+
         switch (name) {
             case 'email':
                 const emailPattern = /^[^\s@]+@[^\s@]+\.[a-zA-Z]+$/;
                 if (!emailPattern.test(value)) {
                     errorMsg = 'Please enter a valid email address.';
-                    requirementMsg = '';
                 } else if (checkExistingEmail(value)) {
                     errorMsg = 'Email already exists.';
-                    requirementMsg = '';
                 } else {
                     requirementMsg = 'Email requirement satisfied.';
                 }
                 break;
             case 'username':
-                const usernamePattern = /^[a-zA-Z0-9]{5,30}$/;
+                const usernamePattern = /^[a-zA-Z0-9]{5,20}$/;
                 if (!usernamePattern.test(value)) {
-                    errorMsg = 'Username must be 5-30 characters long and can only contain letters and numbers, with no spaces or special characters.';
-                    requirementMsg = '';
+                    errorMsg = 'Username must be 5-20 characters long and can only contain letters and numbers.';
                 } else if (checkExistingUsername(value)) {
                     errorMsg = 'Username already exists.';
-                    requirementMsg = '';
                 } else {
                     requirementMsg = 'Username requirement satisfied.';
                 }
@@ -81,7 +77,6 @@ const Signup = () => {
                 const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,16}$/;
                 if (!passwordPattern.test(value)) {
                     errorMsg = 'Password must be 8-16 characters long and include at least one uppercase letter, one lowercase letter, and one number.';
-                    requirementMsg = '';
                 } else {
                     requirementMsg = 'Password requirement satisfied.';
                 }
@@ -89,7 +84,6 @@ const Signup = () => {
             case 'confirmPassword':
                 if (value !== formData.password) {
                     errorMsg = 'Passwords do not match.';
-                    requirementMsg = '';
                 } else {
                     requirementMsg = 'Confirm Password requirement satisfied.';
                 }
@@ -97,7 +91,7 @@ const Signup = () => {
             default:
                 break;
         }
-    
+
         setErrors({ ...errors, [name]: errorMsg });
         setRequirementsStatus({ ...requirementsStatus, [name]: requirementMsg });
     };
@@ -125,7 +119,7 @@ const Signup = () => {
                 password: '',
                 confirmPassword: '',
             });
-            setShowModal(true);
+            setShowModal(true); // Show custom modal
         } else {
             console.log('Validation errors:', errors);
         }
@@ -208,15 +202,18 @@ const Signup = () => {
                     <button type="submit" className="login-button">Sign Up</button>
                 </div>
             </form>
+
+            {/* Custom Modal */}
             {showModal && (
-                <div className="modal">
+                <div className="custom-modal">
                     <div className="modal-content">
-                        <h2>Signup Successful</h2>
+                        <h3>Signup Successful</h3>
                         <p>Your account has been created successfully. Please log in.</p>
-                        <button onClick={handleModalClose}>Go to Login</button>
+                        <button onClick={handleModalClose} className="btn btn-primary">Go to Login</button>
                     </div>
                 </div>
             )}
+
             <div className="login-link">
                 <p>Already have an account? <Link to="/log-in">Log in here</Link></p>
             </div>
