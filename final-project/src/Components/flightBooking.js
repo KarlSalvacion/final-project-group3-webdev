@@ -170,12 +170,17 @@ const FlightBooking = () => {
             <div className="form-group">
               <label>Passengers:</label>
               <div className="dropdown">
-                <button
-                  onClick={() => setShowPassengerSelector(!showPassengerSelector)}
-                  className="dropdown-toggle"
-                >
-                  {`Passenger ${totalPassengers}`}
-                </button>
+
+              <button
+                onClick={() => setShowPassengerSelector(!showPassengerSelector)}
+                className="dropdown-toggle"
+              >
+                {`${totalPassengers} ${totalPassengers === 1 ? "Passenger" : "Passengers"} ${
+                  classType.charAt(0).toUpperCase() + classType.slice(1)
+                }`}
+              </button>
+
+
                 {showPassengerSelector && (
                   <div className="passenger-selector">
                     {["adult", "children", "infant"].map((type) => (
