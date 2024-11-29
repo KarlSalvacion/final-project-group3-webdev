@@ -56,7 +56,6 @@ const FlightBooking = () => {
     // Find flights based on the selected search criteria
     const flight = flightLists.find(flight => flight.from === from && flight.to === to && flight.date === departureDate);
 
-    // If no flight is found, navigate to the display flights page with a message
     if (!flight) {
       if (flightType === "one-way") {
         navigate("/display-flight-one-way", {
@@ -72,7 +71,6 @@ const FlightBooking = () => {
 
     setError(""); // Clear any previous error message
 
-    // Proceed to display flights
     if (flightType === "one-way") {
       navigate("/display-flight-one-way", {
         state: { flightType, from, to, departureDate, returnDate, passengerCounts, classType },
@@ -89,26 +87,20 @@ const FlightBooking = () => {
   const filteredFromCities = uniqueCities.filter((city) => city !== to);
 
   const handlePassengerCountChange = (type, change) => {
-    const totalPassengers = passengerCounts.adult + passengerCounts.children + passengerCounts.infant;
-    const newTotal = totalPassengers + change;
+    setPassengerCounts((prevCounts) => {
+      const newCounts = { ...prevCounts };
+      const totalPassengers = prevCounts.adult + prevCounts.children + prevCounts.infant;
 
-    if (newTotal <= 12 && newTotal >= 0) {
-      setPassengerCounts((prevCounts) => {
-        const newCounts = {
-          ...prevCounts,
-          [type]: Math.max(0, prevCounts[type] + change),
-        };
+      if (totalPassengers + change >= 0 && totalPassengers + change <= 12) {
+        newCounts[type] = Math.max(0, newCounts[type] + change);
+      }
 
-        if (type === "children" || type === "infant") {
-          newCounts.adult = Math.max(1, newCounts.adult);
-        }
+      if ((type === "children" || type === "infant") && newCounts[type] > 0) {
+        newCounts.adult = Math.max(1, newCounts.adult);
+      }
 
-        return newCounts;
-      });
-      setError(""); // Clear error if total is within the limit
-    } else {
-      setError("");
-    }
+      return newCounts;
+    });
   };
 
   const confirmPassengers = () => {
@@ -127,7 +119,6 @@ const FlightBooking = () => {
       <div className="flight-booking-container">
         <h2>Book Your Flight</h2>
         <div className="flight-booking-form">
-          {/* First Row: Flight Type, From, Switch Button, To */}
           <div className="form-row">
             <div className="form-group">
               <label>Flight Type:</label>
@@ -140,13 +131,9 @@ const FlightBooking = () => {
             <div className="form-group">
               <label>From:</label>
               <select value={from} onChange={(e) => setFrom(e.target.value)}>
-                <option value="" disabled>
-                  Select Departure City
-                </option>
+                <option value="" disabled>Select Departure City</option>
                 {filteredFromCities.map((city, index) => (
-                  <option key={index} value={city}>
-                    {city}
-                  </option>
+                  <option key={index} value={city}>{city}</option>
                 ))}
               </select>
             </div>
@@ -158,19 +145,14 @@ const FlightBooking = () => {
             <div className="form-group">
               <label>To:</label>
               <select value={to} onChange={(e) => setTo(e.target.value)}>
-                <option value="" disabled>
-                  Select Destination City
-                </option>
+                <option value="" disabled>Select Destination City</option>
                 {filteredToCities.map((city, index) => (
-                  <option key={index} value={city}>
-                    {city}
-                  </option>
+                  <option key={index} value={city}>{city}</option>
                 ))}
               </select>
             </div>
           </div>
 
-          {/* Second Row: Dates, Passengers/Class */}
           <div className="form-row">
             <div className="form-group">
               <label>Departure Date:</label>
@@ -197,10 +179,7 @@ const FlightBooking = () => {
             <div className="form-group">
               <label>Passengers:</label>
               <div className="dropdown">
-                <button
-                  onClick={() => setShowPassengerSelector(!showPassengerSelector)}
-                  className="dropdown-toggle"
-                >
+                <button onClick={() => setShowPassengerSelector(!showPassengerSelector)} className="dropdown-toggle">
                   {`${totalPassengers} ${totalPassengers === 1 ? "Passenger" : "Passengers"} ${classType.charAt(0).toUpperCase() + classType.slice(1)}`}
                 </button>
 
@@ -230,10 +209,8 @@ const FlightBooking = () => {
             </div>
           </div>
 
-          {/* Error Message */}
           {error && <p className="error-message">{error}</p>}
 
-          {/* Submit Button */}
           <div className="form-group">
             <button className="search-button" onClick={handleSearch}>Search Flights</button>
           </div>

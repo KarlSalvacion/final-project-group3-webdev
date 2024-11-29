@@ -7,6 +7,7 @@ const flights = [
     departureTime: "14:30", // Departure time
     arrivalTime: "03:00", // Placeholder arrival time (assumed)
     passengers: 200,
+    classType: ["Economy", "Premium"], // Multiple class types
   },
   {
     flightNumber: "LNY321",
@@ -16,6 +17,7 @@ const flights = [
     departureTime: "10:15", // Departure time
     arrivalTime: "13:00", // Placeholder arrival time (assumed)
     passengers: 200,
+    classType: ["Economy", "Premium"], // Multiple class types
   },
   {
     flightNumber: "LAT456",
@@ -25,6 +27,7 @@ const flights = [
     departureTime: "08:00", // Departure time
     arrivalTime: "14:30", // Placeholder arrival time (assumed)
     passengers: 180,
+    classType: ["Economy", "Premium"], // Multiple class types
   },
   {
     flightNumber: "TLA654",
@@ -34,6 +37,7 @@ const flights = [
     departureTime: "22:00", // Departure time
     arrivalTime: "17:00", // Placeholder arrival time (assumed)
     passengers: 180,
+    classType: ["Economy", "Premium"], // Multiple class types
   },
   {
     flightNumber: "MID789",
@@ -43,6 +47,7 @@ const flights = [
     departureTime: "19:45", // Departure time
     arrivalTime: "19:00", // Placeholder arrival time (assumed)
     passengers: 150,
+    classType: ["Economy", "Premium"], // Multiple class types
   },
   {
     flightNumber: "CHP987",
@@ -52,6 +57,7 @@ const flights = [
     departureTime: "16:20", // Departure time
     arrivalTime: "06:00", // Placeholder arrival time (assumed)
     passengers: 120,
+    classType: ["Economy", "Premium"], // Multiple class types
   },
   {
     flightNumber: "PCH789",
@@ -61,6 +67,7 @@ const flights = [
     departureTime: "12:45", // Departure time
     arrivalTime: "14:30", // Placeholder arrival time (assumed)
     passengers: 120,
+    classType: ["Economy", "Premium"], // Multiple class types
   },
 ];
 

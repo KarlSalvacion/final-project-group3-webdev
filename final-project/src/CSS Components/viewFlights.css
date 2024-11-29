@@ -53,3 +53,24 @@
     margin: 0 5px; /* Add spacing around the icon */
   }
   
+  .book-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .book-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-3px);
+  }
+  
+  .book-button:active {
+    background-color: #003f7f;
+    transform: translateY(1px);
+  }
+  
