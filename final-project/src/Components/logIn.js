@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../Components/authContext';
 import '../CSS Components/logIn.css';
+import adminAccounts from '../Data/adminAccounts'; // Import admin accounts
 
 const Login = () => {
     const [emailOrUsername, setEmailOrUsername] = useState('');
@@ -17,12 +18,21 @@ const Login = () => {
             (user.email === emailOrUsername || user.username === emailOrUsername) && user.password === password
         );
 
+        // Check if the user is an admin by looking into adminAccounts
+        const adminUser = adminAccounts.find(account => 
+            (account.email === emailOrUsername || account.username === emailOrUsername) && account.password === password
+        );
+
         if (user) {
-            // Use the login function from the AuthContext to update global state
+            // Regular user login logic
             login(user); // Update the global auth state
             localStorage.setItem('loggedInUser', JSON.stringify(user)); // Store in localStorage
-            // Redirect to the user dashboard or home page
             navigate('/home');
+        } else if (adminUser) {
+            // Admin login logic
+            login(adminUser); // Update the global auth state
+            localStorage.setItem('loggedInUser', JSON.stringify(adminUser)); // Store in localStorage
+            navigate('/admin-dashboard'); // Redirect to Admin dashboard
         } else {
             // Handle login failure
             alert('Invalid credentials. Please try again.');

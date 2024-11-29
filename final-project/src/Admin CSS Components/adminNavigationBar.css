@@ -1,15 +1,33 @@
 .navbar {
-    position: sticky;
+    position: absolute;
     top: 0;
     left: 0;
     height: 80px;
     width: 210vh;
-    padding-left: 15px;
     z-index: 1000; 
-    display: flex; /* Use flexbox to align items */
-    align-items: center; /* Center items vertically */
-    background-color: #232324;
-    transition: width 0.3s ease-in-out, padding 0.3s ease-in-out;
-    justify-content: space-between; /* Space between brand and tabs */
+    background-color: rgb(29, 29, 29);
+    color: white;
+    width: 100%;
+    padding: 10px 20px;
+    box-sizing: border-box;
 }
 
+.logout-button {
+    background-color: #f44336; /* Red color for logout */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-left: auto; /* Push it to the far right */
+}
+
+.logout-button:hover {
+    background-color: #d32f2f; /* Darker red on hover */
+}
+
+.logout-button:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
