@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { useAuth } from '../Components/authContext';
 
-const Navbar = () => {
+const Navbar = ({ children}) => {
   const { isLoggedIn, username, logout, setAuthState } = useAuth(); // Get auth state from context
   const [loading, setLoading] = useState(true); // To manage loading state
 
@@ -49,30 +49,37 @@ const Navbar = () => {
        
         {/* Account Control */}
         <div className="account-control">
-            <div className="profile-icon">
-                <FontAwesomeIcon icon={faUser} />
-            </div>
+          <div className="profile-icon">
+            <FontAwesomeIcon icon={faUser} />
+          </div>
           {isLoggedIn ? (
             <div className="username-container">
               <p className="username-text">{username}</p>
               <div className="divider" />
-              <a href="#logout" onClick={handleLogout} className="log-out-link">
-                Log out
-              </a>
+              <button onClick={handleLogout} className="log-out-btn">
+              Log out
+              </button>
             </div>
-          ) : (
+
+            ) : (
             <>
-              <Link to="/log-in" className="log-in">
-                <p className="log-in-text">Log in</p>
-              </Link>
-              <div className="divider" />
-              <Link to="/sign-up" className="sign-up">
-                <p className="sign-up-text">Sign up</p>
-              </Link>
+            <Link to="/log-in" className="log-in">
+              <p className="log-in-text">Log in</p>
+            </Link>
+
+            <div className="divider"/>  
+            
+            <Link to="/sign-up" className="sign-up">
+              <p className="sign-up-text">Sign up</p>
+            </Link>
             </>
-          )}
+            )}
+          </div>
         </div>
-      </div>
+
+        <div className="main-work-area-container">
+          {children}
+        </div>
     </div>
   );
 };

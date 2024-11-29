@@ -15,9 +15,15 @@ import Signup from "./Components/signUp";
 import ManageFlights from "./Components/manageFlights";
 import ExplorePage from "./Components/explorePage";
 import ViewFlights from "./Components/viewFlights";
-import AdminDashboard from "./Admin Components/adminDashboard";
-import AdminNavBar from "./Admin Components/adminNavigationBar";
 import { AuthProvider } from './Components/authContext';
+
+//Admin components
+import AdminDashboard from "./Admin Components/adminDashboard";
+import AdminNavbar from './Admin Components/adminNavbar';
+import AdminManageFlightsNavbar from './Admin Components/adminManageFlightsNavbar';
+import AdminViewFlights from './Admin Components/manageFlightsViewAll';
+import SearchFlights from './Admin Components/manageFlightsSearch';
+
 
 function App() {
   const location = useLocation();
@@ -43,8 +49,8 @@ function App() {
 
   return (
     <div className="App">
-      {/* Only show Navbar for user routes */}
-      {location.pathname !== "/admin-dashboard" && <Navbar />}
+      {/* Only show Navbar for user routes (not admin routes) */}
+      {location.pathname !== "/admin-dashboard" && location.pathname !== "/admin-manage-flights/view-all" && location.pathname !== "/admin-manage-flights/search" && <Navbar />}
 
       {/* Main work area section */}
       <main className="main-work-area">
@@ -64,11 +70,25 @@ function App() {
           <Route
             path="/admin-dashboard"
             element={
-              <AdminNavBar>
+              <AdminNavbar>
                 <AdminDashboard />
-              </AdminNavBar>
+              </AdminNavbar>
             }
           />
+          <Route path="/admin-manage-flights/view-all" element={
+            <AdminManageFlightsNavbar>
+              <AdminViewFlights/>
+            </AdminManageFlightsNavbar> 
+          } />
+
+          <Route
+              path="/admin-manage-flights/search"
+              element={
+                <AdminManageFlightsNavbar>
+                  <SearchFlights />
+                </AdminManageFlightsNavbar>
+              }
+  />
         </Routes>
       </main>
     </div>
