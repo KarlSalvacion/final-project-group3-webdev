@@ -1,3 +1,4 @@
+import React, { useEffect } from 'react';
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 
@@ -21,33 +22,55 @@ import { AuthProvider } from './Components/authContext';
 function App() {
   const location = useLocation();
 
+  useEffect(() => {
+    const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
+
+    // Check if the admin user exists
+    const adminExists = storedUsers.some(user => user.email === 'admin1@admin.com');
+    
+    // If the admin user doesn't exist, add it
+    if (!adminExists) {
+      const adminUser = {
+        email: 'admin1@admin.com',
+        username: 'Admin1',
+        password: 'Admin123'
+      };
+      storedUsers.push(adminUser);
+      localStorage.setItem('users', JSON.stringify(storedUsers));
+      console.log("Admin user added on app load");
+    }
+  }, []);
+
   return (
     <div className="App">
       {/* Only show Navbar for user routes */}
       {location.pathname !== "/admin-dashboard" && <Navbar />}
 
-      <Routes>
-        <Route path="/" element={<ExplorePage />} />
-        <Route path="/explore" element={<ExplorePage />} />
-        <Route path="/flight-booking" element={<FlightBooking />} />
-        <Route path="/display-flight-one-way" element={<DisplayFlightOneWay />} />
-        <Route path="/display-flight-return" element={<DisplayFlightReturn/>} />
-        <Route path="/seat-selection" element={<SeatSelection />} />
-        <Route path="/view-flights" element={<ViewFlights />} />
-        <Route path="/log-in" element={<Login />} />
-        <Route path="/sign-up" element={<Signup />} />
-        <Route path="/manage-flights" element={<ManageFlights />} />
-        
-        {/* Admin route with AdminNavBar */}
-        <Route
-          path="/admin-dashboard"
-          element={
-            <AdminNavBar>
-              <AdminDashboard />
-            </AdminNavBar>
-          }
-        />
-      </Routes>
+      {/* Main work area section */}
+      <main className="main-work-area">
+        <Routes>
+          <Route path="/" element={<ExplorePage />} />
+          <Route path="/explore" element={<ExplorePage />} />
+          <Route path="/flight-booking" element={<FlightBooking />} />
+          <Route path="/display-flight-one-way" element={<DisplayFlightOneWay />} />
+          <Route path="/display-flight-return" element={<DisplayFlightReturn />} />
+          <Route path="/seat-selection" element={<SeatSelection />} />
+          <Route path="/view-flights" element={<ViewFlights />} />
+          <Route path="/log-in" element={<Login />} />
+          <Route path="/sign-up" element={<Signup />} />
+          <Route path="/manage-flights" element={<ManageFlights />} />
+          
+          {/* Admin route with AdminNavBar */}
+          <Route
+            path="/admin-dashboard"
+            element={
+              <AdminNavBar>
+                <AdminDashboard />
+              </AdminNavBar>
+            }
+          />
+        </Routes>
+      </main>
     </div>
   );
 }

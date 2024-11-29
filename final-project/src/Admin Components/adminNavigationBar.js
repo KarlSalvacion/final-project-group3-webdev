@@ -1,28 +1,36 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../Admin CSS Components/adminNavigationBar.css';
 
 const AdminNavBar = ({ children }) => {
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        // Remove both admin and user sessions from localStorage
+        localStorage.removeItem('loggedInAdmin');
+        localStorage.removeItem('loggedInUser');
+        
+        // Optionally, refresh the page or reset auth state globally
+        navigate('/'); // Redirect to home page
+    };
+
     return (
-        <div className="main-container">    
+        <div className="main-container">
             <div className="navbar-container">
                 <nav className="navbar">
                     <div className="container-fluid">
-                    <Link to="/" className="navbar-brand">LOGO AND NAME</Link>
-                    <div className="navbar-tabs">
-                        <Link to="/explore" className="tab">Explore</Link>
-                        <Link to="/flight-booking" className="tab">Book Flights</Link>
-                        <Link to="/manage-flights" className="tab">Manage Flights</Link>
-                    </div>
-                    <div className="account-control">
-                        <Link to="/log-in" className="log-in">
-                            <p className="log-in-text">Log in</p>
-                        </Link>
-                        <div className="divider"/>
-                        <Link to="/sign-up" className="sign-up">
-                            <p className="sign-up-text">Sign up</p> 
-                        </Link>
-                    </div>
+                        {/* Navbar Brand */}
+                        <Link to="/admin-dashboard" className="navbar-brand">LOGO AND NAME</Link>
+
+                        {/* Navbar Tabs */}
+                        <div className="navbar-tabs">
+                            <Link to="/admin-dashboard" className="tab">Dashboard</Link>
+                        </div>
+
+                        {/* Log Out Button */}
+                        <button className="logout-button" onClick={handleLogout}>
+                            Log Out
+                        </button>
                     </div>
                 </nav>
             </div>
@@ -32,6 +40,6 @@ const AdminNavBar = ({ children }) => {
             </div>
         </div>
     );
-}
+};
 
 export default AdminNavBar;
