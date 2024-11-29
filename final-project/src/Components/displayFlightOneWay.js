@@ -11,14 +11,14 @@ const DisplayFlightOneWay = () => {
   const { from, to, departureDate } = location.state || {};
 
   const [selectedFlight, setSelectedFlight] = useState(null);
-  const [noAvailableFlights, setNoAvailableFlights] = useState(false); // To track flight availability
+  const [noAvailableFlights, setNoAvailableFlights] = useState(false);
 
   // Filter flights based on user preferences
   const filteredFlights = flights.filter(
     (flight) =>
       flight.from === from &&
       flight.to === to &&
-      flight.date === departureDate // Ensure date matches
+      flight.date === departureDate
   );
 
   // Update noAvailableFlights state based on filteredFlights length
@@ -28,16 +28,19 @@ const DisplayFlightOneWay = () => {
 
   const handleSelectFlight = (flight) => {
     if (selectedFlight?.flightNumber === flight.flightNumber) {
-      setSelectedFlight(null); // Unselect the flight if it's already selected
+      setSelectedFlight(null);
     } else {
-      setSelectedFlight(flight); // Select the flight
+      setSelectedFlight(flight);
     }
   };
 
   const handleSubmitBooking = () => {
     if (selectedFlight) {
-      alert(`Booking confirmed for flight: ${selectedFlight.flightNumber}`);
-      // Navigate to a confirmation page or perform additional logic here
+      navigate("/seat-selection", {
+        state: {
+          selectedFlight,
+        },
+      });
     } else {
       alert("Please select a flight to book.");
     }
@@ -49,20 +52,21 @@ const DisplayFlightOneWay = () => {
 
   return (
     <div className="display-container">
-      {/* Display available flights title only if there are available flights */}
       {!noAvailableFlights && (
         <>
           <h2 className="title">Available Flights</h2>
           <p>
-            <strong>{from}</strong> to <strong>{to}</strong> on <strong>{departureDate}</strong>
+            <strong>{from}</strong> to <strong>{to}</strong> on{" "}
+            <strong>{departureDate}</strong>
           </p>
         </>
       )}
 
-      {/* If no flights available, show message instead */}
       {noAvailableFlights ? (
         <div className="no-flights-message">
-          <p className="message">Sorry! No flights found for the selected criteria.</p>
+          <p className="message">
+            Sorry! No flights found for the selected criteria.
+          </p>
         </div>
       ) : (
         <>
@@ -70,11 +74,17 @@ const DisplayFlightOneWay = () => {
             {filteredFlights.map((flight) => (
               <div
                 key={flight.flightNumber}
-                className={`flight-card ${selectedFlight?.flightNumber === flight.flightNumber ? "selected" : ""}`}
+                className={`flight-card ${
+                  selectedFlight?.flightNumber === flight.flightNumber
+                    ? "selected"
+                    : ""
+                }`}
               >
                 <div className="flight-card-header">
                   <h3>{flight.flightNumber}</h3>
-                  <span>{flight.from} to {flight.to}</span>
+                  <span>
+                    {flight.from} to {flight.to}
+                  </span>
                 </div>
                 <div className="flight-card-details">
                   <p>
@@ -86,14 +96,34 @@ const DisplayFlightOneWay = () => {
                   <p>
                     <strong>Passengers:</strong> {flight.passengers}
                   </p>
+                  {/* Display the classType inside the flight card */}
+                  <p>
+                    <strong>Class Type:</strong> {flight.classType || "Not Available"}
+                  </p>
                 </div>
                 <button
-                  className={`select-button ${selectedFlight?.flightNumber === flight.flightNumber ? "selected" : ""}`}
+                  className={`select-button ${
+                    selectedFlight?.flightNumber === flight.flightNumber
+                      ? "selected"
+                      : ""
+                  }`}
                   onClick={() => handleSelectFlight(flight)}
-                  onMouseEnter={(e) => (e.target.innerText = selectedFlight?.flightNumber === flight.flightNumber ? "Unselect" : "Select")}
-                  onMouseLeave={(e) => (e.target.innerText = selectedFlight?.flightNumber === flight.flightNumber ? "Unselect" : "Select")}
+                  onMouseEnter={(e) =>
+                    (e.target.innerText =
+                      selectedFlight?.flightNumber === flight.flightNumber
+                        ? "Unselect"
+                        : "Select")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.target.innerText =
+                      selectedFlight?.flightNumber === flight.flightNumber
+                        ? "Unselect"
+                        : "Select")
+                  }
                 >
-                  {selectedFlight?.flightNumber === flight.flightNumber ? "Unselect" : "Select"}
+                  {selectedFlight?.flightNumber === flight.flightNumber
+                    ? "Unselect"
+                    : "Select"}
                 </button>
               </div>
             ))}
@@ -101,12 +131,10 @@ const DisplayFlightOneWay = () => {
         </>
       )}
 
-      {/* Back Button */}
       <button className="back-button" onClick={handleBack}>
         Back to Booking
       </button>
 
-      {/* Show Submit Button only if flights are available */}
       {!noAvailableFlights && (
         <div className="button-container">
           <button

@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from "react-route
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 
-import Navbar from "./Components/navigationBar";
+import Navbar from "./Components/navbar";
 import FlightBooking from "./Components/flightBooking";
 import DisplayFlightOneWay from "./Components/displayFlightOneWay";
 import DisplayFlightReturn from "./Components/displayFlightReturn";

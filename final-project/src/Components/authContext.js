@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
 
 // Create a context for authentication
 const AuthContext = createContext();
@@ -23,8 +23,13 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('loggedInUser'); // Remove from localStorage
   };
 
+  const setAuthState = ({ isLoggedIn, username }) => {
+    setIsLoggedIn(isLoggedIn);
+    setUsername(username);
+  };
+
   return (
-    <AuthContext.Provider value={{ isLoggedIn, username, login, logout }}>
+    <AuthContext.Provider value={{ isLoggedIn, username, login, logout, setAuthState }}>
       {children}
     </AuthContext.Provider>
   );
