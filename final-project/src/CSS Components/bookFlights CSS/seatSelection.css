@@ -1,0 +1,272 @@
+/* General container for the seat selection */
+.seat-selection-container {
+  text-align: center;
+  font-family: Arial, sans-serif;
+  margin-top: 20px;
+}
+
+/* Seat grid styling */
+.seat-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px; /* Adds spacing between rows */
+}
+
+/* Premium class grid styling */
+.premium-seat-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px; /* Adds spacing between premium rows */
+}
+
+.premium-seat-grid h3 {
+  margin-top: 0;
+  font-size: 20px;
+  font-weight: bold;
+  color: #FFD700; /* Golden color for the premium class label */
+}
+
+/* Economy class grid styling */
+.economy-seat-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px; /* Adds spacing between economy rows */
+}
+
+.economy-seat-grid h3 {
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #3b8e6f; /* Green color for economy class label */
+}
+
+.economy-text {
+  margin-bottom: -42px;
+}
+
+/* Row styling for the seats */
+.seat-row {
+  display: flex;
+  gap: 5px; /* Adds consistent spacing between seats */
+  align-items: center;
+  margin-left: 0px;
+}
+
+/* Premium row styling */
+.premium-row {
+  background-color: #f0f0f0; /* Light gray background for premium seats */
+}
+
+/* Styling for row numbers */
+.row-number {
+  width: 30px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* Aisle space styling */
+.aisle-space {
+  width: 40px; /* Creates a noticeable gap for the aisle */
+}
+
+/* Button styling for each seat */
+.seat-button {
+  width: 40px;
+  height: 40px;
+  background-color: lightgray;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* When a seat is selected, change the background color */
+.seat-button.selected {
+  background-color: green;
+  color: white;
+}
+
+/* Button hover effect */
+.seat-button:hover {
+  transform: scale(1.1);
+  background-color: #d3d3d3; /* Adds a hover color for better UX */
+}
+
+.seat-button.selected:hover {
+  background-color: green;
+  color: white;
+}
+
+/* Premium seat button styling */
+.seat-button.premium {
+  background-color: #141412; /* Gold color for premium seats */
+  color: rgb(211, 211, 211);
+}
+
+.seat-button.premium.selected {
+  background-color: #ffcc00; /* Lighter gold when selected */
+  color: white;
+}
+
+.seat-button.premium:hover {
+  background-color: #dcb207; /* Lighter gold on hover */
+}
+
+/* Styling for the selected seat count */
+.selected-count {
+  font-size: 18px;
+  margin-top: 20px;
+  font-weight: bold; /* Makes the count stand out more */
+}
+
+/* Flex container for the dividers */
+/* Flex container for the dividers */
+/* Flex container for the dividers */
+/* Flex container for the dividers */
+.divider-container {
+  display: flex;
+  justify-content: center; /* Centers the dividers horizontally */
+  align-items: center;
+  margin-top: 0px; /* Adds spacing between the sections */
+  margin-left: -30px;
+  width: 10%; /* Ensures the divider container takes up full width */
+  gap: 260px; /* Adds space between the dividers */
+}
+
+/* Divider styling */
+.divider {
+  padding: 0px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: transparent;
+  text-align: center;
+  width: 10px; /* Adjust the width of the divider */
+}
+
+.divider-container2 {
+  display: flex;
+  justify-content: center; /* Centers the dividers horizontally */
+  align-items: center;
+  margin-top: 10px; /* Adds spacing between the sections */
+  margin-left: -10px;
+  width: 100%; /* Ensures the divider container takes up full width */
+  gap: 270px; /* Adds space between the dividers */
+}
+
+.divider2 {
+  padding: 0px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: transparent;
+  text-align: center;
+  width: 10px; /* Adjust the width of the divider */
+}
+
+/* Submit button styling */
+.submit-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: green;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: darkgreen;
+}
+
+/* Container for header and back button */
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+/* Back button styling */
+.back-button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #f4f4f4;
+  color: #333;
+  border: 1px solid #ccc;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-left: 200px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.back-button:hover {
+  background-color: #ddd;
+  transform: translateY(-3px);
+}
+
+.back-button:active {
+  background-color: #bbb;
+  transform: translateY(1px);
+}
+
+/* Seat selection title styling */
+.seat-selection-title {
+  margin: 0 auto;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.seat-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  width: 300px;
+}
+
+.modal-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.modal-button:hover {
+  background-color: #0056b3;
+}
