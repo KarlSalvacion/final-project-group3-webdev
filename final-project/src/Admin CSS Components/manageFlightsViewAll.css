@@ -1,0 +1,127 @@
+/* Container for the Admin View Flights section */
+.admin-view-flights-container {
+    padding: 20px;
+    background-color: transparent;
+    border-radius: 8px;
+    display: flex;
+    margin-top: -40px;
+    justify-content: center; /* Center the flight list container */
+    align-items: center; /* Center the content vertically */
+    min-height: 100vh; /* Ensure the content takes at least the full viewport height */
+    flex-direction: column; /* Stack the header and the flight list vertically */
+}
+
+/* Header styling */
+.admin-header-view-flights {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* Flight list container */
+.flight-list {
+    margin-top: 30px;
+    margin-left: 0px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;  /* Stack the list vertically */
+    align-items: center;  /* Center the list items horizontally */
+    padding: 0; /* Remove padding to avoid overflow */
+}
+
+/* Styling for each flight card */
+.flight-list li {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    color: black;
+    padding: 20px;
+    display: flex;  /* Use flex to display contents horizontally */
+    flex-direction: row;  /* Align items in a row */
+    align-items: center;  /* Vertically center the items */
+    width: 100%;  /* Full width to maintain space for all details */
+    max-width: 1150px; /* Increase max width to make the flight card wider */
+    border-radius: 8px;
+    gap: 10px;
+    transition: background-color 0.3s ease;
+    text-align: left;  /* Align text to the left */
+}
+
+/* Top section containing flight number, from, to, and date */
+
+.flight-list ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;  /* Stack the items vertically */
+    gap: 20px; /* Space between flight items */
+    width: 100%;
+    max-width: 1200px; /* Set a max-width to ensure it doesn't stretch too far */
+    margin: 0 auto;  /* Center the list */
+    box-sizing: border-box; /* Prevent overflow */
+}
+
+/* Buttons section */
+.flight-actions {
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically */
+    gap: 10px;
+    align-items: center; /* Center buttons */
+    justify-content: center; /* Center buttons */
+}
+
+/* Flight details paragraph styling */
+.flight-details p {
+    margin: 0 10px 0 0; /* Spacing between text */
+    font-size: 1rem;
+}
+/* Edit and Delete Button Styles */
+.admin-view-flight-edit, .admin-view-flight-delete {
+    background-color: #e2d707; /* Red color for the buttons */
+    color: white;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    margin: 0 10px; /* Space between buttons */
+}
+
+/* Hover effect for buttons */
+.admin-view-flight-edit:hover, .admin-view-flight-delete:hover {
+    background-color: #cf800a; /* Darker red when hovered */
+/* Slightly enlarge the button */
+}
+
+/* Active state for button when clicked */
+.admin-view-flight-edit:active, .admin-view-flight-delete:active {
+    background-color: #e74c3c; /* Red color stays when clicked */
+ /* Reset the size on click */
+}
+
+/* Optionally, if you want to distinguish Delete button (e.g., slightly different red) */
+.admin-view-flight-delete {
+    background-color: #e74c3c; /* Red for delete button */
+}
+
+.admin-view-flight-delete:hover {
+    background-color: #892318; /* Darker red for delete button when hovered */
+}
+
+/* Make it responsive */
+@media (max-width: 768px) {
+    .flight-card {
+        flex-direction: column; /* Stack flight details and buttons vertically on smaller screens */
+    }
+    .flight-top, .flight-bottom {
+        width: 100%; /* Ensure sections take full width on smaller screens */
+    }
+    .flight-details p {
+        font-size: 0.8rem; /* Smaller text on smaller screens */
+    }
+    .flight-actions {
+        width: 100%;
+        justify-content: space-between; /* Align buttons on separate lines */
+    }
+}

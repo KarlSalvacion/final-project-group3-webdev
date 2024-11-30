@@ -1,0 +1,33 @@
+.sort-flights-container {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.sort-flights-header {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #000;
+}
+
+.sort-buttons button {
+    padding: 10px 15px;
+    margin: 5px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.sort-buttons button:hover {
+    background-color: #0056b3;
+}
+
+.sort-buttons button svg {
+    margin-left: 5px;
+    font-size: 16px; /* Adjust size if needed */
+    vertical-align: middle; /* Adjust icon to align better */
+    transform: translateY(1px); /* This will lower the icon */
+}

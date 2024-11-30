@@ -2,11 +2,3 @@
     box-sizing: border-box;
 }
 
-.main-work-area {
-    margin-top: 70px; /* Adjust based on the height of your Navbar */
-    background-color: #f9f9f9; /* Optional: Add a background color */
-    min-height: calc(100vh - 70px); /* Ensure it fills the viewport minus the navbar height */
-    display: flex;
-    flex-direction: column;
-  }
-  

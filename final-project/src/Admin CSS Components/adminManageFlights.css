@@ -1,0 +1,143 @@
+/* Flight List Styles */
+.flight-list {
+    margin-top: 30px;
+    margin-left: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;  /* Stack the list vertically */
+    align-items: center;  /* Center the list items horizontally */
+    padding: 0; /* Remove padding to avoid overflow */
+}
+
+.flight-list ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;  /* Stack the items vertically */
+    gap: 20px; /* Space between flight items */
+    width: 100%;
+    max-width: 1200px; /* Set a max-width to ensure it doesn't stretch too far */
+    margin: 0 auto;  /* Center the list */
+    box-sizing: border-box; /* Prevent overflow */
+}
+
+.flight-list li {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 20px;
+    display: flex;  /* Use flex to display contents horizontally */
+    flex-direction: row;  /* Align items in a row */
+    align-items: center;  /* Vertically center the items */
+    width: 100%;  /* Full width to maintain space for all details */
+    max-width: 1100px; /* Optional: Restrict width of individual flight items */
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+    text-align: left;  /* Align text to the left */
+}
+
+.flight-list li p {
+    margin: 0 10px 0 0; /* Spacing between text */
+    font-size: 1rem;
+    flex-grow: 1;  /* Allow text to take available space */
+}
+
+.flight-list li button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    margin-left: 10px; /* Space between buttons */
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.flight-list li button:hover {
+    background-color: #45a049;
+}
+
+
+.flight-form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.flight-form h3 {
+    font-size: 1.75rem;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center; /* Center the form heading */
+}
+
+/* Form container for horizontal alignment */
+.flight-form .form-group {
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.flight-form label {
+    font-size: 1rem;
+    color: #555;
+    margin-right: 20px;
+    width: 25%;
+}
+
+.flight-form input,
+.flight-form select {
+    width: 70%; /* Take up remaining space */
+    padding: 12px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+.flight-form input:focus,
+.flight-form select:focus {
+    border-color: #4CAF50;
+    outline: none;
+}
+
+.flight-form button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+.flight-form button:hover {
+    background-color: #45a049;
+}
+
+.flight-form select {
+    margin-top: 8px;
+    padding: 12px;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    .flight-list ul {
+        flex-direction: column;  /* Stack vertically on smaller screens */
+    }
+
+    .flight-list li {
+        flex-direction: column;  /* Stack the content vertically */
+        width: 100%;  /* Ensure full width */
+    }
+
+    .flight-list li p {
+        margin: 10px 0; /* Adjust margin for vertical stacking */
+    }
+}

@@ -1,0 +1,106 @@
+/* Navbar Container */
+.manage-flights-navbar {
+    background-color: rgb(29, 29, 29);
+    color: white;
+    height: 80px;
+    width: 100%;
+    padding: 10px 20px;
+    box-sizing: border-box;
+}
+
+/* Navbar content container */
+.manage-flights-navbar-container {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between; /* Space out the logo, tabs, and account control */
+    align-items: center; /* Center everything vertically *        /* Optional: add padding for spacing */
+}
+
+.manage-flights-container-fluid {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%; /* Maintain 80% width for the navbar container */
+    margin: auto; /* Ensure it is centered within the page */
+}
+
+/* Back Button */
+.manage-flights-back-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.manage-flights-back-button:hover {
+    background-color: #45a049;
+}
+
+/* Navbar Tabs Container */
+.manage-flights-navbar-tabs {
+    display: flex;
+    justify-content: center; /* Center the tabs */
+    align-items: center; /* Center the tabs vertically */
+    gap: 30px; /* Adjust spacing between tabs */
+}
+
+/* Individual Navbar Tab */
+.manage-flights-tab {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 10px 20px;
+    width: 160px;
+    border-radius: 5px;
+    text-align: center;
+    flex-grow: 1;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.manage-flights-tab:hover {
+    background-color: #4CAF50;
+    color: #fff;
+}
+
+.manage-flights-tab:active {
+    background-color: #45a049;
+}
+
+.manage-flights-blank-space {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Align to the right */
+    gap: 15px; /* Space between the icon and username */
+    background-color: transparent;
+    width: 0px; /* Makes it 80% of the available width */
+    margin-top: 50px;
+}
+
+
+.admin-view-flights-workarea {
+    margin-top: 80px;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .manage-flights-navbar {
+        flex-direction: column;
+        align-items: center;   /* Center items vertically on small screens */
+    }
+
+    .manage-flights-navbar-tabs {
+        margin-top: 10px;
+        gap: 20px;
+        justify-content: center; /* Center tabs on smaller screens */
+        width: 100%;
+    }
+}

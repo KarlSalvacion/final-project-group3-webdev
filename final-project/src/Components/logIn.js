@@ -27,7 +27,7 @@ const Login = () => {
             // Regular user login logic
             login(user); // Update the global auth state
             localStorage.setItem('loggedInUser', JSON.stringify(user)); // Store in localStorage
-            navigate('/home');
+            navigate('/');
         } else if (adminUser) {
             // Admin login logic
             login(adminUser); // Update the global auth state

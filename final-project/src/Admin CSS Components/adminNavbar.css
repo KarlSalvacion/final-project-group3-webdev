@@ -1,0 +1,132 @@
+.admin-navbar {
+    background-color: rgb(29, 29, 29);
+    color: white;
+    height: 80px;
+    width: 100%;
+    padding: 10px 20px;
+    box-sizing: border-box;
+}
+
+.admin-navbar-container {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between; /* Space out the logo, tabs, and account control */
+    align-items: center; /* Center everything vertically */
+}
+
+.admin-container-fluid {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%; /* Maintain 80% width for the navbar container */
+    margin: auto; /* Ensure it is centered within the page */
+}
+
+.admin-navbar-brand {
+    color: white;
+    text-decoration: none;
+    font-size: 20px; /* Adjust as needed */
+}
+
+.admin-navbar-tabs {
+    display: flex;
+    justify-content: center; /* Center the tabs */
+    align-items: center; /* Center the tabs vertically */
+    gap: 30px; /* Adjust spacing between tabs */
+}
+
+.admin-tab {
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    padding: 0;
+    width: 150px;
+    border-radius: 5px;
+    flex-grow: 1;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    text-align: center;
+}
+
+.admin-tab:hover {
+    background-color: #555;
+    color: #f0f0f0;
+}
+
+.admin-account-control {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Align to the right */
+    gap: 15px; /* Space between the icon and username */
+}
+
+.profile-icon {
+    font-size: 20px; /* Adjust icon size */
+    color: white;
+}
+
+.admin-username-container {
+    display: flex;
+    align-items: center;
+}
+
+.admin-username {
+    font-size: 16px;
+    color: white;
+    font-weight: 500;
+    margin-top: 15px;
+    margin-right: 10px;
+}
+
+.admin-divider {
+    height: 20px;
+    width: 1px;
+    background-color: white;
+    margin: 0 10px;
+}
+
+.admin-logout-button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.admin-logout-button:hover {
+    background-color: #d32f2f;
+    transform: scale(1.05);
+}
+
+.admin-logout-button:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+}
+
+.admin-main-work-area-container {
+    margin-top: 80px;
+    /* The content area below the navbar */
+}
+
+/* Add responsive behavior */
+@media screen and (max-width: 768px) {
+    .admin-navbar-tabs {
+        gap: 10px; /* Reduce space between tabs on smaller screens */
+    }
+
+    .admin-tab {
+        font-size: 14px;
+        padding: 6px 10px;
+    }
+
+    .admin-logout-button {
+        padding: 6px 12px;
+    }
+}
