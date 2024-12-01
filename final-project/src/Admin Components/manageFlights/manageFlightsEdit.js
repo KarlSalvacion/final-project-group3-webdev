@@ -8,7 +8,7 @@ const EditFlights = ({ onUpdate }) => {
 
   const [flightDetails, setFlightDetails] = useState(null);
   const [errors, setErrors] = useState({});
-
+  
   // Fetch flight details from localStorage by flight number
   useEffect(() => {
     const storedFlights = JSON.parse(localStorage.getItem("flights")) || [];
@@ -25,9 +25,8 @@ const EditFlights = ({ onUpdate }) => {
 
   // Validate input fields
   const validate = () => {
-    const { from, to, date, classType } = flightDetails || {};
+    const { from, to, date, classType, economyPrice, premiumPrice } = flightDetails || {};
     const textOnlyRegex = /^[A-Za-z\s]+$/; // Letters and spaces only
-    const classTypeRegex = /^[A-Za-z\s,]+$/; // Letters, spaces, and commas only
     const today = new Date().toISOString().split("T")[0]; // Get today's date in YYYY-MM-DD format
 
     const validationErrors = {};
@@ -52,13 +51,14 @@ const EditFlights = ({ onUpdate }) => {
     } else if (date < today) {
       validationErrors.date = "Date cannot be in the past.";
     }
+    
+    // Price Validation
+    if (!economyPrice || isNaN(economyPrice) || economyPrice < 0) {
+      validationErrors.economyPrice = "Economy price must be a valid number greater than or equal to 0.";
+    }
 
-    // Class Type Validation
-    if (!classType) {
-      validationErrors.classType = "Class types are required.";
-    } else if (!classTypeRegex.test(classType.join(", "))) {
-      validationErrors.classType =
-        "Class types must contain only letters, spaces, and commas.";
+    if (!premiumPrice || isNaN(premiumPrice) || premiumPrice < 0) {
+      validationErrors.premiumPrice = "Premium price must be a valid number greater than or equal to 0.";
     }
 
     setErrors(validationErrors);
@@ -74,30 +74,40 @@ const EditFlights = ({ onUpdate }) => {
     });
   };
 
+  // Handle occupied seats input change
+  const handleOccupiedSeatsChange = (e) => {
+    const { value } = e.target;
+    const occupiedSeatsArray = value.split(",").map(seat => seat.trim()).filter(seat => seat); // Split by comma and trim
+    setFlightDetails({
+      ...flightDetails,
+      occupiedSeats: occupiedSeatsArray,
+    });
+  };
+
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
-        const storedFlights = JSON.parse(localStorage.getItem("flights")) || [];
-        
-        // Update only the flight with the matching flightNumber
-        const updatedFlights = storedFlights.map((flight) =>
-            flight.flightNumber === flightDetails.flightNumber
-                ? { ...flight, ...flightDetails } // Only update the flight with matching flight number
-                : flight
-        );
+      const storedFlights = JSON.parse(localStorage.getItem("flights")) || [];
+      
+      // Update only the flight with the matching flightNumber
+      const updatedFlights = storedFlights.map((flight) =>
+        flight.flightNumber === flightDetails.flightNumber
+          ? { ...flight, ...flightDetails } // Only update the flight with matching flight number
+          : flight
+      );
 
-        // Save the updated flight list back to localStorage
-        localStorage.setItem("flights", JSON.stringify(updatedFlights));
+      // Save the updated flight list back to localStorage
+      localStorage.setItem("flights", JSON.stringify(updatedFlights));
 
-        if (onUpdate) {
-            onUpdate(flightDetails);
-        }
+      if (onUpdate) {
+        onUpdate(flightDetails);
+      }
 
-        alert("Flight details updated successfully");
-        navigate("/admin-manage-flights/view-all"); // Redirect to the view all flights page
-    }
-};
+      alert("Flight details updated successfully");
+      navigate("/admin-manage-flights/view-all"); // Redirect to the view all flights page
+ }
+  };
 
   if (!flightDetails) {
     return <p>Loading flight details...</p>;
@@ -152,32 +162,71 @@ const EditFlights = ({ onUpdate }) => {
           {errors.date && <p className="error-text">{errors.date}</p>}
         </div>
         <div className="form-group">
-          <label>Passengers</label>
+          <label>Departure Time</label>
           <input
-            type="number"
-            name="passengers"
-            value={flightDetails.passengers}
-            disabled // Disable the input field for passengers
+            type="time"
+            name="departureTime"
+            value={flightDetails.departureTime}
+            onChange={handleInputChange}
             required
           />
-          {errors.passengers && <p className="error-text">{errors.passengers}</p>}
         </div>
         <div className="form-group">
-          <label>Class Types (Comma Separated)</label>
+          <label>Arrival Time</label>
           <input
-            type="text"
-            name="classType"
-            value={flightDetails.classType.join(", ")}
-            onChange={(e) =>
-              setFlightDetails({
-                ...flightDetails,
-                classType: e.target.value.split(",").map((type) => type.trim()),
-              })
-            }
+            type="time"
+            name="arrivalTime"
+            value={flightDetails.arrivalTime}
+            onChange={handleInputChange}
             required
           />
-          {errors.classType && <p className="error-text">{errors.classType}</p>}
         </div>
+        <div className="form-group">
+          <label>Economy Price</label>
+          <input
+            type="number"
+            name="economyPrice"
+            value={flightDetails.economyPrice}
+            onChange={handleInputChange}
+            min={0}
+            required
+          />
+          {errors.economyPrice && <p className="error-text">{errors.economyPrice}</p>}
+        </div>
+        <div className="form-group">
+          <label>Premium Price</label>
+          <input
+            type="number"
+            name="premiumPrice"
+            value={flightDetails.premiumPrice}
+            onChange={handleInputChange}
+            min={0}
+            required
+          />
+          {errors.premiumPrice && <p className="error-text">{errors.premiumPrice}</p>}
+        </div>
+
+        <div className="form-group">
+          <label>Occupied Economy Seats (comma-separated)</label>
+          <input
+            type="text"
+            name="occupiedSeats"
+            value={flightDetails.occupiedEconomySeats.join(", ")} // Join the array into a string for display
+            onChange={handleOccupiedSeatsChange}
+            placeholder="e.g. 1A, 1B, 2C"
+          />
+        </div>
+        <div className="form-group">
+          <label>Occupied Premium Seats (comma-separated)</label>
+          <input
+            type="text"
+            name="occupiedSeats"
+            value={flightDetails.occupiedPremiumSeats.join(", ")} // Join the array into a string for display
+            onChange={handleOccupiedSeatsChange}
+            placeholder="e.g. 1A, 1B, 2C"
+          />
+        </div>
+
         <button type="submit" className="admin-save-flight-button">
           Save Changes
         </button>

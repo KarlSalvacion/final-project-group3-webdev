@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../Admin CSS Components/manageFlights CSS/manageFlightsViewAll.css'; // Ensure this path is correct
-
 import SortFlights from './manageFlightsSort';
 
 const AdminViewFlights = () => {
@@ -10,22 +9,25 @@ const AdminViewFlights = () => {
 
     // Fetch flights from localStorage when the component mounts
     useEffect(() => {
-        const storedFlights = JSON.parse(localStorage.getItem('flights')) || []; // Retrieve flights from localStorage
+        const storedFlights = fetchFlightsFromLocalStorage(); // Fetch and validate data from localStorage
         setFlightList(storedFlights);
-    }, []);
+    }, []); // Empty dependency array ensures this runs only once when the component mounts
 
     // Function to handle deleting a flight
     const deleteFlight = (flightNumber) => {
         const updatedFlightList = flightList.filter(flight => flight.flightNumber !== flightNumber);
         setFlightList(updatedFlightList);
-        localStorage.setItem('flights', JSON.stringify(updatedFlightList)); // Update localStorage
+        saveFlightsToLocalStorage(updatedFlightList); // Save updated flight list to localStorage
     };
 
     // Function to handle editing a flight
-    const editFlight = (flightNumber) => {
-        // Dynamically navigate to the edit page with the flightNumber in the route
-        navigate(`/admin-manage-flights/edit/${flightNumber}`);
-    };
+    const editFlight = useCallback((flightNumber) => {
+        if (flightNumber) {
+            navigate(`/admin-manage-flights/edit/${flightNumber}`);
+        } else {
+            console.error("Invalid flight number provided for editing.");
+        }
+    }, [navigate]);
 
     // Function to handle sorting
     const sortFlights = (criteria, order) => {
@@ -37,6 +39,14 @@ const AdminViewFlights = () => {
             }
         });
         setFlightList(sortedList); // Update the flightList state with the sorted data
+    };
+
+    // Function to safely render an array or object as a string
+    const renderValue = (value) => {
+        if (Array.isArray(value)) {
+            return value.length > 0 ? value.join(', ') : 'None'; // Show 'None' if array is empty
+        }
+        return value || ''; // Return the value itself if it's a primitive type or an empty string if undefined
     };
 
     return (
@@ -57,9 +67,19 @@ const AdminViewFlights = () => {
                                 <p><strong>Date:</strong> {flight.date}</p>
                                 <p><strong>Departure Time:</strong> {flight.departureTime}</p>
                                 <p><strong>Arrival Time:</strong> {flight.arrivalTime}</p>
-                                <p><strong>Passengers:</strong> {flight.currentPassengers}</p>
-                                <p><strong>Class Types:</strong> {flight.classType.join(', ')}</p>
-
+                                <p><strong>Current Passenger Count:</strong> {flight.currentPassengerCount}</p>
+                                
+                                {/* Displaying prices for Economy and Premium classes */}
+                                <p><strong>Economy Price:</strong> ${flight.economyPrice}</p>
+                                <p><strong>Premium Price:</strong> ${flight.premiumPrice}</p>
+                                
+                                {/* Render classType safely */}
+                                <p><strong>Class Types:</strong> {flight.classTypes ? flight.classTypes.join(', ') : 'N/A'}</p>
+                
+                                {/* Render occupied seats safely */}
+                                <p><strong>Occupied Economy Seats:</strong> {renderValue(flight.occupiedEconomySeats)}</p>
+                                <p><strong>Occupied Premium Seats:</strong> {renderValue(flight.occupiedPremiumSeats)}</p>
+                
                                 {/* Edit and Delete buttons */}
                                 <button
                                     className="admin-view-flight-edit"
@@ -82,6 +102,31 @@ const AdminViewFlights = () => {
             </div>
         </div>
     );
+};
+
+// Utility function to save flights data to localStorage
+const saveFlightsToLocalStorage = (flights) => {
+    if (Array.isArray(flights) && flights.every(flight => flight && flight.flightNumber)) {
+        localStorage.setItem('flights', JSON.stringify(flights));
+    } else {
+        console.error("Invalid flight data");
+    }
+};
+
+// Utility function to fetch flights from localStorage
+const fetchFlightsFromLocalStorage = () => {
+    try {
+        const storedFlights = JSON.parse(localStorage.getItem('flights')) || [];
+        if (Array.isArray(storedFlights)) {
+            return storedFlights;
+        } else {
+            console.error("Stored data is not an array. Resetting flights.");
+            return [];
+        }
+    } catch (error) {
+        console.error("Error parsing flight data from localStorage", error);
+        return [];
+    }
 };
 
 export default AdminViewFlights;

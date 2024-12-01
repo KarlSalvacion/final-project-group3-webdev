@@ -11,8 +11,8 @@ const DisplayFlightReturn = () => {
 
   const [selectedDepartureFlight, setSelectedDepartureFlight] = useState(null);
   const [selectedReturnFlight, setSelectedReturnFlight] = useState(null);
-  const [noAvailableDepartureFlights, setNoAvailableDepartureFlights] = useState(false); // To track departure flight availability
-  const [noAvailableReturnFlights, setNoAvailableReturnFlights] = useState(false); // To track return flight availability
+  const [noAvailableDepartureFlights, setNoAvailableDepartureFlights] = useState(false);
+  const [noAvailableReturnFlights, setNoAvailableReturnFlights] = useState(false);
   const [flights, setFlights] = useState([]); // State to store flights from localStorage
 
   // Fetch flights from localStorage when the component mounts
@@ -58,149 +58,141 @@ const DisplayFlightReturn = () => {
     }
   };
 
-  const handleSubmitBooking = () => {
+  const handleProceed = () => {
     if (selectedDepartureFlight && selectedReturnFlight) {
-      // Navigate to the seat selection page and pass the selected flights as state
-      navigate("/seat-selection", {
+      navigate("/booking-details", {
         state: {
           departureFlight: selectedDepartureFlight,
           returnFlight: selectedReturnFlight,
-          from,
-          to,
-          departureDate,
-          returnDate,
-          passengerCounts,
-          classType,
         },
-      });
+      }); // Navigate to BookingDetails page
     } else {
       alert("Please select both departure and return flights.");
     }
   };
 
   const handleBack = () => {
-    navigate("/flight-booking");
+    navigate("/search-flights");
   };
 
   return (
     <div className="return-display-container">
-  {/* Display Departure Flights */}
-  {!noAvailableDepartureFlights && (
-    <>
-      <h3>Departure Flights</h3>
-      <p>
-        <strong>{from}</strong> to <strong>{to}</strong> on <strong>{departureDate}</strong>
-      </p>
-      <div className="return-flight-cards-container">
-        {filteredDepartureFlights.map((flight) => (
-          <div
-            key={flight.flightNumber}
-            className={`return-flight-card ${selectedDepartureFlight?.flightNumber === flight.flightNumber ? "selected" : ""}`}
-          >
-            <div className="return-flight-card-header">
-              <h3>{flight.flightNumber}</h3>
-              <span>{flight.from} to {flight.to}</span>
-            </div>
-            <div className="return-flight-card-details">
-              <p>
-                <strong>Departure:</strong> {flight.departureTime}
-              </p>
-              <p>
-                <strong>Arrival:</strong> {flight.arrivalTime}
-              </p>
-              <p>
-                <strong>Passengers:</strong> {flight.passengers}
-              </p>
-            </div>
-            <button
-              className={`return-select-button ${selectedDepartureFlight?.flightNumber === flight.flightNumber ? "selected" : ""}`}
-              onClick={() => handleSelectDepartureFlight(flight)}
-              onMouseEnter={(e) => (e.target.innerText = selectedDepartureFlight?.flightNumber === flight.flightNumber ? "Unselect" : "Select")}
-              onMouseLeave={(e) => (e.target.innerText = selectedDepartureFlight?.flightNumber === flight.flightNumber ? "Unselect" : "Select")}
-            >
-              {selectedDepartureFlight?.flightNumber === flight.flightNumber ? "Unselect" : "Select"}
-            </button>
+      {/* Display Departure Flights */}
+      {!noAvailableDepartureFlights && (
+        <>
+          <h3>Departure Flights</h3>
+          <p>
+            <strong>{from}</strong> to <strong>{to}</strong> on <strong>{departureDate}</strong>
+          </p>
+          <div className="return-flight-cards-container">
+            {filteredDepartureFlights.map((flight) => (
+              <div
+                key={flight.flightNumber}
+                className={`return-flight-card ${selectedDepartureFlight?.flightNumber === flight.flightNumber ? "selected" : ""}`}
+              >
+                <div className="return-flight-card-header">
+                  <h3>{flight.flightNumber}</h3>
+                  <span>{flight.from} to {flight.to}</span>
+                </div>
+                <div className="return-flight-card-details">
+                  <p>
+                    <strong>Departure:</strong> {flight.departureTime}
+                  </p>
+                  <p>
+                    <strong>Arrival:</strong> {flight.arrivalTime}
+                  </p>
+                  <p>
+                    <strong>Current Passengers:</strong> {flight.currentPassenger || 0} {/* Display current passengers */}
+                  </p>
+                </div>
+                <button
+                  className={`return-select-button ${selectedDepartureFlight?.flightNumber === flight.flightNumber ? "selected" : ""}`}
+                  onClick={() => handleSelectDepartureFlight(flight)}
+                  onMouseEnter={(e) => (e.target.innerText = selectedDepartureFlight?.flightNumber === flight.flightNumber ? "Unselect" : "Select")}
+                  onMouseLeave={(e) => (e.target.innerText = selectedDepartureFlight?.flightNumber === flight.flightNumber ? "Unselect" : "Select")}
+                >
+                  {selectedDepartureFlight?.flightNumber === flight.flightNumber ? "Unselect" : "Select"}
+                </button>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-    </>
-  )}
+        </>
+      )}
 
-  {/* No Departure Flights Message */}
-  {noAvailableDepartureFlights && (
-    <div className="return-no-flights-message">
-      <p className="return-message">Sorry! No departure flights found for the selected criteria.</p>
-    </div>
-  )}
+      {/* No Departure Flights Message */}
+      {noAvailableDepartureFlights && (
+        <div className="return-no-flights-message">
+          <p className="return-message">Sorry! No departure flights found for the selected criteria.</p>
+        </div>
+      )}
 
-  {/* Display Return Flights */}
-  {!noAvailableReturnFlights && (
-    <>
-      <h3>Return Flights</h3>
-      <p>
-        <strong>{to}</strong> to <strong>{from}</strong> on <strong>{returnDate}</strong>
-      </p>
-      <div className="return-flight-cards-container">
-        {filteredReturnFlights.map((flight) => (
-          <div
-            key={flight.flightNumber}
-            className={`return-flight-card ${selectedReturnFlight?.flightNumber === flight.flightNumber ? "selected" : ""}`}
-          >
-            <div className="return-flight-card-header">
-              <h3>{flight.flightNumber}</h3>
-              <span>{flight.from} to {flight.to}</span>
-            </div>
-            <div className="return-flight-card-details">
-              <p>
-                <strong>Departure:</strong> {flight.departureTime}
-              </p>
-              <p>
-                <strong>Arrival:</strong> {flight.arrivalTime}
-              </p>
-              <p>
-                <strong>Passengers:</strong> {flight.passengers}
-              </p>
-            </div>
-            <button
-              className={`return-select-button ${selectedReturnFlight?.flightNumber === flight.flightNumber ? "selected" : ""}`}
-              onClick={() => handleSelectReturnFlight(flight)}
-              onMouseEnter={(e) => (e.target.innerText = selectedReturnFlight?.flightNumber === flight.flightNumber ? "Unselect" : "Select")}
-              onMouseLeave={(e) => (e.target.innerText = selectedReturnFlight?.flightNumber === flight.flightNumber ? "Unselect" : "Select")}
-            >
-              {selectedReturnFlight?.flightNumber === flight.flightNumber ? "Unselect" : "Select"}
-            </button>
+      {/* Display Return Flights */}
+      {!noAvailableReturnFlights && (
+        <>
+          <h3>Return Flights</h3>
+          <p>
+            <strong>{to}</strong> to <strong>{from}</strong> on <strong>{returnDate}</strong>
+          </p>
+          <div className="return-flight-cards-container">
+            {filteredReturnFlights.map((flight) => (
+              <div
+                key={flight.flightNumber}
+                className={`return-flight-card ${selectedReturnFlight?.flightNumber === flight.flightNumber ? "selected" : ""}`}
+              >
+                <div className="return-flight-card-header">
+                  <h3>{flight.flightNumber}</h3>
+                  <span>{flight.from} to {flight.to}</span>
+                </div>
+                <div className="return-flight-card-details">
+                  <p>
+                    <strong>Departure:</strong> {flight.departureTime}
+                  </p>
+                  <p>
+                    <strong>Arrival:</strong> {flight.arrivalTime}
+                  </p>
+                  <p>
+                    <strong>Current Passengers:</strong> {flight.currentPassengers || 0} {/* Display current passengers */}
+                  </p>
+                </div>
+                <button
+                  className={`return-select-button ${selectedReturnFlight?.flightNumber === flight.flightNumber ? "selected" : ""}`}
+                  onClick={() => handleSelectReturnFlight(flight)}
+                  onMouseEnter={(e) => (e.target.innerText = selectedReturnFlight?.flightNumber === flight.flightNumber ? "Unselect" : "Select")}
+                  onMouseLeave={(e) => (e.target.innerText = selectedReturnFlight?.flightNumber === flight.flightNumber ? "Unselect" : "Select")}
+                >
+                  {selectedReturnFlight?.flightNumber === flight.flightNumber ? "Unselect" : "Select"}
+                </button>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-    </>
-  )}
+        </>
+      )}
 
-  {/* No Return Flights Message */}
-  {noAvailableReturnFlights && (
-    <div className="return-no-flights-message">
-      <p className="return-message">Sorry! No return flights found for the selected criteria.</p>
-    </div>
-  )}
+      {/* No Return Flights Message */}
+      {noAvailableReturnFlights && (
+        <div className="return-no-flights-message">
+          <p className="return-message">Sorry! No return flights found for the selected criteria.</p>
+        </div>
+      )}
 
-  {/* Back Button */}
-  <button className="return-back-button" onClick={handleBack}>
-    Back to Booking
-  </button>
-
-  {/* Show Submit Button only if both flights are selected */}
-  {!noAvailableDepartureFlights && !noAvailableReturnFlights && (
-    <div className="return-button-container">
-      <button
-        className="return-submit-booking-button"
-        onClick={handleSubmitBooking}
-        disabled={!selectedDepartureFlight || !selectedReturnFlight}
-      >
-        Proceed
+      {/* Back Button */}
+      <button className="return-back-button" onClick={handleBack}>
+        Back to Booking
       </button>
-    </div>
-  )}
-</div>
 
+      {/* Show Proceed Button only if both flights are selected */}
+      {!noAvailableDepartureFlights && !noAvailableReturnFlights && (
+        <div className="return-button-container">
+          <button
+            className="return-submit-booking-button"
+            onClick={handleProceed}
+            disabled={!selectedDepartureFlight || !selectedReturnFlight}
+          >
+            Proceed
+          </button>
+        </div>
+      )}
+    </div>
   );
 };
 

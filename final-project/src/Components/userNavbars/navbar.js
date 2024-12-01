@@ -61,7 +61,7 @@ const Navbar = ({ children }) => {
         {/* Navbar Tabs */}
         <div className="navbar-tabs">
           <Link to="/explore" className="tab">Home</Link>
-          <Link to="/flight-booking" className="tab">Book Flights</Link>
+          <Link to="/search-flights" className="tab">Book Flights</Link>
           <Link to="/view-flights" className="tab">View Flights</Link>
           <Link to="/manage-flights" className="tab">Manage Flights</Link>
         </div>

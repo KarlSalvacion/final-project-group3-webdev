@@ -43,21 +43,16 @@
   color: #3b8e6f; /* Green color for economy class label */
 }
 
-.economy-text {
-  margin-bottom: -42px;
-}
-
 /* Row styling for the seats */
 .seat-row {
   display: flex;
   gap: 5px; /* Adds consistent spacing between seats */
   align-items: center;
-  margin-left: 0px;
 }
 
 /* Premium row styling */
 .premium-row {
-  background-color: #f0f0f0; /* Light gray background for premium seats */
+  background-color: #f0f8ff; /* Light blue background for premium seats */
 }
 
 /* Styling for row numbers */
@@ -74,10 +69,10 @@
 }
 
 /* Button styling for each seat */
+/* Button styling for each seat */
 .seat-button {
   width: 40px;
-  height: 40px;
-  background-color: lightgray;
+  height: 40px; /* Light gray for unselected seats */
   border: 1px solid #ccc;
   border-radius: 5px;
   cursor: pointer;
@@ -88,10 +83,18 @@
   align-items: center;
 }
 
-/* When a seat is selected, change the background color */
-.seat-button.selected {
-  background-color: green;
-  color: white;
+/* Economy seat button styling */
+.seat-button.economy {
+  background-color: rgb(214, 82, 82); /* Default light gray for unselected economy seats */
+}
+
+.seat-button.economy:hover {
+  background-color: rgb(31, 35, 238); /* Default light gray for unselected economy seats */
+}
+
+.seat-button.economy.selected {
+  background-color: #2884e6 !important; /* Blue for selected economy seats */
+  color: white; /* Change text color to white for better contrast */
 }
 
 /* Button hover effect */
@@ -101,13 +104,12 @@
 }
 
 .seat-button.selected:hover {
-  background-color: green;
-  color: white;
+  background-color: #0056b3; /* Darker blue when hovered */
 }
 
 /* Premium seat button styling */
 .seat-button.premium {
-  background-color: #141412; /* Gold color for premium seats */
+  background-color: #0e1a27; /* Dark blue for premium seats */
   color: rgb(211, 211, 211);
 }
 
@@ -117,7 +119,12 @@
 }
 
 .seat-button.premium:hover {
-  background-color: #dcb207; /* Lighter gold on hover */
+  background-color: #34495e; /* Lighter blue on hover */
+}
+
+.seat-button.occupied {
+  background-color: yellow; /* Change color to yellow for occupied seats */
+  cursor: not-allowed; /* Change cursor to indicate that the seat is not selectable */
 }
 
 /* Styling for the selected seat count */
@@ -128,15 +135,11 @@
 }
 
 /* Flex container for the dividers */
-/* Flex container for the dividers */
-/* Flex container for the dividers */
-/* Flex container for the dividers */
 .divider-container {
   display: flex;
   justify-content: center; /* Centers the dividers horizontally */
   align-items: center;
   margin-top: 0px; /* Adds spacing between the sections */
-  margin-left: -30px;
   width: 10%; /* Ensures the divider container takes up full width */
   gap: 260px; /* Adds space between the dividers */
 }
@@ -151,30 +154,11 @@
   width: 10px; /* Adjust the width of the divider */
 }
 
-.divider-container2 {
-  display: flex;
-  justify-content: center; /* Centers the dividers horizontally */
-  align-items: center;
-  margin-top: 10px; /* Adds spacing between the sections */
-  margin-left: -10px;
-  width: 100%; /* Ensures the divider container takes up full width */
-  gap: 270px; /* Adds space between the dividers */
-}
-
-.divider2 {
-  padding: 0px;
-  font-size: 16px;
-  font-weight: bold;
-  background-color: transparent;
-  text-align: center;
-  width: 10px; /* Adjust the width of the divider */
-}
-
 /* Submit button styling */
 .submit-button {
   margin-top: 20px;
   padding: 10px 20px;
-  background-color: green;
+  background-color: #4caf50; /* Green for submit button */
   color: white;
   border: none;
   border-radius: 5px;
@@ -184,7 +168,7 @@
 }
 
 .submit-button:hover {
-  background-color: darkgreen;
+  background-color: #388e3c; /* Darker green on hover */
 }
 
 /* Container for header and back button */
@@ -244,7 +228,6 @@
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
-  width: 100%;
   justify-content: center;
   align-items: center;
   z-index: 1000;

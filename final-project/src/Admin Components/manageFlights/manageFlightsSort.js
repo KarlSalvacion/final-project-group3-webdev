@@ -12,7 +12,9 @@ const SortFlights = ({ onSort }) => {
         date: 'asc',
         departureTime: 'asc',
         arrivalTime: 'asc',
-        passengers: 'asc', // Added state for passenger count
+        currentPassengers: 'asc', // Corrected spelling from 'cuurentPassenger' to 'currentPassengers'
+        economyPrice: 'asc', // Added state for economy price
+        premiumPrice: 'asc', // Added state for premium price
     });
 
     const handleSort = (criteria) => {
@@ -49,8 +51,14 @@ const SortFlights = ({ onSort }) => {
                 <button onClick={() => handleSort('arrivalTime')}>
                     Arrival Time {sortOrders.arrivalTime === 'asc' ? <FontAwesomeIcon icon={faSortUp} /> : <FontAwesomeIcon icon={faSortDown} />}
                 </button>
-                <button onClick={() => handleSort('passengers')}>
-                    Passengers {sortOrders.passengers === 'asc' ? <FontAwesomeIcon icon={faSortUp} /> : <FontAwesomeIcon icon={faSortDown} />}
+                <button onClick={() => handleSort('currentPassengers')}>
+                    Current Passengers {sortOrders.currentPassengers === 'asc' ? <FontAwesomeIcon icon={faSortUp} /> : <FontAwesomeIcon icon={faSortDown} />}
+                </button>
+                <button onClick={() => handleSort('economyPrice')}>
+                    Economy Price {sortOrders.economyPrice === 'asc' ? <FontAwesomeIcon icon={faSortUp} /> : <FontAwesomeIcon icon={faSortDown} />}
+                </button>
+                <button onClick={() => handleSort('premiumPrice')}>
+                    Premium Price {sortOrders.premiumPrice === 'asc' ? <FontAwesomeIcon icon={faSortUp} /> : <FontAwesomeIcon icon={faSortDown} />}
                 </button>
             </div>
         </div>

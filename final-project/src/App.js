@@ -6,14 +6,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 
 import Navbar from "./Components/userNavbars/navbar";
-import FlightBooking from "./Components/bookFlights/flightBooking";
+import SearchFlights from './Components/bookFlights/searchFlights';
 import DisplayFlightOneWay from "./Components/bookFlights/displayFlightOneWay";
 import DisplayFlightReturn from "./Components/bookFlights/displayFlightReturn";
+import BookingDetails from './Components/bookFlights/bookingDetails';
 import SeatSelection from "./Components/bookFlights/seatSelection";
 import Login from "./Components/accountControl/logIn";
 import Signup from "./Components/accountControl/signUp";
 import ManageFlights from "./Components/manageFlights/manageFlights";
-import ModifySeats from "./Components/manageFlights/modifySeats";
 import ExplorePage from "./Components/userHome/explorePage";
 import ViewFlights from "./Components/userViewFlights/viewFlights";
 import { AuthProvider } from './Components/accountControl/authContext';
@@ -23,7 +23,7 @@ import AdminDashboard from "./Admin Components/adminHome/adminDashboard";
 import AdminNavbar from './Admin Components/adminNavbars/adminNavbar';
 import AdminManageFlightsNavbar from './Admin Components/adminNavbars/adminManageFlightsNavbar';
 import AdminViewFlights from './Admin Components/manageFlights/manageFlightsViewAll';
-import SearchFlights from './Admin Components/manageFlights/manageFlightsSearch';
+import AdminSearchFlights from './Admin Components/manageFlights/manageFlightsSearch';
 import EditFlights from './Admin Components/manageFlights/manageFlightsEdit';
 import AddFlights from './Admin Components/manageFlights/manageFlightsAdd';
 import AdminSeatSelection from './Admin Components/manageSeats/adminSeatSelection';
@@ -63,15 +63,15 @@ function App() {
         <Routes>
           <Route path="/" element={<ExplorePage />} />
           <Route path="/explore" element={<ExplorePage />} />
-          <Route path="/flight-booking" element={<FlightBooking />} />
+          <Route path="/search-flights" element={<SearchFlights />} />
           <Route path="/display-flight-one-way" element={<DisplayFlightOneWay />} />
           <Route path="/display-flight-return" element={<DisplayFlightReturn />} />
+          <Route path="/booking-details" element={<BookingDetails/>} />
           <Route path="/seat-selection" element={<SeatSelection />} />
           <Route path="/view-flights" element={<ViewFlights />} />
           <Route path="/log-in" element={<Login />} />
           <Route path="/sign-up" element={<Signup />} />
           <Route path="/manage-flights" element={<ManageFlights />} />
-          <Route path="/modify-seats" element={<ModifySeats />} />
 
           {/* Admin routes */}
           <Route
@@ -94,7 +94,7 @@ function App() {
             path="/admin-manage-flights/search"
             element={
               <AdminManageFlightsNavbar>
-                <SearchFlights />
+                <AdminSearchFlights />
               </AdminManageFlightsNavbar>
             }
           />

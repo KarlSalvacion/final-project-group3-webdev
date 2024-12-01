@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; // Importing useNavigate
 import '../../Admin CSS Components/manageFlights CSS/manageFlightsSearch.css'; // Import your CSS
 
-const SearchFlights = () => {
+const AdminSearchFlights = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [searchCategory, setSearchCategory] = useState('from'); // Default category
     const [searchResults, setSearchResults] = useState([]);
@@ -21,6 +21,7 @@ const SearchFlights = () => {
     const handleSearch = () => {
         // Reset error message
         setError('');
+        setSearchResults([]); // Clear previous search results
 
         if (!searchQuery.trim()) {
             setError('Please enter a search query.');
@@ -31,11 +32,11 @@ const SearchFlights = () => {
             const lowerQuery = searchQuery.toLowerCase();
             switch (searchCategory) {
                 case 'from':
-                    return flight.from.toLowerCase().includes(lowerQuery);
+                    return flight.from && flight.from.toLowerCase().includes(lowerQuery);
                 case 'to':
-                    return flight.to.toLowerCase().includes(lowerQuery);
+                    return flight.to && flight.to.toLowerCase().includes(lowerQuery);
                 case 'date':
-                    return flight.date.includes(searchQuery); // Assuming date is in string format
+                    return flight.date && flight.date.includes(lowerQuery); // Assuming date is in string format
                 default:
                     return false;
             }
@@ -98,7 +99,7 @@ const SearchFlights = () => {
 
             {/* Search Results */}
             <div className="search-results">
-                {searchResults.length > 0 && (
+                {searchResults.length > 0 ? (
                     <ul>
                         {searchResults.map((flight) => (
                             <li key={flight.flightNumber} className="flight-item">
@@ -109,7 +110,7 @@ const SearchFlights = () => {
                                     <p><strong>Departure Time:</strong> {flight.departureTime}</p>
                                     <p><strong>Arrival Time:</strong> {flight.arrivalTime}</p>
                                     <p><strong>Passengers:</strong> {flight.passengers}</p>
-                                    <p><strong>Class Types:</strong> {flight.classType.join(', ')}</p>
+                                    <p><strong>Class Types:</strong> {flight.classType ? flight.classType.join(', ') : 'N/A'}</p>
                                 </div>
                                 <div className="flight-actions">
                                     <button
@@ -128,10 +129,12 @@ const SearchFlights = () => {
                             </li>
                         ))}
                     </ul>
+                ) : (
+                    <p>No search results to display.</p>
                 )}
             </div>
         </div>
     );
 };
 
-export default SearchFlights;
+export default AdminSearchFlights;

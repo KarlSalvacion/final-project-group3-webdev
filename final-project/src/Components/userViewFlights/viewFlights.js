@@ -34,6 +34,8 @@ const ViewFlights = () => {
                 <div className="flight-list">
                     {flightList.map((flight) => {
                         const currentPassenger = flight.currentPassenger || 0; // Access currentPassenger from each flight object
+                        const price = flight.price || 'Price unavailable'; // Access price from each flight object
+                        const classType = flight.classType || []; // Default to an empty array if classType is undefined
                         return (
                             <div className="flight-card" key={flight.flightNumber}>
                                 <div className="flight-details">
@@ -41,7 +43,8 @@ const ViewFlights = () => {
                                     <p><strong>Flight Number:</strong> {flight.flightNumber}</p>
                                     <p><strong>Departure:</strong> {flight.date ? new Date(flight.date).toLocaleDateString() : 'Date unavailable'} at {flight.departureTime}</p>
                                     <p><strong>Passengers:</strong> {currentPassenger}</p> {/* Display currentPassenger */}
-                                    <p><strong>Class Type:</strong> {flight.classType.join(" | ")}</p>
+                                    <p><strong>Class Type:</strong> {classType.length > 0 ? classType.join(" | ") : 'Class type unavailable'}</p>
+                                    <p><strong>Price:</strong> ${price}</p> {/* Display price */}
                                     <button
                                         className="book-button"
                                         onClick={() => handleBookFlight(flight)}

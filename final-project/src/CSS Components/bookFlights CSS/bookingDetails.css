@@ -1,0 +1,61 @@
+.booking-details-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #ffffff; /* White background for a clean look */
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px; /* Space below the heading */
+}
+
+.booking-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Space between form elements */
+}
+
+.passenger-count {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Space between labels */
+}
+
+label {
+  font-weight: bold;
+  color: #555;
+}
+
+.input-field,
+.select-field {
+  padding: 12px; /* Increased padding for better touch targets */
+ border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  transition: border-color 0.3s ease; /* Smooth transition for border color */
+}
+
+.input-field:focus,
+.select-field:focus {
+  border-color: #007bff; /* Change border color on focus */
+  outline: none; /* Remove default outline */
+}
+
+.submit-button {
+  padding: 12px;
+  background-color: #007bff; /* Primary button color */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.submit-button:hover {
+  background-color: #0056b3; /* Darker shade on hover */
+}

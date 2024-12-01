@@ -1,85 +1,95 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../Components/accountControl/authContext"; // Import useAuth hook
+import { useNavigate, useLocation } from "react-router-dom";
+import { useAuth } from '../accountControl/authContext'; // Adjust the import path
 import '../../CSS Components/bookFlights CSS/seatSelection.css';
 
 const SeatSelection = () => {
-  const { isLoggedIn, username } = useAuth(); // Access auth state
-  const [passengerCount, setPassengerCount] = useState(0);
+  const location = useLocation(); // Access the location object
+  const bookingDetails = location.state?.bookingDetails; // Get booking details from state
+  const { isLoggedIn, username } = useAuth(); // Get the login state and username from the AuthContext
+  const [passengerCount, setPassengerCount] = useState(bookingDetails?.totalPassengers || 0); // Set passenger count based on booking details
   const [seats, setSeats] = useState(
     Array(5)
       .fill()
-      .map(() => Array(6).fill(false))
+      .map(() => Array(6).fill(false)) // Premium Class Seats
       .concat(
-        Array(33)
+        Array(28)
           .fill()
-          .map(() => Array(6).fill(false))
+          .map(() => Array(6).fill(false)) // Economy Class Seats
       )
   );
-  const [selectedClass, setSelectedClass] = useState("");
-  const [showLoginModal, setShowLoginModal] = useState(false); // State to control modal visibility
+
+  const [showModal, setShowModal] = useState(false); // Modal visibility
   const navigate = useNavigate();
 
-  // Check login status when component mounts
+  // Log booking details for debugging
   useEffect(() => {
-    if (isLoggedIn) {
-      setShowLoginModal(false); // If already logged in, don't show the modal
-    }
+    console.log("Booking Details in SeatSelection:", bookingDetails);
+  }, [bookingDetails]);
 
-    const flightSearchData = JSON.parse(localStorage.getItem("flightSearchData"));
-    if (flightSearchData && flightSearchData.passengerCounts) {
-      const { adult, children, infant } = flightSearchData.passengerCounts;
-      setPassengerCount(adult + children + infant);
-    }
+  // Determine the index range for premium and economy seats
+  const isPremiumClass = bookingDetails?.cabinClass === "Premium";
 
-    if (flightSearchData && flightSearchData.classType) {
-      setSelectedClass(flightSearchData.classType); // Set the selected class based on localStorage
-    }
+  // Load occupied seats from local storage when the component mounts
+  useEffect(() => {
+    if (!bookingDetails) return; // Exit if bookingDetails is not available
 
-    // Load the previously selected seats if they exist
-    const flightBookingData = JSON.parse(localStorage.getItem("flightBookingData"));
-    if (flightBookingData && flightBookingData.selectedSeats) {
-      const updatedSeats = [...seats];
-      flightBookingData.selectedSeats.forEach((seatCode) => {
-        const [row, col] = getRowColFromSeatCode(seatCode); // Convert seat code to row/column
-        updatedSeats[row][col] = true; // Mark the seat as selected
-      });
-      setSeats(updatedSeats);
-    }
-
-    // Load the occupied seats from flight data in localStorage
-    const storedFlights = JSON.parse(localStorage.getItem("flights")) || [];
-    const selectedFlightData = JSON.parse(localStorage.getItem("selectedFlight")) || {};
-    if (selectedFlightData && selectedFlightData.flightNumber) {
-      const flight = storedFlights.find(
-        (flight) => flight.flightNumber === selectedFlightData.flightNumber
-      );
-      if (flight && flight.occupiedSeats) {
-        const updatedSeats = [...seats];
-        flight.occupiedSeats.forEach((seatCode) => {
-          const [row, col] = getRowColFromSeatCode(seatCode);
-          updatedSeats[row][col] = true; // Mark seat as occupied
+    const storedFlights = JSON.parse(localStorage.getItem('flights')) || [];
+    const flight = storedFlights.find(flight => flight.flightNumber === bookingDetails.flightNumber);
+    
+    if (flight) {
+      // Check if occupiedPremiumSeats exists and is an array
+      if (Array.isArray(flight.occupiedPremiumSeats)) {
+        flight.occupiedPremiumSeats.forEach(seat => {
+          const [row, col] = getSeatIndices(seat);
+          if (row < 5) {
+            seats[row][col] = true; // Premium seats
+          }
         });
-        setSeats(updatedSeats);
       }
+  
+      // Check if occupiedEconomySeats exists and is an array
+      if (Array.isArray(flight.occupiedEconomySeats)) {
+        flight.occupiedEconomySeats.forEach(seat => {
+          const [row, col] = getSeatIndices(seat);
+          if (row >= 5) {
+            seats[row][col] = true; // Economy seats
+          }
+        });
+      }
+  
+      setSeats([...seats]); // Update state to trigger re-render
+    } else {
+      console.error("Flight not found:", bookingDetails.flightNumber); // Log error if flight is not found
     }
-  }, [isLoggedIn, seats]);
+  }, 
+[bookingDetails.flightNumber]);
+
+  const getSeatIndices = (seatCode) => {
+    const rowNumber = parseInt(seatCode[0]) - 1; // Convert to zero-based index
+    const seatLetter = seatCode[1];
+    const colIndex = ["A", "B", "C", "H", "J", "K"].indexOf(seatLetter);
+    return [rowNumber, colIndex];
+  };
 
   const toggleSeat = (row, col) => {
     const updatedSeats = [...seats];
     const seatSelected = updatedSeats[row][col];
     const selectedSeats = updatedSeats.flat().filter((seat) => seat).length;
 
-    if (!seatSelected && selectedSeats >= passengerCount) {
-      return; // Prevent selection if maximum passengers have been reached
+    // Allow selection if it's not selected yet and we haven't reached the max passenger count
+    if (!seatSelected) {
+      if (selectedSeats < passengerCount) {
+        updatedSeats[row][col] = true; // Select the seat
+      }
+    } else {
+      updatedSeats[row][col] = false; // Deselect the seat
     }
 
-    updatedSeats[row][col] = !seatSelected;
     setSeats(updatedSeats);
   };
 
   const selectedSeats = seats.flat().filter((seat) => seat).length;
-
   const columns = ["A", "B", "C", "H", "J", "K"];
 
   const getSeatCode = (rowIndex, colIndex) => {
@@ -88,120 +98,165 @@ const SeatSelection = () => {
     return `${rowNumber}${seatLetter}`;
   };
 
-  // Convert seat code (e.g., A1, B2) to row and column indices
-  const getRowColFromSeatCode = (seatCode) => {
-    const row = parseInt(seatCode.slice(0, -1), 10) - 1; // Convert row (1-based) to index (0-based)
-    const col = columns.indexOf(seatCode.slice(-1)); // Find column index based on seat letter
-    return [row, col];
+  const generateBookingCode = () => {
+    return `BK-${bookingDetails.flightNumber}-${Date.now()}`;
   };
 
   const handleSubmit = () => {
     if (!isLoggedIn) {
-      setShowLoginModal(true); // Show the modal if the user is not logged in
+      setShowModal(true); // Show modal if not logged in
       return;
     }
-  
-    const flightSearchData = JSON.parse(localStorage.getItem("flightSearchData"));
-    const selectedFlightData = JSON.parse(localStorage.getItem("selectedFlight")) || {}; // Get selected flight from localStorage if available
-  
-    if (flightSearchData && selectedFlightData) {
-      const selectedSeatsData = [];
-  
-      seats.forEach((row, rowIndex) => {
-        row.forEach((seat, colIndex) => {
-          if (seat) {
-            selectedSeatsData.push(getSeatCode(rowIndex, colIndex));
+
+    const selectedSeatsData = [];
+    const occupiedPremiumSeats = [];
+    const occupiedEconomySeats = [];
+
+    seats.forEach((row, rowIndex) => {
+      row.forEach((seat, colIndex) => {
+        if (seat) {
+          const seatCode = getSeatCode(rowIndex, colIndex);
+          selectedSeatsData.push(seatCode);
+          if (rowIndex < 5) {
+            occupiedPremiumSeats.push(seatCode); // Premium seats
+          } else {
+            occupiedEconomySeats.push(seatCode); // Economy seats
           }
-        });
-      });
-  
-      // Retrieve the current flight list from localStorage
-      const storedFlights = JSON.parse(localStorage.getItem('flights')) || [];
-  
-      const updatedFlights = storedFlights.map((flight) => {
-        if (flight.flightNumber === selectedFlightData.flightNumber) {
-          // Add selected seats to the occupiedSeats array
-          const updatedOccupiedSeats = flight.occupiedSeats
-            ? [...flight.occupiedSeats, ...selectedSeatsData]
-            : selectedSeatsData;
-  
-          flight.occupiedSeats = updatedOccupiedSeats; // Update the occupied seats array
         }
-        return flight;
       });
-  
-      // Save the updated flight list back into localStorage
-      localStorage.setItem('flights', JSON.stringify(updatedFlights));
-  
-      // Store the flight booking data with selected seats under the username
-      const flightBookingData = {
-        flightNumber: selectedFlightData.flightNumber, // Save flight number
-        selectedSeats: selectedSeatsData,
-      };
-  
-      // Save the booking data in localStorage using the username as the key
-      localStorage.setItem(`${username}Booking`, JSON.stringify(flightBookingData));
-  
-      // Redirect to the ManageFlights page after booking
-      navigate("/manage-flights");
+    });
+
+    // Prepare booking details including flight information
+    const bookingDetailsToSave = {
+      bookingCode: generateBookingCode(), // Generate a unique booking code
+      selectedSeats: selectedSeatsData,
+      occupiedPremiumSeats: occupiedPremiumSeats,
+      occupiedEconomySeats: occupiedEconomySeats,
+      flightDetails: {
+        flightNumber: bookingDetails.flightNumber, // Flight number from booking details
+        departureDate: bookingDetails.departureDate, // Departure date from booking details
+        cabinClass: bookingDetails.cabinClass // Cabin class from booking details
+      },
+      username // Save the username to ensure only they can modify it
+    };
+
+    // Retrieve existing bookings for the user
+    const existingBookings = JSON.parse(localStorage.getItem(`${username}Booking`)) || [];
+
+    // Check if the user has already booked this flight
+    const isAlreadyBooked = existingBookings.some(booking => 
+      booking.flightDetails.flightNumber === bookingDetails.flightNumber
+    );
+
+    if (isAlreadyBooked) {
+      alert("You have already booked this flight. Please choose a different flight."); // Alert user if flight is already booked
+      return;
     }
+
+    // Add the new booking to the existing bookings
+    existingBookings.push(bookingDetailsToSave);
+
+    // Save all bookings under the username key
+    localStorage.setItem(`${username}Booking`, JSON.stringify(existingBookings)); // Save updated bookings in localStorage
+
+    // Update the flight information in localStorage
+    const storedFlights = JSON.parse(localStorage.getItem('flights')) || [];
+    const updatedFlights = storedFlights.map(flight => {
+      if (flight.flightNumber === bookingDetails.flightNumber) {
+        // Update current passenger count
+        flight.currentPassengerCount = (flight.currentPassengerCount || 0) + selectedSeats;
+
+        // Update occupied seats based on class
+        if (isPremiumClass) {
+          flight.occupiedPremiumSeats = (flight.occupiedPremiumSeats || []).concat(occupiedPremiumSeats);
+        } else {
+          flight.occupiedEconomySeats = (flight.occupiedEconomySeats || []).concat(occupiedEconomySeats);
+        }
+      }
+      return flight;
+    });
+
+    localStorage.setItem('flights', JSON.stringify(updatedFlights)); // Save updated flights in localStorage
+
+    console.log('Booking details saved:', bookingDetailsToSave);
+
+    // Alert user that booking was successful
+    alert("Your booking has been successfully completed!");
+
+    navigate("/manage-fl ights");
   };
 
   const handleCloseModal = () => {
-    setShowLoginModal(false); // Close the modal
+    setShowModal(false);
+  };
+
+  const goToLogin = () => {
     navigate("/log-in"); // Navigate to the login page
+    handleCloseModal(); // Close the modal when navigating
+  };
+
+  const goBack = () => {
+    navigate("/booking-details"); // Go back to the previous page
   };
 
   return (
     <div className="seat-selection-container">
       <div className="header-container">
-        <button className="back-button" onClick={() => navigate(-1)}>Back</button>
+        <button className="back-button" onClick={goBack}>Back</button>
         <h2 className="seat-selection-title">Seat Selection</h2>
       </div>
 
-      <div className="premium-seat-grid">
-        <h3 className="premium-text">Premium Class</h3>
-        {seats.slice(0, 5).map((row, rowIndex) => (
-          <div key={rowIndex} className="seat-row premium-row">
-            {row.map((seat, colIndex) => (
-              <React.Fragment key={colIndex}>
-                {colIndex === 3 && <div className="aisle-space"></div>}
-                <button
-                  className={`seat-button premium ${seat ? "selected" : ""}`}
-                  onClick={() => toggleSeat(rowIndex, colIndex)}
-                  disabled={seat || selectedClass !== "premium" || (seat ? false : selectedSeats >= passengerCount)}
-                >
-                  {getSeatCode(rowIndex, colIndex)}
-                </button>
-              </React.Fragment>
-            ))}
-          </div>
-        ))}
+      {/* Flight Details Section */}
+      <div className="flight-details">
+        <h3>Flight Details</h3>
+        <p><strong>Flight Number:</strong> {bookingDetails?.flightNumber}</p>
+        <p><strong>From:</strong> {bookingDetails?.from}</p>
+        <p><strong>To:</strong> {bookingDetails?.to}</p>
+        <p><strong>Departure Date:</strong> {bookingDetails?.departureDate}</p>
       </div>
 
-      <div className="economy-seat-grid">
-        <h3 className="economy-text">Economy Class</h3>
-        <div className="divider-container">
-          <div className="divider left-divider">Exit</div>
-          <div className="divider right-divider">Exit</div>
+      {isPremiumClass && (
+        <div className="premium-seat-grid">
+          <h3 className="premium-text">Premium Class</h3>
+          {seats.slice(0, 5).map((row, rowIndex) => (
+            <div key={rowIndex} className="seat-row premium-row">
+              {row.map((seat, colIndex) => (
+                <React.Fragment key={colIndex}>
+                  {colIndex === 3 && <div className="aisle-space"></div>}
+                  <button className={`seat-button premium ${seat ? "selected occupied" : ""}`}
+                    onClick={() => !seat && toggleSeat(rowIndex, colIndex)} // Disable click if seat is occupied
+                    disabled={seat} // Disable button if seat is occupied
+                  >
+                    {getSeatCode(rowIndex, colIndex)}
+                  </button>
+                </React.Fragment>
+              ))}
+            </div>
+          ))}
         </div>
-        {seats.slice(5, 33).map((row, rowIndex) => (
-          <div key={rowIndex + 5} className="seat-row">
-            {row.map((seat, colIndex) => (
-              <React.Fragment key={colIndex}>
-                {colIndex === 3 && <div className="aisle-space"></div>}
-                <button
-                  className={`seat-button ${seat ? "selected" : ""}`}
-                  onClick={() => toggleSeat(rowIndex + 5, colIndex)}
-                  disabled={seat || selectedClass !== "economy" || (seat ? false : selectedSeats >= passengerCount)}
-                >
-                  {getSeatCode(rowIndex + 5, colIndex)}
-                </button>
-              </React.Fragment>
-            ))}
-          </div>
-        ))}
-      </div>
+      )}
+
+      {!isPremiumClass && (
+        <div className="economy-seat-grid">
+          <h3 className="economy-text">Economy Class</h3>
+          {seats.slice(5).map((row, rowIndex) => (
+            <div key={rowIndex + 5} className="seat-row">
+              {row.map((seat, colIndex) => (
+                <React.Fragment key={colIndex}>
+                  {colIndex === 3 && <div className="aisle-space"></div>}
+                  <button
+                    className={`seat-button economy ${seat ? "selected occupied" : ""}`}
+                    onClick={() => !seat && toggleSeat(rowIndex + 5, colIndex)} // Disable click if seat is occupied
+                    disabled={seat} // Disable button if seat is occupied
+                  >
+                    {getSeatCode(rowIndex + 5, colIndex)}
+                  </button>
+                </React.Fragment>
+              ))}
+            </div>
+          ))}
+        </div>
+      )}
 
       <div className="footer-container">
         <button className="book-button" onClick={handleSubmit}>
@@ -209,11 +264,13 @@ const SeatSelection = () => {
         </button>
       </div>
 
-      {showLoginModal && (
-        <div className="login-modal">
+      {showModal && (
+        <div className="modal">
           <div className="modal-content">
-            <h3>Please log in to complete the booking.</h3>
-            <button className="login-btn" onClick={handleCloseModal}>Log In</button>
+            <h3>Please Log In</h3>
+            <p>You need to be logged in to book seats.</p>
+            <button className="modal-button" onClick={goToLogin}>Go to Login</button>
+            <button className="modal-button" onClick={handleCloseModal}>Close</button>
           </div>
         </div>
       )}

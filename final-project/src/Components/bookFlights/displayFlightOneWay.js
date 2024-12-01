@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import '../../CSS Components/bookFlights CSS/displayFlightOneWay.css';
+import "../../CSS Components/bookFlights CSS/displayFlightOneWay.css"; // Adjust the path as needed
 
 const DisplayFlightOneWay = () => {
   const location = useLocation();
@@ -9,87 +9,71 @@ const DisplayFlightOneWay = () => {
   // Destructure the incoming state
   const { from, to, departureDate } = location.state || {};
 
-  const [selectedFlight, setSelectedFlight] = useState(null);
-  const [noAvailableFlights, setNoAvailableFlights] = useState(false);
-  const [flights, setFlights] = useState([]); // Add state to store the flight data
+  const [selectedDepartureFlight, setSelectedDepartureFlight] = useState(null);
+  const [noAvailableDepartureFlights, setNoAvailableDepartureFlights] = useState(false);
+  const [flights, setFlights] = useState([]); // State to store flights from localStorage
 
   // Fetch flights from localStorage when the component mounts
   useEffect(() => {
     const storedFlights = JSON.parse(localStorage.getItem('flights')) || []; // Retrieve flights from localStorage
-    setFlights(storedFlights); // Store it in the state
+    setFlights(storedFlights);
   }, []);
 
   // Filter flights based on user preferences
-  const filteredFlights = flights.filter(
+  const filteredDepartureFlights = flights.filter(
     (flight) =>
       flight.from === from &&
       flight.to === to &&
-      flight.date === departureDate
+      flight.date === departureDate // Ensure date matches for departure
   );
 
   // Update noAvailableFlights state based on filteredFlights length
   useEffect(() => {
-    setNoAvailableFlights(filteredFlights.length === 0);
-  }, [filteredFlights]);
+    setNoAvailableDepartureFlights(filteredDepartureFlights.length === 0);
+  }, [filteredDepartureFlights]);
 
-  const handleSelectFlight = (flight) => {
-    if (selectedFlight?.flightNumber === flight.flightNumber) {
-      setSelectedFlight(null);
+  const handleSelectDepartureFlight = (flight) => {
+    if (selectedDepartureFlight?.flightNumber === flight.flightNumber) {
+      setSelectedDepartureFlight(null); // Unselect the flight if it's already selected
     } else {
-      setSelectedFlight(flight);
-      // Save the selected flight to localStorage
-      localStorage.setItem("selectedFlight", JSON.stringify(flight));
+      setSelectedDepartureFlight(flight); // Select the flight
     }
   };
-  
 
-  const handleSubmitBooking = () => {
-    if (selectedFlight) {
-      navigate("/seat-selection", {
+  const handleProceed = () => {
+    if (selectedDepartureFlight) {
+      navigate("/booking-details", {
         state: {
-          selectedFlight,
+          departureFlight: selectedDepartureFlight, // Pass the selected flight
         },
-      });
+      }); // Navigate to BookingDetails page
     } else {
-      alert("Please select a flight to book.");
+      alert("Please select a departure flight.");
     }
-  };
+};
 
   const handleBack = () => {
-    navigate("/flight-booking");
+    navigate("/search-flights");
   };
 
   return (
     <div className="oneway-display-container">
-      {!noAvailableFlights && (
+      {/* Display Departure Flights */}
+      {!noAvailableDepartureFlights && (
         <>
-          <h2 className="oneway-title">Available Flights</h2>
+          <h3>Departure Flights</h3>
           <p>
-            <strong>{from}</strong> to <strong>{to}</strong> on{" "}
-            <strong>{departureDate}</strong>
+            <strong>{from}</strong> to <strong>{to}</strong> on <strong>{departureDate}</strong>
           </p>
-        </>
-      )}
-
-      {noAvailableFlights ? (
-        <div className="oneway-no-flights-message">
-          <p className="oneway-message">
-            Sorry! No flights found for the selected criteria.
-          </p>
-        </div>
-      ) : (
-        <>
           <div className="oneway-flight-cards-container">
-            {filteredFlights.map((flight) => (
+            {filteredDepartureFlights.map((flight) => (
               <div
                 key={flight.flightNumber}
-                className={`oneway-flight-card ${selectedFlight?.flightNumber === flight.flightNumber ? "selected" : ""}`}
+                className={`oneway-flight-card ${selectedDepartureFlight?.flightNumber === flight.flightNumber ? "selected" : ""}`}
               >
                 <div className="oneway-flight-card-header">
                   <h3>{flight.flightNumber}</h3>
-                  <span>
-                    {flight.from} to {flight.to}
-                  </span>
+                  <span>{flight.from} to {flight.to}</span>
                 </div>
                 <div className="oneway-flight-card-details">
                   <p>
@@ -99,25 +83,23 @@ const DisplayFlightOneWay = () => {
                     <strong>Arrival:</strong> {flight.arrivalTime}
                   </p>
                   <p>
-                    <strong>Passengers:</strong> {flight.passengers}
+                    <strong>Current Passengers:</strong> {flight.currentPassengerCount || 0} {/* Display current passengers */}
                   </p>
+                  
                   <p>
-                    <strong>Class Type:</strong> {flight.classType || "Not Available"}
+                    <strong>Economy Price:</strong> ${flight.economyPrice} {/* Display flight price */}
+                    <strong>Premium Price:</strong> ${flight.premiumPrice} {/* Display flight price */}
                   </p>
+                  
+                  {/* Add more fields as necessary */}
                 </div>
                 <button
-                  className={`oneway-select-button ${selectedFlight?.flightNumber === flight.flightNumber ? "selected" : ""}`}
-                  onClick={() => handleSelectFlight(flight)}
-                  onMouseEnter={(e) =>
-                    (e.target.innerText =
-                      selectedFlight?.flightNumber === flight.flightNumber ? "Unselect" : "Select")
-                  }
-                  onMouseLeave={(e) =>
-                    (e.target.innerText =
-                      selectedFlight?.flightNumber === flight.flightNumber ? "Unselect" : "Select")
-                  }
+                  className={`oneway-select-button ${selectedDepartureFlight?.flightNumber === flight.flightNumber ? "selected" : ""}`}
+                  onClick={() => handleSelectDepartureFlight(flight)}
+                  onMouseEnter={(e) => (e.target.innerText = selectedDepartureFlight?.flightNumber === flight.flightNumber ? "Unselect" : "Select")}
+                  onMouseLeave={(e) => (e.target.innerText = selectedDepartureFlight?.flightNumber === flight.flightNumber ? "Unselect" : "Select")}
                 >
-                  {selectedFlight?.flightNumber === flight.flightNumber ? "Unselect" : "Select"}
+                  {selectedDepartureFlight?.flightNumber === flight.flightNumber ? "Unselect" : "Select"}
                 </button>
               </div>
             ))}
@@ -125,16 +107,25 @@ const DisplayFlightOneWay = () => {
         </>
       )}
 
+      {/* No Departure Flights Message */}
+      {noAvailableDepartureFlights && (
+        <div className="oneway-no-flights-message">
+          <p className="oneway-message">Sorry! No departure flights found for the selected criteria.</p>
+        </div>
+      )}
+
+      {/* Back Button */}
       <button className="oneway-back-button" onClick={handleBack}>
         Back to Booking
       </button>
 
-      {!noAvailableFlights && (
+      {/* Show Proceed Button only if a flight is selected */}
+      {!noAvailableDepartureFlights && (
         <div className="oneway-button-container">
           <button
             className="oneway-submit-booking-button"
-            onClick={handleSubmitBooking}
-            disabled={!selectedFlight}
+            onClick={handleProceed}
+            disabled={!selectedDepartureFlight}
           >
             Proceed
           </button>
