@@ -6,20 +6,6 @@ import "../../Admin CSS Components/adminNavbars CSS/adminNavbar.css";
 import logo from "../../Assets/jpg/long-logo.png"; // Import the logo image
 import { useAuth } from "../../Components/accountControl/authContext"; // Adjust the import path accordingly
 
-/*************  ✨ Codeium Command ⭐  *************/
-/**
- * AdminNavbar is a React functional component that renders the navigation bar
- * for the admin section of the application. It provides links to the admin
- * dashboard, manage flights, and manage bookings pages. It also displays the
- * admin username and includes a logout button that clears the authentication
- * state and redirects the user to the home page.
- *
- * @param {Object} props - The props object.
- * @param {ReactNode} props.children - The child components to be rendered within the main work area section.
- *
- * @returns {JSX.Element} The rendered admin navigation bar component.
- */
-/******  d832c0f0-a989-4282-bfdb-b4cdc34e5820  *******/
 const AdminNavbar = ({ children }) => {
   const navigate = useNavigate();
   const { username, logout } = useAuth(); // Get username and logout function from the context
