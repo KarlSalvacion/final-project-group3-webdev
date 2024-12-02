@@ -1,32 +1,60 @@
 .manage-flights-container {
-    padding: 20px;
-    background-color: #f4f4f9;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  }
-  
-  .flight-details {
-    background-color: #fff;
-    padding: 15px;
-    border-radius: 6px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .flight-details h3 {
-    margin-top: 0;
-  }
-  
-  .flight-details button {
-    background-color: #d9534f;
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 10px;
-  }
-  
-  .flight-details button:hover {
-    background-color: #c9302c;
-  }
-  
+  padding: 20px;
+  background-color: #343131;
+  border-radius: 8px;
+}
+
+.flights-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.flight-details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #1e1e1e;
+  padding: 15px;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+}
+
+.flight-info {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.flight-info span {
+  margin-right: 10px;
+}
+
+.plane-icon-manage {
+  color: #EEDF7A !important;
+}
+
+.booking-code, .flight-number {
+  color: #EEDF7A !important;
+  font-weight: 500;
+
+}
+
+.cancel-button {
+  background-color: #A04747;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.cancel-button:hover {
+  background-color: #6f2727;
+}
+
+.no-flights-booked {
+  color: #EEDF7A;
+  font-size: 30px;
+  text-align: center;
+}

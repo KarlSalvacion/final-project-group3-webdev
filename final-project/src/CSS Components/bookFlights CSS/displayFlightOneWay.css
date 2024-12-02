@@ -120,7 +120,7 @@
   }
   
   .oneway-submit-booking-button:disabled {
-    background-color: #EEDF7A;
+    background-color: #dedede;
     cursor: not-allowed;
   }
   

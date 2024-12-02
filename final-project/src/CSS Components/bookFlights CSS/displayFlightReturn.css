@@ -10,6 +10,13 @@
 .return-title {
     text-align: center;
     margin-bottom: 20px;
+    color: #e9d44c;
+    font-weight: 700;
+    font-size: 30px;
+}
+
+.return-desc {
+    color: #ded69d;
 }
 
 .return-flight-cards-container {
@@ -20,8 +27,9 @@
 }
 
 .return-flight-card {
-    background-color: #fff;
-    border: 1px solid #ddd;
+    background-color: #1e1e1e;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3); 
+    color: #fff;
     border-radius: 10px;
     width: 250px;
     margin: 10px;
@@ -31,7 +39,7 @@
 }
 
 .return-flight-card.selected {
-    background-color: #4CAF50; /* Green background for selected flight */
+    background-color: #1e1e1e; /* Green background for selected flight */
     color: #fff;
 }
 
@@ -45,24 +53,38 @@
 }
 
 .return-select-button {
-    background-color: #007BFF;
-    color: white;
+    background-color: #1e1e1e;
+    border: 2px solid #EEDF7A !important;
+    color: #EEDF7A;
     border: none;
     padding: 10px;
     width: 100%;
     cursor: pointer;
     border-radius: 5px;
     font-size: 16px;
-    transition: background-color 0.3s ease;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3); 
 }
 
 .return-select-button:hover {
-    background-color: #0056b3; /* Change color when hovered */
+    background-color: #e9d44b;
+    border: 2px solid #e9d44b !important; 
+    color: #1e1e1e;/* Change color when hovered *//* Change color when hovered */
 }
 
 .return-select-button.selected {
-    background-color: #28a745; /* Change button color when selected */
+    background-color: #EEDF7A;
+    border: 2px solid #EEDF7A !important; 
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3); 
+    color: #1e1e1e; /* Change button color when selected *//* Change button color when selected */
 }
+
+.return-select-button.selected:hover {
+    background-color: #c3ad21;
+    border: 2px solid #c3ad21 !important; 
+    color: #1e1e1e; /* Change button color when selected */
+  }
 
 .return-select-button:focus {
     outline: none;
@@ -74,18 +96,30 @@
 }
 
 .return-submit-booking-button {
-    background-color: #007BFF;
-    color: white;
+    background-color: #EEDF7A;
+    color: #1e1e1e  ;
     border: none;
     padding: 10px 40px; /* Reduced padding for smaller button */
     cursor: pointer;
     border-radius: 5px;
     font-size: 18px;
+    font-weight: 600;
     transition: background-color 0.3s ease;
 }
 
+.return-submit-booking-button:hover {
+    background-color: #c3ad21;
+    color: #1e1e1e  ;
+    border: none;
+    padding: 10px 40px; /* Reduced padding for smaller button */
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 18px;
+    transition: all 0.3s ease;
+  }
+
 .return-submit-booking-button:disabled {
-    background-color: #ddd;
+    background-color: #959595;
     cursor: not-allowed;
 }
 

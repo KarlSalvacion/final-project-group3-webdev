@@ -10,3 +10,16 @@ html, body {
     margin: 0; /* Remove default margin */
 }
 
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgb(67, 67, 67);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1e1e1e
+}
