@@ -65,8 +65,8 @@ const BookingDetails = () => {
             <div className="flight-detail"><strong>Date:</strong> {departureFlight.date}</div>
             <div className="flight-detail"><strong>Departure Time:</strong> {departureFlight.departureTime}</div>
             <div className="flight-detail"><strong>Arrival Time:</strong> {departureFlight.arrivalTime}</div>
-            <div className="flight-detail"><strong>Economy Price:</strong> ${departureFlight.economyPrice}</div>
-            <div className="flight-detail"><strong>Premium Price:</strong> ${departureFlight.premiumPrice}</div>
+            <div className="flight-detail"><strong>Economy Price per pax:</strong> ${departureFlight.economyPrice}</div>
+            <div className="flight-detail"><strong>Premium Price per pax:</strong> ${departureFlight.premiumPrice}</div>
             <div className="flight-detail"><strong>Total Cost:</strong> ${calculateTotalCost()}</div>
           </div>
         </div>
