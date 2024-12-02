@@ -1,0 +1,49 @@
+.manage-flights-add-container {
+    padding: 20px;
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .add-flights-header {
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .add-flights-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .add-flights-input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+  }
+  
+  .add-flights-button {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  
+  .add-flights-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .add-flights-message {
+    margin-top: 15px;
+    font-size: 1rem;
+    text-align: center;
+    color: green;
+  }
+  

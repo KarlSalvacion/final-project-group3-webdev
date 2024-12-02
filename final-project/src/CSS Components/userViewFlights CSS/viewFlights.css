@@ -1,0 +1,94 @@
+/* Flight list grid for horizontal display */
+
+
+.title {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.flight-list {
+  display: flex;
+  flex-direction: column; /* Stack flight cards vertically */
+  gap: 20px;
+  padding-bottom: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Card design for each flight */
+.flight-card {
+  display: flex;
+  align-items: center; /* Center align items vertically */
+  border-radius: 12px;
+  padding: 20px;
+  width: 100%;
+  max-width: 100%; /* Set a maximum width for each card */
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+}
+
+/* Flight details inside the card */
+.flight-details {
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap if necessary */
+  justify-content: space-between; /* Space out the items */
+  text-align: left;
+  margin-bottom: -20px;
+  align-items: center; /* Align items vertically in the center */
+}
+
+/* Define a fixed width for each flight detail */
+.flight-details span {
+  flex: 1; /* Allow spans to take equal space */
+  min-width: 100px; /* Set a minimum width to maintain spacing */
+  margin: 0 5px; /* Add some horizontal spacing */
+  text-align: center; /* Center-align the text within each span */
+  color: #555555;
+  line-height: 1.5;
+}
+
+/* Optional: Add styles for the bold text */
+.view-flights-bold-text {
+  font-weight: 700; /* Bold text */
+}
+
+/* Button style for booking flights */
+.book-button {
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  margin-top: 0px !important;
+  margin-left: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Hover effect for booking button */
+.book-button:hover {
+  background-color: #0056b3;
+  transform: translateY(-3px);
+}
+
+/* Active state for booking button */
+.book-button:active {
+  background-color: #003f7f;
+  transform: translateY(1px);
+}
+
+.view-flights-bold-text {
+  font-weight: 700;
+}
+
+/* Responsiveness: Adjust layout for smaller screens */
+@media (max-width: 768px) {
+  .flight-list {
+      flex-direction: column; /* Stack the flight cards vertically on small screens */
+  }
+
+  .flight-card {
+      width: 100%;
+      max-width: 100%; /* Allow cards to expand on smaller screens */
+  }
+}
