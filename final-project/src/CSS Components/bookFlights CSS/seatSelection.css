@@ -1,8 +1,14 @@
 /* General container for the seat selection */
 .seat-selection-container {
+  display: flex; /* Use flexbox for layout */
+  flex-direction: column; /* Align children in a column */
+  justify-content: space-between; /* Pushes the submit button to the bottom */
   text-align: center;
   font-family: Arial, sans-serif;
   margin-top: 20px;
+  padding-bottom: 60px; /* Add padding to prevent content from being overlapped by the fixed button */
+  position: relative; 
+  background-color: #343131;/* Allows absolute positioning of the back button */
 }
 
 /* Seat grid styling */
@@ -50,11 +56,6 @@
   align-items: center;
 }
 
-/* Premium row styling */
-.premium-row {
-  background-color: #f0f8ff; /* Light blue background for premium seats */
-}
-
 /* Styling for row numbers */
 .row-number {
   width: 30px;
@@ -68,33 +69,41 @@
   width: 40px; /* Creates a noticeable gap for the aisle */
 }
 
+
 /* Button styling for each seat */
 /* Button styling for each seat */
 .seat-button {
   width: 40px;
   height: 40px; /* Light gray for unselected seats */
-  border: 1px solid #ccc;
   border-radius: 5px;
   cursor: pointer;
   font-size: 14px;
+  font-weight: 600;
   transition: background-color 0.3s ease, transform 0.2s ease;
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 /* Economy seat button styling */
 .seat-button.economy {
-  background-color: rgb(214, 82, 82); /* Default light gray for unselected economy seats */
+  background-color: #1e1e1e;
+  color: #fff; /* Default light gray for unselected economy seats */
 }
 
 .seat-button.economy:hover {
-  background-color: rgb(31, 35, 238); /* Default light gray for unselected economy seats */
-}
+  background-color: #3d3d3c ; /* Default light gray for unselected economy seats */
+} 
 
 .seat-button.economy.selected {
-  background-color: #2884e6 !important; /* Blue for selected economy seats */
-  color: white; /* Change text color to white for better contrast */
+  background-color: #44982b !important; /* Blue for selected economy seats */
+  color: #fff; /* Change text color to white for better contrast */
+}
+
+.seat-button.economy.selected:hover {
+  background-color: #798775 !important; /* Blue for selected economy seats */
+  color: #fff; /* Change text color to white for better contrast */
 }
 
 /* Button hover effect */
@@ -109,17 +118,24 @@
 
 /* Premium seat button styling */
 .seat-button.premium {
-  background-color: #0e1a27; /* Dark blue for premium seats */
-  color: rgb(211, 211, 211);
+  background-color: #1e1e1e; /* Dark blue for premium seats */
+  color: #fff;
+
 }
 
 .seat-button.premium.selected {
-  background-color: #ffcc00; /* Lighter gold when selected */
-  color: white;
+  background-color: #44982b; /* Lighter gold when selected */
+  color: #fff;
 }
 
+.seat-button.premium.selected:hover {
+  background-color: #798775; /* Lighter gold when selected */
+  color: #fff;
+}
+
+
 .seat-button.premium:hover {
-  background-color: #34495e; /* Lighter blue on hover */
+  background-color: #3d3d3c; /* Lighter blue on hover */
 }
 
 .seat-button.occupied {
@@ -154,50 +170,69 @@
   width: 10px; /* Adjust the width of the divider */
 }
 
+.economy-text {
+  color: #EEDF7A !important;
+  font-weight: 600 !important;
+  font-size: 30px !important;
+}
+
 /* Submit button styling */
+
+.selected-seats-text {
+  position: fixed;
+  padding: 10px 30px;
+  width: 400px;
+  top: 600px;
+  bottom: -100px;
+  left: 540px;
+  color: #EEDF7A;
+  background-color: #343131;
+  border-radius: 5px;
+  font-weight: 600;
+}
+
+
 .submit-button {
-  margin-top: 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  margin-top: 650px; /* This margin can be adjusted or removed */
+  margin-left: 635px;
   padding: 10px 20px;
-  background-color: #4caf50; /* Green for submit button */
-  color: white;
+  background-color: #EEDF7A; /* Green for submit button */
+  color: #1e1e1e;
   border: none;
   border-radius: 5px;
   font-size: 16px;
   cursor: pointer;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
   transition: background-color 0.3s ease;
 }
 
+/* Ensure the submit button stays at the bottom */
 .submit-button:hover {
   background-color: #388e3c; /* Darker green on hover */
 }
 
 /* Container for header and back button */
-.header-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
-  position: relative;
-}
-
-/* Back button styling */
 .back-button {
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-color: #f4f4f4;
-  color: #333;
-  border: 1px solid #ccc;
+  position: absolute; /* Position it at the top left corner */
+  top: 10px; /* Adjust as needed */
+  left: 10px; /* Adjust as needed */
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
   padding: 10px 20px;
   border-radius: 5px;
-  margin-left: 200px;
   font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .back-button:hover {
-  background-color: #ddd;
+  background-color: #c0392b;
   transform: translateY(-3px);
 }
 
@@ -252,4 +287,39 @@
 
 .modal-button:hover {
   background-color: #0056b3;
+}
+
+.submission-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.submission-modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.modal-close-button {
+  background-color: #EEDF7A;
+  color: #1f1f1f;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.modal-close-button:hover {
+  background-color: #d2bb29;
 }

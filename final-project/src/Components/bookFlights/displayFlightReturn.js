@@ -80,8 +80,8 @@ const DisplayFlightReturn = () => {
       {/* Display Departure Flights */}
       {!noAvailableDepartureFlights && (
         <>
-          <h3>Departure Flights</h3>
-          <p>
+          <h3 className="return-title">Departure Flights</h3>
+          <p className="return-desc">
             <strong>{from}</strong> to <strong>{to}</strong> on <strong>{departureDate}</strong>
           </p>
           <div className="return-flight-cards-container">
@@ -129,8 +129,8 @@ const DisplayFlightReturn = () => {
       {/* Display Return Flights */}
       {!noAvailableReturnFlights && (
         <>
-          <h3>Return Flights</h3>
-          <p>
+          <h3 className="return-title">Return Flights</h3>
+          <p className="return-desc">
             <strong>{to}</strong> to <strong>{from}</strong> on <strong>{returnDate}</strong>
           </p>
           <div className="return-flight-cards-container">

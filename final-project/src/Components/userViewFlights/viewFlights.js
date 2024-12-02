@@ -44,14 +44,14 @@ const ViewFlights = () => {
                                     <span className="view-flights-bold-text">{flight.flightNumber}</span>
                                     <span className="view-flights-bold-text">{flight.from}</span>
                                     <span>
-                                        <FontAwesomeIcon icon={faPlane} /> {/* Plane icon */}
+                                        <FontAwesomeIcon icon={faPlane} className="view-flight-plane-icon" /> {/* Plane icon */}
                                     </span>
                                     <span className="view-flights-bold-text">{flight.to}</span>
                                     <span>{flight.date ? new Date(flight.date).toLocaleDateString() : 'Date unavailable'}</span>
                                     <span>{flight.departureTime}</span>
                                     <span>{flight.arrivalTime}</span>
                                     <span>Passenger Count: {currentPassenger}</span>
-                                    <span>{classType.length > 0 ? classType.join(" | ") : 'Class type unavailable'}</span>
+                                    <span>{classType.length > 0 ? classType.join(" ") : 'Class type unavailable'}</span>
                                     <span>Economy: ${economyPrice}</span>
                                     <span>Premium: ${premiumPrice}</span>
                                     <button
