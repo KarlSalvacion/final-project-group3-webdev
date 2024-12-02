@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "../../CSS Components/bookFlights CSS/bookingDetails.css"; // Add your CSS file for styling
 
 const BookingDetails = () => {
@@ -13,9 +13,16 @@ const BookingDetails = () => {
   const [cabinClass, setCabinClass] = useState("Economy");
 
   const calculateTotalCost = () => {
-    const adultPrice = cabinClass === "Economy" ? departureFlight.economyPrice : departureFlight.premiumPrice;
-    const childPrice = cabinClass === "Economy" ? departureFlight.economyPrice * 0.5 : departureFlight.premiumPrice * 0.5;
-    const totalCost = adultCount * adultPrice + childCount * childPrice + infantCount * 0;
+    const adultPrice =
+      cabinClass === "Economy"
+        ? departureFlight.economyPrice
+        : departureFlight.premiumPrice;
+    const childPrice =
+      cabinClass === "Economy"
+        ? departureFlight.economyPrice * 0.5
+        : departureFlight.premiumPrice * 0.5;
+    const totalCost =
+      adultCount * adultPrice + childCount * childPrice + infantCount * 0;
     return totalCost.toFixed(2);
   };
 
@@ -37,7 +44,7 @@ const BookingDetails = () => {
 
     const totalPassengers = adultCount + childCount + infantCount;
 
-    navigate(-1, {
+    navigate("/seat-selection", {
       state: {
         bookingDetails: {
           ...bookingDetails,
@@ -54,20 +61,40 @@ const BookingDetails = () => {
   return (
     <div className="booking-details-container">
       <h2>Booking Details</h2>
-      
+
       {departureFlight ? (
         <div className="flight-info">
           <h3 className="flight-info-title">Selected Flight Information:</h3>
           <div className="flight-info-details">
-            <div className="flight-detail"><strong>Flight Number:</strong> {departureFlight.flightNumber}</div>
-            <div className="flight-detail"><strong>From:</strong> {departureFlight.from}</div>
-            <div className="flight-detail"><strong>To:</strong> {departureFlight.to}</div>
-            <div className="flight-detail"><strong>Date:</strong> {departureFlight.date}</div>
-            <div className="flight-detail"><strong>Departure Time:</strong> {departureFlight.departureTime}</div>
-            <div className="flight-detail"><strong>Arrival Time:</strong> {departureFlight.arrivalTime}</div>
-            <div className="flight-detail"><strong>Economy Price per pax:</strong> ${departureFlight.economyPrice}</div>
-            <div className="flight-detail"><strong>Premium Price per pax:</strong> ${departureFlight.premiumPrice}</div>
-            <div className="flight-detail"><strong>Total Cost:</strong> ${calculateTotalCost()}</div>
+            <div className="flight-detail">
+              <strong>Flight Number:</strong> {departureFlight.flightNumber}
+            </div>
+            <div className="flight-detail">
+              <strong>From:</strong> {departureFlight.from}
+            </div>
+            <div className="flight-detail">
+              <strong>To:</strong> {departureFlight.to}
+            </div>
+            <div className="flight-detail">
+              <strong>Date:</strong> {departureFlight.date}
+            </div>
+            <div className="flight-detail">
+              <strong>Departure Time:</strong> {departureFlight.departureTime}
+            </div>
+            <div className="flight-detail">
+              <strong>Arrival Time:</strong> {departureFlight.arrivalTime}
+            </div>
+            <div className="flight-detail">
+              <strong>Economy Price per pax:</strong> $
+              {departureFlight.economyPrice}
+            </div>
+            <div className="flight-detail">
+              <strong>Premium Price per pax:</strong> $
+              {departureFlight.premiumPrice}
+            </div>
+            <div className="flight-detail">
+              <strong>Total Cost:</strong> ${calculateTotalCost()}
+            </div>
           </div>
         </div>
       ) : (
@@ -78,7 +105,8 @@ const BookingDetails = () => {
         <div className="passenger-count">
           <label>
             Adults (12+ years):
-            <input type="number"
+            <input
+              type="number"
               min="1"
               value={adultCount}
               onChange={(e) => setAdultCount(Number(e.target.value))}
@@ -109,15 +137,23 @@ const BookingDetails = () => {
         <div className="cabin-class">
           <label>
             Cabin Class:
-            <select value={cabinClass} onChange={(e) => setCabinClass(e.target.value)} className="select-field">
+            <select
+              value={cabinClass}
+              onChange={(e) => setCabinClass(e.target.value)}
+              className="select-field"
+            >
               <option value="Economy">Economy</option>
               <option value="Premium">Premium</option>
             </select>
           </label>
         </div>
-        <button type="submit" className="submit-button">Proceed to Seat Selection</button>
+        <button type="submit" className="submit-button">
+          Proceed to Seat Selection
+        </button>
       </form>
-      <button onClick={handleBack} className="back-button">Back to Search Flights</button>
+      <button onClick={handleBack} className="back-button">
+        Back to Search Flights
+      </button>
     </div>
   );
 };
