@@ -1,87 +1,53 @@
-/* Container for the flight list */
-.flight-container {
-  max-width: 100%;
-  margin: 0 auto;
-  padding: 40px;
-  font-family: 'Helvetica Neue', Arial, sans-serif;
-  background-color: #f8f9fa;
-  border-radius: 8px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-}
-
-/* Title section */
-.title {
-  text-align: center;
-  font-size: 2rem;
-  font-weight: bold;
-  color: #343a40;
-  margin-bottom: 30px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
-
-/* If no flights are available */
-.no-flights-message {
-  text-align: center;
-  font-size: 1.2rem;
-  color: #d9534f;
-}
-
 /* Flight list grid for horizontal display */
+
+
+.title {
+  margin-top: 20px;
+  text-align: center;
+}
+
 .flight-list {
   display: flex;
-  flex-wrap: wrap; /* Allow wrapping of flight cards */
+  flex-direction: column; /* Stack flight cards vertically */
   gap: 20px;
   padding-bottom: 20px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 /* Card design for each flight */
 .flight-card {
   display: flex;
-  flex-direction: row; /* Align content horizontally */
-  background: #ffffff;
+  align-items: center; /* Center align items vertically */
   border-radius: 12px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
   padding: 20px;
   width: 100%;
-  max-width: 700px; /* Set a maximum width for each card */
+  max-width: 100%; /* Set a maximum width for each card */
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
-  border-left: 5px solid #007bff;
-}
-
-/* Hover effect for flight card */
-.flight-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
 }
 
 /* Flight details inside the card */
 .flight-details {
-  flex: 1; /* Allow details to expand to take available space */
-  text-align: left;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between; /* Ensure the content is spaced out evenly */
+  flex-wrap: wrap; /* Allow items to wrap if necessary */
+  justify-content: space-between; /* Space out the items */
+  text-align: left;
+  margin-bottom: -20px;
+  align-items: center; /* Align items vertically in the center */
 }
 
-/* Flight details text */
-.flight-details p {
-  margin: 8px 0;
-  font-size: 1rem;
+/* Define a fixed width for each flight detail */
+.flight-details span {
+  flex: 1; /* Allow spans to take equal space */
+  min-width: 100px; /* Set a minimum width to maintain spacing */
+  margin: 0 5px; /* Add some horizontal spacing */
+  text-align: center; /* Center-align the text within each span */
   color: #555555;
   line-height: 1.5;
 }
 
-/* Flight details headings */
-.flight-details strong {
-  font-weight: bold;
-}
-
-/* Flight logo section (optional) */
-.flight-logo {
-  width: 100px;
-  height: auto;
-  margin-right: 15px;
+/* Optional: Add styles for the bold text */
+.view-flights-bold-text {
+  font-weight: 700; /* Bold text */
 }
 
 /* Button style for booking flights */
@@ -92,12 +58,11 @@
   padding: 12px 18px;
   border-radius: 6px;
   font-size: 1.1rem;
+  margin-top: 0px !important;
+  margin-left: 10px;
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
 }
 
 /* Hover effect for booking button */
@@ -110,6 +75,10 @@
 .book-button:active {
   background-color: #003f7f;
   transform: translateY(1px);
+}
+
+.view-flights-bold-text {
+  font-weight: 700;
 }
 
 /* Responsiveness: Adjust layout for smaller screens */

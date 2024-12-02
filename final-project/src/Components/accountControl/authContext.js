@@ -14,13 +14,13 @@ export const AuthProvider = ({ children }) => {
   const login = (user) => {
     setIsLoggedIn(true);
     setUsername(user.username);
-    localStorage.setItem('loggedInUser', JSON.stringify(user)); // Store in localStorage
+    localStorage.setItem('loggedInUser ', JSON.stringify(user)); // Store in localStorage
   };
 
   const logout = () => {
     setIsLoggedIn(false);
     setUsername('');
-    localStorage.removeItem('loggedInUser'); // Remove from localStorage
+    localStorage.removeItem('loggedInUser '); // Remove from localStorage
   };
 
   const setAuthState = ({ isLoggedIn, username }) => {

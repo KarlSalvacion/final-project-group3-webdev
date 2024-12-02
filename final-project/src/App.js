@@ -26,7 +26,7 @@ import AdminViewFlights from './Admin Components/manageFlights/manageFlightsView
 import AdminSearchFlights from './Admin Components/manageFlights/manageFlightsSearch';
 import EditFlights from './Admin Components/manageFlights/manageFlightsEdit';
 import AddFlights from './Admin Components/manageFlights/manageFlightsAdd';
-import AdminSeatSelection from './Admin Components/manageSeats/adminSeatSelection';
+import AdminManageBookings from './Admin Components/manageBookings/adminManageBookings';
 
 function App() {
   const location = useLocation();
@@ -118,13 +118,14 @@ function App() {
           />
 
           <Route
-            path="/admin-manage-seat-selection"
+            path="/admin-manage-bookings"
             element={
               <AdminNavbar>
-                <AdminSeatSelection />
+                <AdminManageBookings />
               </AdminNavbar>
             }
           />
+
         </Routes>
       </main>
     </div>

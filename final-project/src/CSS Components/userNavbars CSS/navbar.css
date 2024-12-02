@@ -5,40 +5,29 @@
     width: 100%;
     padding: 10px 20px;
     box-sizing: border-box;
-}
 
-.navbar-container {
-    width: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
 }
 
 .container-fluid {
     width: 80%;
 }
 
-.navbar-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-}
-
 .navbar-brand {
-    flex: 1;
+    display: flex; /* Use flex to align items */
+    align-items: center; /* Center the logo vertically */
+    height: 100%; /* Make sure it takes the full height of the navbar */
 }
 
-.navbar-brand a {
-    color: white;
-    text-decoration: none;
+.logo-image {
+    width: 100px; /* Set a fixed width for the logo */
+    height: auto; /* Maintain aspect ratio */
+    margin-right: 100px;
 }
 
 .navbar-tabs {
     display: flex;
     justify-content: center;
+    gap: 20px;
     flex: 1;
 }
 
@@ -46,17 +35,19 @@
     text-decoration: none;
     color: white;
     font-size: 16px;
-    padding: 0;
+    padding: 10px 0; /* Set fixed vertical padding */
     width: 150px;
     border-radius: 5px;
-    flex-grow: 1;/* Allow tabs to grow and take available space */
-    transition: background-color 0.3s ease, color 0.3s ease; 
+    flex-grow: 1; /* Allow tabs to grow and take available space */
+    transition: all 0.3s ease-in-out; /* Only change background color on hover */
     text-align: center; /* Center the text inside the tab */
 }
 
 .tab:hover {
-    background-color: #555;
+    background-color: #3c3838; /* Change background color on hover */
     color: #f0f0f0;
+ /* Change text color on hover */
+    /* Remove padding change to prevent shifting */
 }
 
 .account-control {
@@ -116,7 +107,13 @@
     box-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
 }
 
-
 .profile-icon {
     margin-right: 10px;
+}
+
+.active-tab {
+    background-color: #3c3838; /* Active tab background color */
+    color: #EEDF7A; /* Change the text color to yellow */
+    font-weight: bold; /* Optional: make the active tab bold */
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out; /* Transition for background and color */
 }

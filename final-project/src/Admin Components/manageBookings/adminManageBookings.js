@@ -41,9 +41,12 @@ const AdminDashboard = () => {
             <ul>
               {allBookings.slice(0, 5).map((booking, index) => (
                 <li key={index}>
-                  {booking.flightDetails.flightNumber} - {booking.flightDetails.from} to {booking.flightDetails.to}
+                  <strong>Flight Number:</strong> {booking.flightDetails.flightNumber} - 
+                  <strong> From:</strong> {booking.flightDetails.from} 
+                  <strong> To:</strong> {booking.flightDetails.to}
                   <br />
-                  Booking Code: {booking.bookingCode} | Seats: {booking.selectedSeats.join(', ')}
+                  <strong>Booking Code:</strong> {booking.bookingCode} | 
+                  <strong> Seats:</strong> {booking.selectedSeats.join(', ')}
                 </li>
               ))}
             </ul>
