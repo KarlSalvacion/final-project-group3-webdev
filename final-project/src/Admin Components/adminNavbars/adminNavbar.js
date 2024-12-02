@@ -4,10 +4,25 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../../Admin CSS Components/adminNavbars CSS/adminNavbar.css";
 import logo from "../../Assets/jpg/long-logo.png"; // Import the logo image
+import { useAuth } from "../"; // Adjust the import path accordingly
 
+/*************  ✨ Codeium Command ⭐  *************/
+/**
+ * AdminNavbar is a React functional component that renders the navigation bar
+ * for the admin section of the application. It provides links to the admin
+ * dashboard, manage flights, and manage bookings pages. It also displays the
+ * admin username and includes a logout button that clears the authentication
+ * state and redirects the user to the home page.
+ *
+ * @param {Object} props - The props object.
+ * @param {ReactNode} props.children - The child components to be rendered within the main work area section.
+ *
+ * @returns {JSX.Element} The rendered admin navigation bar component.
+ */
+/******  d832c0f0-a989-4282-bfdb-b4cdc34e5820  *******/
 const AdminNavbar = ({ children }) => {
   const navigate = useNavigate();
-  const adminUsername = "Admin1"; // Replace with dynamic username if needed
+  const { username, logout } = useAuth(); // Get username and logout function from the context
 
   const handleLogout = () => {
     console.log("Logout button clicked");
@@ -16,18 +31,17 @@ const AdminNavbar = ({ children }) => {
     console.log(
       "Before logout:",
       localStorage.getItem("loggedInAdmin"),
-      localStorage.getItem("loggedInUser  ")
+      localStorage.getItem("loggedInUser ")
     );
 
-    // Remove admin and user data from localStorage
-    localStorage.removeItem("loggedInAdmin");
-    localStorage.removeItem("loggedInUser  ");
+    // Call the logout function from the context
+    logout();
 
     // Check local storage after logout
     console.log(
       "After logout:",
       localStorage.getItem("loggedInAdmin"),
-      localStorage.getItem("loggedInUser  ")
+      localStorage.getItem("loggedInUser ")
     );
 
     // Redirect to home page
@@ -42,8 +56,7 @@ const AdminNavbar = ({ children }) => {
             src={logo}
             alt="Logo"
             style={{ width: "130px", height: "auto" }}
-          />{" "}
-          {/* Replace LOGO text with the image */}
+          />
         </Link>
 
         <div className="admin-navbar-tabs">
@@ -64,7 +77,7 @@ const AdminNavbar = ({ children }) => {
             <FontAwesomeIcon icon={faUser} />
           </div>
           <div className="admin-username-container">
-            <p className="admin-username">{adminUsername}</p>
+            <p className="admin-username">{username || "Admin"}</p>
             <div className="admin-divider" />
             <button className="admin-logout-button" onClick={handleLogout}>
               Log Out
