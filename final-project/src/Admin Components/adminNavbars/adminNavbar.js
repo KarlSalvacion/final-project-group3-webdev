@@ -4,7 +4,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../../Admin CSS Components/adminNavbars CSS/adminNavbar.css";
 import logo from "../../Assets/jpg/long-logo.png"; // Import the logo image
-import { useAuth } from "../"; // Adjust the import path accordingly
+import { useAuth } from "../../Components/accountControl/authContext"; // Adjust the import path accordingly
 
 /*************  ✨ Codeium Command ⭐  *************/
 /**
