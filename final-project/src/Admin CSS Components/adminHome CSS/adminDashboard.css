@@ -1,3 +1,115 @@
+/* Base styles for the Admin Dashboard */
+
+/* General body styles */
+body {
+  font-family: "Arial", sans-serif; /* Use a clean sans-serif font */
+  background-image: url("C:\SSD 1\DLSL\3rd Year, 1st Sem\Webdvt\final-project-group3-webdev\final-project\src\Assets\jpg\airplane-night-3rd-person.jpg"); /* Replace with your background image path */
+  background-size: cover; /* Cover the entire viewport while maintaining aspect ratio */
+  background-repeat: no-repeat; /* Prevent the image from repeating */
+  background-position: center; /* Center the background image */
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+  overflow: hidden; /* Prevent body scrollbars */
+}
+
+/* Dashboard container */
 .admin-dashboard {
-    color: rgb(8, 8, 8);
+  max-width: 1200px; /* Limit the max width */
+  margin: 20px auto; /* Center the dashboard */
+  padding: 30px; /* Add more padding for a spacious feel */
+  background-color: #00000068; /* White background with 80% opacity */
+  border-radius: 10px; /* Slightly larger rounded corners */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Deeper shadow for more depth */
+  text-align: center; /* Center text in the dashboard */
+  overflow: hidden; /* Prevent scrollbars from appearing */
+  max-height: calc(100vh - 40px); /* Prevent overflowing the viewport height */
+}
+
+/* Header styles */
+.admin-dashboard h1 {
+  font-size: 2.5rem; /* Larger font size for the header */
+  color: #ffffff; /* Dark gray color for text */
+  margin-bottom: 20px; /* Space below the header */
+}
+
+/* Container for summaries */
+.summary-container {
+  display: flex; /* Use flexbox for layout */
+  justify-content: space-between; /* Space between columns */
+  gap: 20px; /* Space between columns */
+}
+
+/* Summary section styles */
+.summary-section {
+  flex: 1; /* Allow the section to grow */
+  margin: 10px; /* Margin around each section */
+  padding: 25px; /* Add more padding */
+  border: 1px solid #ddd; /* Light border */
+  border-radius: 8px; /* Rounded corners */
+  background-color: #00000093; /* Slightly gray background */
+  transition: box-shadow 0.3s; /* Smooth transition for hover effect */
+  max-height: 400px; /* Set a max height to prevent overflow */
+  overflow-y: auto; /* Allow internal scrolling if content overflows */
+}
+
+.summary-section:hover {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Slight shadow on hover */
+}
+
+/* Summary section header */
+.summary-section h2 {
+  font-size: 1.8rem; /* Medium font size */
+  color: #ffffff; /* Darker color for contrast */
+  margin-bottom: 15px; /* Space below section header */
+  border-bottom: 2px solid #d8a25e; /* Add a bottom border for emphasis */
+  padding-bottom: 10px; /* Space below the border */
+}
+
+/* List styles */
+.summary-section ul {
+  list-style-type: none; /* Remove default list styling */
+  padding: 0; /* Remove padding */
+}
+
+.summary-section li {
+  margin-bottom: 15px; /* Space between list items */
+  font-size: 1.1rem; /* Slightly larger font size for list items */
+  color: #ffffff; /* Darker color for better readability */
+}
+
+/* Button styles */
+.admin-button {
+  padding: 12px 20px; /* Increased padding for buttons */
+  background-color: #007bff; /* Primary button color */
+  color: white; /* White text */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s, transform 0.2s; /* Smooth transition */
+  font-size: 1rem; /* Standard font size */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+}
+
+.admin-button:hover {
+  background-color: #d8a25e; /* Darker blue on hover */
+  transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .summary-container {
+    flex-direction: column; /* Stack items in a single column on small screens */
+  }
+
+  .admin-dashboard h1 {
+    font-size: 2rem; /* Smaller header font size */
+  }
+
+  .summary-section h2 {
+    font-size: 1.5rem; /* Smaller section header font size */
+  }
+
+  .admin-button {
+    width: 100%; /* Full width buttons on small screens */
+  }
 }

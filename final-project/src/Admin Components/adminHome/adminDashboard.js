@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import '../../Admin CSS Components/adminHome CSS/adminDashboard.css';
+import React, { useEffect, useState } from "react";
+import "../../Admin CSS Components/adminHome CSS/adminDashboard.css";
 
 const AdminDashboard = () => {
   const [allBookings, setAllBookings] = useState([]);
   const [flights, setFlights] = useState([]);
 
   // Replace this with the actual username dynamically if needed
-  const username = 'User 1'; // Example username, should be dynamic in a real application
+  const username = "User 1"; // Example username, should be dynamic in a real application
 
   useEffect(() => {
     const fetchAllBookings = () => {
@@ -16,7 +16,7 @@ const AdminDashboard = () => {
     };
 
     const fetchFlights = () => {
-      const flightsData = JSON.parse(localStorage.getItem('flights')) || [];
+      const flightsData = JSON.parse(localStorage.getItem("flights")) || [];
       setFlights(flightsData); // Set flights from local storage
     };
 
@@ -41,9 +41,11 @@ const AdminDashboard = () => {
             <ul>
               {allBookings.slice(0, 5).map((booking, index) => (
                 <li key={index}>
-                  {booking.flightDetails.flightNumber} - {booking.flightDetails.from} to {booking.flightDetails.to}
+                  {booking.flightDetails.flightNumber} -{" "}
+                  {booking.flightDetails.from} to {booking.flightDetails.to}
                   <br />
-                  Booking Code: {booking.bookingCode} | Seats: {booking.selectedSeats.join(', ')}
+                  Booking Code: {booking.bookingCode} | Seats:{" "}
+                  {booking.selectedSeats.join(", ")}
                 </li>
               ))}
             </ul>

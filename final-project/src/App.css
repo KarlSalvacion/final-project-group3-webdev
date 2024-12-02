@@ -1,12 +1,11 @@
 .App {
-    box-sizing: border-box;
-    height: 100vw;
-    width: 100%;
-    background-color: #343131 !important;
+  box-sizing: border-box;
+  height: 100vw;
+  width: 100%;
 }
 
-html, body {
-    height: 100%; /* Full height for the document */
-    margin: 0; /* Remove default margin */
+html,
+body {
+  height: 100%; /* Full height for the document */
+  margin: 0; /* Remove default margin */
 }
-
