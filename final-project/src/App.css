@@ -5,3 +5,8 @@
     background-color: #343131 !important;
 }
 
+html, body {
+    height: 100%; /* Full height for the document */
+    margin: 0; /* Remove default margin */
+}
+

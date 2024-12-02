@@ -1,6 +1,7 @@
 /* Navbar Container */
 .manage-flights-navbar {
     background-color: rgb(29, 29, 29);
+
     color: white;
     height: 80px;
     width: 100%;
@@ -85,10 +86,6 @@
     margin-top: 50px;
 }
 
-
-.admin-view-flights-workarea {
-    margin-top: 80px;
-}
 
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
