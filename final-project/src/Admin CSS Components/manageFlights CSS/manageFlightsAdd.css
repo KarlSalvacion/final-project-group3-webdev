@@ -1,49 +1,78 @@
 .manage-flights-add-container {
-    padding: 20px;
-    max-width: 500px;
-    margin: 0 auto;
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  max-width: 500px;
+  margin: 40px auto;
+  background-color: #000000a3;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-height: 80vh; /* Set a maximum height for the container */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.add-flights-header {
+  font-size: 1.5rem;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #ffffff; /* Improved contrast */
+}
+
+.add-flights-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.add-flights-input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: border-color 0.3s; /* Smooth transition for focus */
+}
+
+.add-flights-input:focus {
+  border-color: #007bff; /* Highlight border on focus */
+  outline: none; /* Remove default outline */
+}
+
+.add-flights-button {
+  padding: 10px;
+  background-color: #d8a25e;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s; /* Smooth transition for hover */
+}
+
+.add-flights-button:hover {
+  background-color: #9c6623; /* Darker shade on hover */
+}
+
+.add-flights-message {
+  margin-top: 15px;
+  font-size: 1rem;
+  text-align: center;
+  color: green;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .manage-flights-add-container {
+    padding: 15px; /* Reduce padding on smaller screens */
+    max-width: 90%; /* Full width on smaller screens */
   }
-  
+
   .add-flights-header {
-    font-size: 1.5rem;
-    text-align: center;
-    margin-bottom: 20px;
+    font-size: 1.25rem; /* Smaller font size for the header */
   }
-  
-  .add-flights-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-  
+
   .add-flights-input {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1rem;
+    font-size: 0.9rem; /* Smaller font size for inputs */
   }
-  
+
   .add-flights-button {
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
+    font-size: 0.9rem; /* Smaller font size for buttons */
   }
-  
-  .add-flights-button:hover {
-    background-color: #0056b3;
-  }
-  
-  .add-flights-message {
-    margin-top: 15px;
-    font-size: 1rem;
-    text-align: center;
-    color: green;
-  }
-  
+}
