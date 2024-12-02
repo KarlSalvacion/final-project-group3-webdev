@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlane } from '@fortawesome/free-solid-svg-icons'; // Import the plane icon
 import "../../CSS Components/bookFlights CSS/displayFlightOneWay.css"; // Adjust the path as needed
 
 const DisplayFlightOneWay = () => {
@@ -61,9 +63,9 @@ const DisplayFlightOneWay = () => {
       {/* Display Departure Flights */}
       {!noAvailableDepartureFlights && (
         <>
-          <h3>Departure Flights</h3>
-          <p>
-            <strong>{from}</strong> to <strong>{to}</strong> on <strong>{departureDate}</strong>
+          <h3 className="oneway-title">Departure Flights</h3>
+          <p className="oneway-description">
+            <strong>{from}</strong> <FontAwesomeIcon icon={faPlane}/> <strong>{to}</strong> on <strong>{departureDate}</strong>
           </p>
           <div className="oneway-flight-cards-container">
             {filteredDepartureFlights.map((flight) => (
@@ -73,7 +75,7 @@ const DisplayFlightOneWay = () => {
               >
                 <div className="oneway-flight-card-header">
                   <h3>{flight.flightNumber}</h3>
-                  <span>{flight.from} to {flight.to}</span>
+                  <span>{flight.from} <FontAwesomeIcon icon={faPlane}/> {flight.to}</span>
                 </div>
                 <div className="oneway-flight-card-details">
                   <p>
