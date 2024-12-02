@@ -1,8 +1,8 @@
 .search-flight-container {
   padding: 20px;
-  background-color: #fff;
+  background-color: #0000008c;
   border-radius: 8px;
-  margin: 0 auto; /* Center horizontally */
+  margin: 40px auto; /* Center horizontally */
   color: black;
   width: 50%;
   align-items: center;
@@ -17,6 +17,7 @@
   font-weight: bold;
   text-align: center;
   margin-bottom: 20px;
+  color: #fff;
 }
 
 .search-menu-bar {
@@ -85,8 +86,8 @@
 
 .edit-btn,
 .delete-btn {
-  padding: 5px 10px;
-  margin: 5px 0;
+  padding: 10px 10px;
+  margin: 10px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -109,5 +110,5 @@
 }
 
 .delete-btn:hover {
-  background-color: #e53935;
+  background-color: #890b09;
 }
