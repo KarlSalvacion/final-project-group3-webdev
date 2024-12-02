@@ -25,7 +25,8 @@ const BookingDetails = () => {
       departureDate: departureFlight.date, // Include departure date
       from: departureFlight.from, // Include departure location
       to: departureFlight.to, // Include arrival location
-      // You can include other details if necessary
+      departureTime: departureFlight.departureTime, // Include departure time
+      arrivalTime: departureFlight.arrivalTime, // Include arrival time
     };
 
     // Calculate total passengers
@@ -81,7 +82,7 @@ const BookingDetails = () => {
               className="input-field"
             />
           </label>
- <label>
+          <label>
             Children (2-11 years):
             <input
               type="number"
