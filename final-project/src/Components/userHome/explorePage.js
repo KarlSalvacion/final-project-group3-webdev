@@ -1,22 +1,20 @@
+import React from 'react';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import '../../CSS Components/userHome CSS/explorePage.css';
-import AirplanePic1 from '../../Assets/jpg/airplane-view-night.jpg';
+
 const ExplorePage = () => {
     return (
-    
-    <div className="main-container">
-        <div className="image-container">
-            <img src={AirplanePic1} className="airplaneImagePOV" alt="airplaneImagePOV"/>
-        </div>
+        <div className="explore-background">
+            <div className="main-container">
+                <Link to="/search-flights">
+                    <button className="exploreBtn">Book Flights</button> </Link>
+                    <div className="section-1">
 
-        <button className="exploreBtn">Explore</button>
-        <div className="section-1">
+                    </div>
+                    </div>
+                    </div>
 
-            <h1>sample</h1>
-            
-        </div>
-    </div>
-    
     );
-}
+};
 
 export default ExplorePage;
