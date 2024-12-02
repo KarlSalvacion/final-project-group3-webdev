@@ -7,7 +7,7 @@ const DisplayFlightReturn = () => {
   const navigate = useNavigate();
 
   // Destructure the incoming state
-  const { from, to, departureDate, returnDate, passengerCounts, classType } = location.state || {};
+  const { from, to, departureDate, returnDate } = location.state || {};
 
   const [selectedDepartureFlight, setSelectedDepartureFlight] = useState(null);
   const [selectedReturnFlight, setSelectedReturnFlight] = useState(null);
@@ -102,7 +102,7 @@ const DisplayFlightReturn = () => {
                     <strong>Arrival:</strong> {flight.arrivalTime}
                   </p>
                   <p>
-                    <strong>Current Passengers:</strong> {flight.currentPassenger || 0} {/* Display current passengers */}
+                    <strong>Current Passengers:</strong> {flight.currentPassengerCount || 0} {/* Display current passengers */}
                   </p>
                 </div>
                 <button
@@ -151,7 +151,7 @@ const DisplayFlightReturn = () => {
                     <strong>Arrival:</strong> {flight.arrivalTime}
                   </p>
                   <p>
-                    <strong>Current Passengers:</strong> {flight.currentPassengers || 0} {/* Display current passengers */}
+                    <strong>Current Passengers:</strong> {flight.currentPassengerCount || 0} {/* Display current passengers */}
                   </p>
                 </div>
                 <button
