@@ -111,8 +111,10 @@
 }
 
 .admin-main-work-area-container {
-    margin-top: 80px;
-    /* The content area below the navbar */
+    margin-top: 20px; /* This margin should be equal to or greater than the navbar height */
+    height: calc(100vh - 80px); /* Set height to the viewport height minus the navbar height */
+    overflow-y: auto; /* Enable vertical scrolling */
+    padding: 20px; /* Optional: Add some padding for aesthetics */
 }
 
 /* Add responsive behavior */
