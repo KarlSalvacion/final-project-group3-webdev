@@ -1,5 +1,16 @@
 body {
     overflow-x: hidden; /* Prevent horizontal scrolling */
+    margin: 0; /* Remove default body margin */
+}
+
+.explore-background {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh; /* Ensure it takes at least the full viewport height */
+    background-image: url('../../Assets/jpg/airplane-view-night-orange.jpg'); /* Path to your background image */
+    background-size: cover; /* Cover the entire viewport */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Prevent repeating */
 }
 
 .main-container {
@@ -9,47 +20,38 @@ body {
     width: 100%; /* Ensure it takes full width of the viewport */
     max-width: 100vw; /* Prevent overflow beyond the viewport */
     box-sizing: border-box; /* Include padding and border in width calculations */
+    padding-bottom: 20px; /* Add some padding at the bottom */
 }
 
-.image-container {
-    height: 500px;
-    width: 100%; /* Ensure the image container takes full width */
-    overflow: hidden; /* Hide overflow for the image */
-    position: relative; /* Positioning context for child elements */
-}
-
-.airplaneImagePOV {
-    height: 100%; /* Make the image fill the container height */
-    width: 1500px; /* Maintain aspect ratio */
-    max-width: none; /* Prevent max-width from restricting the image */
-    position: absolute; /* Position absolutely to fill the container */
-    left: 50%; /* Center the image */
-    transform: translateX(-50%); /* Center the image */
-
+.section-1 {
+    background-color: #A04747;
+    padding: 50px;
+    color: aliceblue;
+    width: 100%; /* Make sure it takes full width */
+    box-sizing: border-box; /* Include padding in width calculations */
 }
 
 .exploreBtn {
-    margin-top: -110px;
-    margin-bottom: 40px;
+    margin-top: 20px; /* Add some margin */
+    margin-bottom: 50px;
     padding: 10px 20px;
-    background-color: aliceblue;
-    color: rgb(20, 52, 41);
-    border: 1px solid #1f9aab;
+    background-color: #D8A25E;
+    color: rgb(20, 52, 41); /* Original text color */
+    border: 1px solid #D8A25E;
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
+    font-weight: bold; /* Make the text bold */
     z-index: 1000;
     transition: 0.3s all; /* Use seconds for a smoother transition */
 }
 
 .exploreBtn:hover {
-    background-color: #223234;
+    background-color: #A04747; /* Change background color on hover */
+    color: white; /* Change text color to white on hover */
 }
 
-.section-1 {
-    background-color: #223234;
-    padding: 100px;
-    color: aliceblue;
-    width: 100%; /* Make sure it takes full width */
-    box-sizing: border-box; /* Include padding in width calculations */
+h1 {
+    font-size: 50px;
+    text-align: center;
 }
