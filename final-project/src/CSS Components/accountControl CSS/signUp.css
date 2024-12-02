@@ -1,24 +1,14 @@
-/* General Styling */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
+html, body {
+    height: 100%; /* Ensure body takes full height */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    overflow: hidden; /* Prevent scrolling */
 }
 
-.login-container {
-    width: 400px;
-    margin: 40px auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
 
 h2 {
     text-align: center;
     color: #333;
-    margin-bottom: 20px;
 }
 
 .form-group {
@@ -49,31 +39,51 @@ input[type="text"]:focus {
     border-color: #007bff;
     outline: none;
 }
-
+.signup-background {
+    margin: 0;
+    padding: 0;
+    height: 100vh; /* Full viewport height */
+    background-image: url('../../Assets/jpg/airplane-city-night.jpg'); /* Path to your background image */
+    background-size: cover; /* Cover the entire viewport */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Prevent repeating */
+}
 .button-container {
     text-align: center;
 }
 
-.login-button {
+
+.signup-container {
+    width: 400px; /* Set the width of the login container */
+    height: 700px; /* Set the height of the login container */
+    margin: 20px; /* Center it horizontally with auto margins */
+    margin-left: auto; /* Push the container to the right */
+    margin-right: 40px; /* Ensure there's no margin on the right */
+    padding: 20px; /* Add padding */
+    background-color: #fff; /* Background color */
+    border-radius: 30px; /* Rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+}
+
+.signup-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.signup-button {
     width: 100%;
     padding: 10px;
-    background-color: #007bff;
+    background-color: #A04747;
     color: #fff;
     border: none;
-    border-radius: 5px;
+    border-radius: 30px;
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s;
 }
 
-.login-button:hover {
-    background-color: #0056b3;
-}
-
-@media (max-width: 480px) {
-    .login-container {
-        width: 90%;
-    }
+.signup-button:hover {
+    background-color: #dd7676;
 }
 
 /* Modal Styling */
@@ -113,7 +123,7 @@ input[type="text"]:focus {
 
 .modal-content button {
     padding: 10px 20px;
-    background-color: #007bff;
+    background-color: #A04747;
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -123,5 +133,56 @@ input[type="text"]:focus {
 }
 
 .modal-content button:hover {
-    background-color: #0056b3;
+    background-color: #dd7676;
+}
+
+.error {
+    color: red;  /* Set the text color to red for error messages */
+    font-size: 0.9em;  /* Optional: make the text slightly smaller */
+}
+
+.requirement {
+    color: green;  /* Set the text color to green for success messages */
+    font-size: 0.9em;  /* Optional: make the text slightly smaller */
+}
+
+.signup-logo {
+    display: block; /* Make it a block element */
+    margin: 0 auto 20px; /* Center it and add space below */
+    width: 130px; /* Set a width for the logo (adjust as needed) */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.password-input {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-input input {
+    width: 100%;
+    padding-right: 40px; /* Adjust padding to make space for the icon */
+}
+
+.password-toggle {
+    position: absolute;
+    right: 10px; /* Position the icon inside the input */
+    cursor: pointer;
+    color: #A04747; /* Change color as needed */
+    z-index: 1; /* Ensure the icon is above the input */
+}
+
+.password-toggle:hover {
+    color: #dd7676;
+}
+
+.exit-button {
+    background-color: transparent; /* Transparent background */
+    border: none; /* No border */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: color 0.3s; /* Smooth transition for color */
+}
+
+.exit-button:hover  { /* Target only the icon on hover */
+    color: #dd7676; /* Change color on hover */
 }

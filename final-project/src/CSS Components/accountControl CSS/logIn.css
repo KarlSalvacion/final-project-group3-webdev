@@ -1,29 +1,29 @@
-.login-overlay {
-    position: fixed; /* Make it cover the entire screen */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7); /* Dark overlay */
-    display: flex;
+.login-background {
+    margin: 0;
+    padding: 0;
+    height: 100vh; /* Full viewport height */
+    background-image: url('../../Assets/jpg/airplane-city-night.jpg'); /* Path to your background image */
+    background-size: cover; /* Cover the entire viewport */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Prevent repeating */
+}
+
+.main-container {
+    display: flex; /* Use flexbox layout */
     justify-content: flex-end; /* Align items to the right */
-    align-items: center;
-    z-index: 999; /* Ensure it is above other content */
+    height: 100vh; /* Full viewport height */
 }
 
 .login-container {
-    max-width: 400px;
-    height: auto; /* Allow the height to adjust based on content */
+    width: 400px; /* Set the width of the login container */
+    height: 700px; /* Set the height of the login container */
+    margin: auto; /* Center it horizontally with auto margins */
     margin-left: auto; /* Push the container to the right */
-    padding: 30px;
-    background: white; /* White background for the form */
-    border-radius: 8px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease; /* Smooth transition */
-}
-
-.login-container:hover {
-    transform: scale(1.02); /* Slightly enlarge on hover */
+    margin-right: 40px; /* Ensure there's no margin on the right */
+    padding: 20px; /* Add padding */
+    background-color: #ffffff; /* Background color */
+    border-radius: 30px; /* Rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Shadow for depth */
 }
 
 .login-form {
@@ -35,6 +35,7 @@
     margin-bottom: 20px;
     display: flex;
     flex-direction: column; /* Stack label and input vertically */
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 label {
@@ -53,7 +54,7 @@ input {
 }
 
 input:focus {
-    border-color: #007bff; /* Change border color on focus */
+    border-color: #A04747; /* Change border color on focus */
     outline: none; /* Remove default outline */
 }
 
@@ -69,25 +70,36 @@ input:focus {
     background: none;
     border: none;
     cursor: pointer;
-    color: #007bff; /* Icon color */
+    color: #A04747; /* Icon color */
+    transition: color 0.3s, transform 0.3s; /* Smooth transition for color and transformation */
+}
+
+.toggle-password:hover {
+    color: #dd7676; /* Change color on hover */
 }
 
 .button-container {
-    margin-top: 10px;
+    text-align: center; /* Center the contents */
+    margin-top: 10px; /* Space above the button */
+    width: 50%; /* Ensure it takes full width */
+    margin-left: 100px;
+    margin-top: 30px;
 }
-
 .login-button {
-    padding: 12px;
-    background-color: #007bff;
-    color: white;
+    width: 120%;
+    padding: 10px;
+    background-color: #A04747;
+    color: #fff;
     border: none;
-    border-radius: 4px;
+    border-radius: 30px;
     cursor: pointer;
-    transition: background-color 0.3s; /* Smooth background color transition */
+    font-size: 16px;
+    transition: background-color 0.3s;
+    justify-content: center;
 }
 
 .login-button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
+    background-color: #dd7676;
 }
 
 .signup-link {
@@ -97,12 +109,28 @@ input:focus {
 }
 
 .exit-button {
-    background-color: transparent;
-    border: none;
-    transition: 0.3ms;
+    background-color: transparent; /* Transparent background */
+    border: none; /* No border */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: color 1.2s; /* Smooth transition for color */
 }
 
-.exit-button:hover {
-    border: 1px solid gray;
-    border-radius: 5px;
+.exit-button:hover .icon { /* Target only the icon on hover */
+    color: #dd7676; /* Change color on hover */
+}
+
+h2 {
+    font-size: 20px; /* Set the font size */
+    color: #333; /* Set the text color */
+    margin-bottom: 20px; /* Space below the heading */
+    text-align: center; /* Center the heading text */
+    font-weight: bold;
+    
+}
+
+.login-logo {
+    display: block; /* Make it a block element */
+    margin: 0 auto 20px; /* Center it and add space below */
+    width: 130px; /* Set a width for the logo (adjust as needed) */
+    height: auto; /* Maintain aspect ratio */
 }

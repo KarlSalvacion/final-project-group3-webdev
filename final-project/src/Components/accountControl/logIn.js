@@ -5,6 +5,7 @@ import '../../CSS Components/accountControl CSS/logIn.css';
 import adminAccounts from '../../Data/adminAccounts'; // Import admin accounts
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash, faArrowLeft } from '@fortawesome/free-solid-svg-icons'; // Import FontAwesome icons
+import logo from '../../Assets/png/long-logo.png'; // Import your logo image
 
 const Login = () => {
     const [emailOrUsername, setEmailOrUsername] = useState('');
@@ -22,7 +23,7 @@ const Login = () => {
         );
 
         // Check if the user is an admin by looking into adminAccounts
-        const adminUser   = adminAccounts.find(account => 
+        const adminUser  = adminAccounts.find(account => 
             (account.email === emailOrUsername || account.username === emailOrUsername) && account.password === password
         );
 
@@ -43,59 +44,57 @@ const Login = () => {
     };
 
     const handleExit = () => {
-        navigate(-1); // Navigate to the previous page
+        navigate('/explore'); // Navigate to the previous page
     };
 
     return (
+        <div className='login-background'> {}
         <div className="main-container">
-            <div className="welcome-container">
-                {/* Add your welcome content here */}
-            </div>
-            <div className="login-overlay">
-                <div className="login-container">
-                    <button className="exit-button" onClick={handleExit}>
-                        <FontAwesomeIcon icon={faArrowLeft} />
-                    </button>
-                    <h2>Login</h2>
-                    <form onSubmit={handleLogin} className="login-form">
-                        <div className="form-group">
-                            <label htmlFor="emailOrUsername">Email or Username:</label>
+            <div className="login-container">
+                <button className="exit-button" onClick={handleExit}>
+                    <span className="icon"><FontAwesomeIcon icon={faArrowLeft} /></span>
+                </button>
+                <img src={logo} alt="Logo" className="login-logo" /> {/* Add your logo here */}
+                <h2>Login</h2>
+                <form onSubmit={handleLogin} className="login-form">
+                    <div className="form-group">
+                        <label htmlFor="emailOrUsername">Email or Username:</label>
+                        <input 
+                            type="text" 
+                            id="emailOrUsername" 
+                            value={emailOrUsername} 
+                            onChange={(e) => setEmailOrUsername(e.target.value)} 
+                            required 
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="password">Password:</label>
+                        <div className="password-container">
                             <input 
-                                type="text" 
-                                id="emailOrUsername" 
-                                value={emailOrUsername} 
-                                onChange={(e) => setEmailOrUsername(e.target.value)} 
+                                type={showPassword ? 'text' : 'password'} 
+                                id="password" 
+                                value={password} 
+                                onChange={(e) => setPassword(e.target.value)} 
                                 required 
                             />
+                            <button 
+                                type="button" 
+                                className="toggle-password" 
+                                onClick={() => setShowPassword(!showPassword)}
+                            >
+                                <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+                            </button>
                         </div>
-                        <div className="form-group">
-                            <label htmlFor="password">Password:</label>
-                            <div className="password-container">
-                                <input 
-                                    type={showPassword ? 'text' : 'password'} 
-                                    id="password" 
-                                    value={password} 
-                                    onChange={(e) => setPassword(e.target.value)} 
-                                    required 
-                                />
-                                <button 
-                                    type="button" 
-                                    className="toggle-password" 
-                                    onClick={() => setShowPassword(!showPassword)}
-                                >
-                                    <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
-                                </button>
-                            </div>
-                        </div>
-                        <div className="button-container">
-                            <button type="submit" className="login-button">Log In</button>
-                        </div>
-                    </form>
-                    <div className="signup-link">
-                        <p>Don't have an account? <Link to="/sign-up">Sign up here</Link></p>
                     </div>
+                    <div className="button-container">
+                        <button type="submit" className="login-button">Log In</button>
+                    </div>
+                </form>
+                <div className="signup-link">
+                    <p>Don't have an account? <br /><Link to="/sign-up">Sign up here</Link></p>
                 </div>
             </div>
+        </div>
         </div>
     );
 };
