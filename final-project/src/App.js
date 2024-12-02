@@ -31,8 +31,10 @@ import AdminSeatSelection from './Admin Components/manageSeats/adminSeatSelectio
 function App() {
   const location = useLocation();
 
-  // Determine if the current route is an admin route
+  // Determine if the current route is an admin route, login route, or signup route
   const isAdminRoute = location.pathname.startsWith("/admin");
+  const isLoginRoute = location.pathname === "/log-in";
+  const isSignupRoute = location.pathname === "/sign-up";
 
   useEffect(() => {
     const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
@@ -42,12 +44,12 @@ function App() {
     
     // If the admin user doesn't exist, add it
     if (!adminExists) {
-      const adminUser = {
+      const adminUser  = {
         email: 'admin1@admin.com',
         username: 'Admin1',
         password: 'Admin123'
       };
-      storedUsers.push(adminUser);
+      storedUsers.push(adminUser );
       localStorage.setItem('users', JSON.stringify(storedUsers));
       console.log("Admin user added on app load");
     }
@@ -55,8 +57,8 @@ function App() {
 
   return (
     <div className="App">
-      {/* Render Navbar only if it's not an admin route */}
-      {!isAdminRoute && <Navbar />}
+      {/* Render Navbar only if it's not an admin route, login route, or signup route */}
+      {!isAdminRoute && !isLoginRoute && !isSignupRoute && <Navbar />}
 
       {/* Main work area section */}
       <main className="main-work-area">
@@ -66,7 +68,7 @@ function App() {
           <Route path="/search-flights" element={<SearchFlights />} />
           <Route path="/display-flight-one-way" element={<DisplayFlightOneWay />} />
           <Route path="/display-flight-return" element={<DisplayFlightReturn />} />
-          <Route path="/booking-details" element={<BookingDetails/>} />
+          <Route path="/booking-details" element={<BookingDetails />} />
           <Route path="/seat-selection" element={<SeatSelection />} />
           <Route path="/view-flights" element={<ViewFlights />} />
           <Route path="/log-in" element={<Login />} />
@@ -119,7 +121,7 @@ function App() {
             path="/admin-manage-seat-selection"
             element={
               <AdminNavbar>
-                <AdminSeatSelection/>
+                <AdminSeatSelection />
               </AdminNavbar>
             }
           />
