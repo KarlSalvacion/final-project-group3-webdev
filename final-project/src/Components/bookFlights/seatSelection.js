@@ -20,10 +20,30 @@ const SeatSelection = () => {
   );
 
   const [showLoginModal, setShowLoginModal] = useState(false); // State for modal visibility
+  const [occupiedSeats, setOccupiedSeats] = useState([]); // State to hold occupied seats
+  const [occupiedEconomySeats, setOccupiedEconomySeats] = useState([]); // State for occupied economy seats
+  const [occupiedPremiumSeats, setOccupiedPremiumSeats] = useState([]); // State for occupied premium seats
 
   // Log booking details for debugging
   useEffect(() => {
     console.log("Booking Details in SeatSelection:", bookingDetails);
+  }, [bookingDetails]);
+
+  // Retrieve occupied seats from local storage when the component mounts
+  useEffect(() => {
+    const flightKey = `${bookingDetails.flightNumber}-${bookingDetails.departureDate}`;
+    const existingFlights = JSON.parse(localStorage.getItem('flights')) || {};
+    const flightDetails = existingFlights[flightKey];
+
+    if (flightDetails) {
+      if (bookingDetails.cabinClass === "Premium") {
+        setOccupiedSeats(flightDetails.occupiedPremiumSeats);
+        setOccupiedPremiumSeats(flightDetails.occupiedPremiumSeats);
+      } else {
+        setOccupiedSeats(flightDetails.occupiedEconomySeats);
+        setOccupiedEconomySeats(flightDetails.occupiedEconomySeats);
+      }
+    }
   }, [bookingDetails]);
 
   const toggleSeat = (row, col) => {
@@ -66,6 +86,12 @@ const SeatSelection = () => {
   };
 
   const handleSubmit = () => {
+    // Check if the number of selected seats matches the total passengers
+    if (selectedSeats !== totalPassengers) {
+      alert(` You must select exactly ${totalPassengers} seats.`);
+      return; // Prevent further action if the selected seats do not match
+    }
+
     if (!username) {
       setShowLoginModal(true); // Show modal if user is not logged in
       return;
@@ -105,6 +131,7 @@ const SeatSelection = () => {
     existingBookings.push(bookingToSave);
     localStorage.setItem(`${username}Booking`, JSON.stringify(existingBookings));
     alert(`Your selected seats have been successfully submitted! Your booking code is: ${bookingCode}`);
+
     const flightKey = `${bookingDetails.flightNumber}-${bookingDetails.departureDate}`;
     const existingFlights = JSON.parse(localStorage.getItem('flights')) || {};
 
@@ -131,10 +158,22 @@ const SeatSelection = () => {
 
     // Update occupied seats based on selected seats
     if (isPremiumClass) {
-      existingFlights[flightKey].occupiedPremiumSeats.push(...selectedSeatsData);
+      existingFlights[flightKey].occupiedPremiumSeats = [
+        ...new Set([...existingFlights[flightKey].occupiedPremiumSeats, ...selectedSeatsData])
+      ];
     } else {
-      existingFlights[flightKey].occupiedEconomySeats.push(...selectedSeatsData);
+      existingFlights[flightKey].occupiedEconomySeats = [
+        ...new Set([...existingFlights[flightKey].occupiedEconomySeats, ...selectedSeatsData])
+      ];
     }
+
+    // Remove duplicates from occupied seats
+    existingFlights[flightKey].occupiedSeats = [
+      ...new Set([
+        ...existingFlights[flightKey].occupiedEconomySeats,
+        ...existingFlights[flightKey].occupiedPremiumSeats,
+      ])
+    ];
 
     // Save the updated flights data back to local storage
     localStorage.setItem('flights', JSON.stringify(existingFlights));
@@ -147,6 +186,11 @@ const SeatSelection = () => {
   const handleLoginRedirect = () => {
     setShowLoginModal(false); // Close the modal
     navigate('/log-in'); // Redirect to login page
+  };
+
+  const isSeatOccupied = (row, col) => {
+    const seatCode = getSeatCode(row, col);
+    return occupiedSeats.includes(seatCode);
   };
 
   return (
@@ -163,6 +207,8 @@ const SeatSelection = () => {
         <p><strong>Departure Date:</strong> {bookingDetails?.departureDate}</p>
         <p><strong>Departure Time:</strong> {bookingDetails?.departureTime}</p>
         <p><strong>Arrival Time:</strong> {bookingDetails?.arrivalTime}</p>
+        <p><strong>Occupied Economy Seats:</strong> {occupiedEconomySeats.join(', ') || 'None'}</p>
+        <p><strong>Occupied Premium Seats:</strong> {occupiedPremiumSeats.join(', ') || 'None'}</p>
       </div>
 
       {isPremiumClass && (
@@ -174,8 +220,9 @@ const SeatSelection = () => {
                 <React.Fragment key={colIndex}>
                   {colIndex === 3 && <div className="aisle-space"></div>}
                   <button
-                    className={`seat-button premium ${seat ? "selected" : ""}`}
-                    onClick={() => toggleSeat(rowIndex, colIndex)}
+                    className={`seat-button premium ${seat ? "selected" : ""} ${isSeatOccupied(rowIndex, colIndex) ? "occupied" : ""}`}
+                    onClick={() => !isSeatOccupied(rowIndex, colIndex) && toggleSeat(rowIndex, colIndex)}
+                    disabled={isSeatOccupied(rowIndex, colIndex)} // Disable if occupied
                   >
                     {getSeatCode(rowIndex, colIndex)}
                   </button>
@@ -195,8 +242,9 @@ const SeatSelection = () => {
                 <React.Fragment key={colIndex}>
                   {colIndex === 3 && <div className="aisle-space"></div>}
                   <button
-                    className={`seat-button economy ${seat ? "selected" : ""}`}
-                    onClick={() => toggleSeat(rowIndex + 5, colIndex)}
+                    className={`seat-button economy ${seat ? "selected" : ""} ${isSeatOccupied(rowIndex + 5, colIndex) ? "occupied" : ""}`}
+                    onClick={() => !isSeatOccupied(rowIndex + 5, colIndex) && toggleSeat(rowIndex + 5, colIndex)}
+                    disabled={isSeatOccupied(rowIndex + 5, colIndex)} // Disable if occupied
                   >
                     {getSeatCode(rowIndex + 5, colIndex)}
                   </button>

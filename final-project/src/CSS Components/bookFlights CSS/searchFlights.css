@@ -1,7 +1,7 @@
 /* General container styling */
 .flight-booking-container {
     padding: 20px;
-    background-color: #ffffff;
+    background-color: #1f1f1f;
     border-radius: 8px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
     width: 800px;
@@ -15,8 +15,14 @@
 .flight-booking-container h2 {
     text-align: center;
     font-size: 1.8rem;
-    color: #007bff;
+    color: #EEDF7A;
+
     margin-bottom: 20px;
+}
+
+.flight-title {
+
+    font-weight: 700 !important;
 }
 
 /* Flight Booking Form */
@@ -44,8 +50,10 @@
     font-size: 0.9rem;
     font-weight: bold;
     margin-bottom: 5px;
+    color: #dadad9;
 }
 
+/* General input styling */
 select, input[type="date"], input[type="text"], .dropdown-toggle {
     padding: 10px;
     border: 1px solid #ccc;
@@ -53,78 +61,42 @@ select, input[type="date"], input[type="text"], .dropdown-toggle {
     font-size: 0.9rem;
     width: 100%;
     box-sizing: border-box; /* Prevent overflow */
+    background-color: #fbfbfb; /* Set background color to grey */
+    color: #1e1e1e; /* Set text color */
 }
 
-/* Passenger Selector Dropdown */
-.dropdown {
-    position: relative;
+/* Specific styling for the dropdown */
+select {
+    appearance: none
 }
 
-.passenger-selector {
-    position: absolute;
-    top: 40px;
-    left: 0;
-    background: #ffffff;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 15px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    z-index: 10;
+/* Style for the 'Choose' option in the dropdown */
+select option {
+    color: #1e1e1e; /* Default color for options */
 }
 
-.passenger-type {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
+select option[value=""] {
+    color: #3b3b37; /* Set color for the 'Choose' option */
 }
 
-.passenger-type span {
-    font-size: 0.9rem;
+/* Optional: Style for dropdown on focus */
+select:focus {
+    border-color: #EEDF7A; /* Change border color on focus */
+    outline: none; /* Remove default outline */
 }
 
-.passenger-type div {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.passenger-type button {
-    background: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 5px 10px;
-    cursor: pointer;
-}
-
-.passenger-type button:hover {
-    background: #0056b3;
-}
-
-/* Confirm Button */
-.confirm-button {
-    background-color: #28a745;
-    color: white;
-    padding: 8px 15px;
-    border: none;
-    border-radius: 4px;
-    font-size: 0.9rem;
-    cursor: pointer;
-    width: 100%;
-    margin-top: 10px;
-}
-
-.confirm-button:hover {
-    background-color: #218838;
+/* Optional: Style for the input fields on focus */
+input[type="text"]:focus, input[type="date"]:focus {
+    border-color: #EEDF7A; /* Change border color on focus */
+    outline: none; /* Remove default outline */
 }
 
 /* Switch Button */
 .switch-button {
-    background: #007bff;
+    background: #EEDF7A;
     border: none;
     border-radius: 50%;
-    color: white;
+    color: #1f1f1f;
     padding: 10px;
     font-size: 1rem;
     display: flex;
@@ -134,10 +106,11 @@ select, input[type="date"], input[type="text"], .dropdown-toggle {
     height: 40px;
     width: 40px;
     margin-top: 25px; /* Align with form inputs */
+    transition: all 0.3s ease-in-out;
 }
 
 .switch-button:hover {
-    background: #0056b3;
+    background: #d2bb29;
 }
 
 /* Error Message */
@@ -166,8 +139,9 @@ select, input[type="date"], input[type="text"], .dropdown-toggle {
 /* Search Button */
 .search-button {
     padding: 12px 25px;
-    background-color: #007bff;
-    color: white;
+    background-color: #EEDF7A !important;
+    color: #1f1f1f !important;
+    font-weight: 600;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -176,7 +150,7 @@ select, input[type="date"], input[type="text"], .dropdown-toggle {
 }
 
 .search-button:hover {
-    background-color: #0056b3;
+    background-color: #d2bb29 !important;
 }
 
 /* Modal Overlay - Ensures the modal is centered and visible */

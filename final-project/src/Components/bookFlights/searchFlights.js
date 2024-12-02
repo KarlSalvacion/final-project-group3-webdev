@@ -94,7 +94,7 @@ const SearchFlights = () => {
   return (
     <div className="main-container">
       <div className="flight-booking-container">
-        <h2>Book Your Flight</h2>
+        <h2 className="flight-title">Book Your Flight</h2>
         <div className="flight-booking-form">
           <div className="form-row">
             <div className="form-group">
@@ -107,7 +107,7 @@ const SearchFlights = () => {
 
             <div className="form-group">
               <label>From:</label>
-              <select value={from} onChange={(e) => setFrom(e .target.value)}>
+              <select value={from} onChange={(e) => setFrom(e.target.value)}>
                 <option value="" disabled>Select Departure City</option>
                 {uniqueCities && uniqueCities.map((city, index) => (
                   <option key={index} value={city}>

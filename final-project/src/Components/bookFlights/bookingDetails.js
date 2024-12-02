@@ -12,6 +12,20 @@ const BookingDetails = () => {
   const [infantCount, setInfantCount] = useState(0);
   const [cabinClass, setCabinClass] = useState("Economy"); // Default to Economy
 
+  // Calculate total cost based on passenger counts and cabin class
+  const calculateTotalCost = () => {
+    const adultPrice = cabinClass === "Economy" ? departureFlight.economyPrice : departureFlight.premiumPrice;
+    const childPrice = cabinClass === "Economy" ? departureFlight.economyPrice * 0.5 : departureFlight.premiumPrice * 0.5; // Assuming children pay half price
+    const infantPrice = 0; // Infants are usually free or have no charge
+
+    const totalCost =
+      adultCount * adultPrice +
+      childCount * childPrice +
+      infantCount * infantPrice;
+
+    return totalCost.toFixed(2); // Return total cost formatted to 2 decimal places
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -27,12 +41,13 @@ const BookingDetails = () => {
       to: departureFlight.to, // Include arrival location
       departureTime: departureFlight.departureTime, // Include departure time
       arrivalTime: departureFlight.arrivalTime, // Include arrival time
+      totalCost: calculateTotalCost(), // Add total cost to booking details
     };
 
     // Calculate total passengers
     const totalPassengers = adultCount + childCount + infantCount;
 
-    // Navigate to the seat selection with total passengers
+    // Navigate to the seat selection with total passengers and cost
     navigate("/seat-selection", {
       state: {
         bookingDetails: {
@@ -64,6 +79,7 @@ const BookingDetails = () => {
           <p><strong>Current Passengers:</strong> {departureFlight.currentPassengerCount || 0}</p>
           <p><strong>Economy Price:</strong> ${departureFlight.economyPrice}</p>
           <p><strong>Premium Price:</strong> ${departureFlight.premiumPrice}</p>
+          <p><strong>Total Cost:</strong> ${calculateTotalCost()}</p> {/* Display total cost */}
           {/* Add more fields as necessary */}
         </div>
       ) : (
@@ -74,8 +90,7 @@ const BookingDetails = () => {
         <div className="passenger-count">
           <label>
             Adults (12+ years):
-            <input
-              type="number"
+            <input type="number"
               min="1"
               value={adultCount}
               onChange={(e) => setAdultCount(Number(e.target.value))}

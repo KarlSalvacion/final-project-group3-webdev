@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom'; // useNavigate instead of Navigate
+import { Link, useNavigate, NavLink } from 'react-router-dom'; // Import NavLink
 import '../../CSS Components/userNavbars CSS/navbar.css'; // Assuming your CSS file is here
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faUser  } from '@fortawesome/free-solid-svg-icons';
 import { useAuth } from '../accountControl/authContext';
+import logoLong from '../../Assets/jpg/long-logo.png'; // Ensure this path is correct
 
 const Navbar = ({ children }) => {
   const { isLoggedIn, username, logout, setAuthState } = useAuth(); // Get auth state from context
@@ -12,10 +13,10 @@ const Navbar = ({ children }) => {
 
   useEffect(() => {
     // Check if there's stored auth info in localStorage when the component mounts
-    const storedUser = localStorage.getItem('loggedInUser');
-    
-    if (storedUser) {
-      const { username } = JSON.parse(storedUser);
+    const storedUser  = localStorage.getItem('loggedInUser '); // Use the correct key
+
+    if (storedUser ) {
+      const { username } = JSON.parse(storedUser );
       setAuthState({ isLoggedIn: true, username });
     } else {
       setAuthState({ isLoggedIn: false, username: '' });
@@ -27,7 +28,6 @@ const Navbar = ({ children }) => {
 
   const handleLogout = () => {
     logout(); // Clear auth state and logout
-    localStorage.removeItem('loggedInUser'); // Remove from localStorage
     navigate('/'); // Programmatically navigate to the home page after logout
   };
 
@@ -35,8 +35,8 @@ const Navbar = ({ children }) => {
     // Check if the logged-in user is Admin
     if (username === 'Admin1' || username === 'admin@admin.com') {
       // Additional check for password
-      const storedUser = JSON.parse(localStorage.getItem('loggedInUser'));
-      if (storedUser && storedUser.password === 'Admin123') {
+      const storedUser  = JSON.parse(localStorage.getItem('loggedInUser '));
+      if (storedUser  && storedUser.password === 'Admin123') {
         // Redirect to admin section
         navigate('/admin-dashboard'); // Replace '/admin' with your actual admin section route
       }
@@ -56,20 +56,30 @@ const Navbar = ({ children }) => {
   return (
     <div className="navbar">
       <div className="container-fluid">
-        <Link to="/" className="navbar-brand">Logo</Link>
+        <Link to="/" className="navbar-brand">
+          <img src={logoLong} alt="Logo" className="logo-image" /> {/* Use the imported image */}
+        </Link>
 
         {/* Navbar Tabs */}
         <div className="navbar-tabs">
-          <Link to="/explore" className="tab">Home</Link>
-          <Link to="/search-flights" className="tab">Book Flights</Link>
-          <Link to="/view-flights" className="tab">View Flights</Link>
-          <Link to="/manage-flights" className="tab">Manage Flights</Link>
+          <NavLink to="/" className={({ isActive }) => `tab ${isActive ? 'active-tab' : ''}`}>
+            Home
+          </NavLink>
+          <NavLink to="/search-flights" className={({ isActive }) => `tab ${isActive ? 'active-tab' : ''}`}>
+            Book Flights
+          </NavLink>
+          <NavLink to="/view-flights" className={({ isActive }) => `tab ${isActive ? 'active-tab' : ''}`}>
+            View Flights
+          </NavLink>
+          <NavLink to="/manage-flights" className={({ isActive }) => `tab ${isActive ? 'active-tab' : ''}`}>
+            Manage Flights
+          </NavLink>
         </div>
 
         {/* Account Control */}
         <div className="account-control">
           <div className="profile-icon">
-            <FontAwesomeIcon icon={faUser} />
+            <FontAwesomeIcon icon={faUser  } />
           </div>
           {isLoggedIn ? (
             <div className="username-container">
